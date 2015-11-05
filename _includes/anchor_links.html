@@ -1,0 +1,29 @@
+<script>
+var anchorForId = function (id) {
+    var anchor = document.createElement("a");
+    anchor.className = "anchor";
+    anchor.href      = "#" + id;
+    anchor.innerHTML = "<span class=\"octicon octicon-link\"></span>";
+    anchor.name = id;
+    return anchor;
+};
+
+var linkifyAnchors = function (level, containingElement) {
+    var headers = containingElement.getElementsByTagName("h" + level);
+    for (var h = 0; h < headers.length; h++) {
+        var header = headers[h];
+
+        if (typeof header.id !== "undefined" && header.id !== "") {
+            header.insertBefore(anchorForId(header.id), header.firstChild);
+        }
+    }
+};
+
+document.onreadystatechange = function () {
+    if (this.readyState === "complete") {
+        for (var level = 1; level <= 6; level++) {
+            linkifyAnchors(level, document.body);
+        }
+    }
+};
+</script>

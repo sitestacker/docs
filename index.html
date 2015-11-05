@@ -1,0 +1,71 @@
+---
+layout: home
+excerpt: Developer guides and resources
+---
+<section class="home" role="main">
+    <div class="ui inverted vertical center aligned segment">
+        <div class="ui text container header-container">
+            <h1 class="ui inverted header">
+                {{ site.title }}
+            </h1>
+            <h2>Developer guides and resources</h2>
+            <div class="ui hidden divider"></div>
+            {% include search-field.html %}
+        </div>
+    </div>
+    <div class="ui clearing hidden divider"></div>
+
+    <div class="ui text container">
+        <div class="ui three stackable cards">
+            <a class="orange card" href="/articles/migrate-to-gitlab-repositories">
+                <div class="center aligned image">
+                    <i class="circular move huge inverted orange icon"></i>
+                </div>
+                <div class="center aligned content">
+                    <div class="header">Migrate to GitLab repositories</div>
+                </div>
+            </a>
+            <a class="olive card" href="/articles/get-started-with-site-stacker">
+                <div class="center aligned image">
+                    <i class="circular setting huge inverted olive icon"></i>
+                </div>
+                <div class="center aligned content">
+                    <div class="header">Get Started with Site Stacker</div>
+                </div>
+            </a>
+            {% comment %}
+            <a class="blue card" href="/articles/building-a-template">
+                <div class="center aligned image">
+                    <i class="circular browser huge inverted blue icon"></i>
+                </div>
+                <div class="center aligned content">
+                    <div class="header">Building a Template</div>
+                </div>
+            </a>
+            {% endcomment %}
+            <a class="black card" href="/articles/contributing-to-site-stacker-docs">
+                <div class="center aligned image">
+                    <i class="circular book huge inverted black icon"></i>
+                </div>
+                <div class="center aligned content">
+                    <div class="header">Contributing to Site Stacker Docs</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="ui text container basic segment">
+        <div class="ui relaxed items">
+            {% for category in site.collections.categories.docs %}
+            <div class="item">
+                <div class="content">
+                    <a class="header" href="{{ "/categories/" | prepend: site.baseurl }}{{ category.title | slugify }}">{{ category.title }}</a>
+                    <div class="ui fitted divider"></div>
+                    {% include category.html category=category.title %}
+                </div>
+            </div>
+            {% unless forloop.last %}<div class="ui hidden divider"></div>{% endunless %}
+            {% endfor %}
+        </div>
+    </div>
+</section>

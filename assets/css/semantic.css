@@ -1,0 +1,129 @@
+/* Set the semantic font (Lato) for everything (overwrite GitHub's font) */
+.markdown-body {
+    font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+}
+
+/* Leave space between the logo and the title */
+.ui.menu .item img.logo {
+    margin-right: 1.5em;
+}
+
+/* Leave empty space between content and header/footer */
+.ui.footer.segment {
+    margin: 5em 0em 0em;
+    padding: 3em 0em;
+}
+.main.container {
+    margin-top: 3em;
+}
+#disqus_thread {
+    margin-top: 3em;
+}
+
+/* Override grid columns to remove any padding */
+.no-padding,
+.ui.stackable.grid > .wide.column.no-padding,
+.ui.stackable.grid > .column:not(.row) {
+    padding: 0 !important;
+}
+
+/* Make timestamp grid column elipsys */
+.timestamp {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* "Improve this page" link on the right of the main header or below it */
+.edit-page {
+    font-size: 16px;
+}
+.edit-page a {
+    color: #999;
+    font-weight: normal;
+}
+@media only screen and (max-width: 767px) {
+    .grid .column.edit-page {
+        text-align: left !important;
+    }
+}
+
+/* Don't remove the margin left/right for the search container */
+@media only screen and (max-width: 767px) {
+    .ui.menu.search-menu > .ui.container {
+        margin-left: 1em !important;
+        margin-right: 1em !important;
+    }
+}
+
+/* Align search results left in the suggestions */
+.ui.search .result {
+    text-align: left;
+}
+
+/* Make search items header label aligned and add some distance from the header */
+.content > .ui.label {
+    vertical-align: text-top;
+    margin-left: 1em;
+}
+
+/* Make search items label link more grey and underline on hover */
+.search-page .ui.items .item .ui.label > a {
+    opacity: 1;
+    text-transform: uppercase;
+}
+.search-page .ui.items .item .ui.label > a:hover {
+    text-decoration: underline;
+}
+
+/* Search items loader */
+.search-page .ui.items > .segment {
+    min-height: 200px;
+}
+
+/* Make search items description bigger */
+.search-page .ui.items > .item > .content > .description {
+    font-size: 1.1em;
+}
+
+/* Comments link */
+a.comments-link {
+    color: #999;
+    font-size: 13px;
+}
+a.comments-link:hover {
+    text-decoration: underline;
+}
+
+/* Home page */
+.home .header-container {
+    margin-top: 5em;
+    margin-bottom: 5em;
+}
+.home > .container {
+    margin-top: 3em;
+}
+.home h1.ui.header {
+    font-size: 3em;
+    font-weight: normal;
+}
+.home h2 {
+    font-size: 1.7em;
+    font-weight: normal;
+}
+.home .ui.search .input {
+    width: 90%;
+}
+@media only screen and (max-width: 767px) {
+    .home .ui.search .input {
+        width: 100%;
+    }
+    .home .header-container {
+        margin-top: 3em;
+        margin-bottom: 3em;
+    }
+}
+.card .icon {
+    margin-top:0.2em;
+    margin-bottom:0.2em;
+}

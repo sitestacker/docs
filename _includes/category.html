@@ -1,0 +1,12 @@
+{% assign articles = site.articles | where: "category", include.category %}
+<div class="ui large list">
+    {% for article in articles %}
+    <div class="item">
+        <i class="right triangle icon"></i>
+        <div class="content">
+            <a href="{{ "/articles/" | prepend: site.baseurl }}{{ article.title | slugify }}">{{ article.title }}</a>
+            <a class="comments-link" href="{{ "/articles/" | prepend: site.baseurl | prepend: site.url }}{{ article.title | slugify }}#disqus_thread"></a>
+        </div>
+    </div>
+    {% endfor %}
+</div>

@@ -1,0 +1,1 @@
+{{ include.content | strip_html | newline_to_br | replace: '<br />', ' ' | replace: '  ', ' ' | replace: '\', '\\\\' | strip_newlines | remove:'"' | strip }}

@@ -1,0 +1,11 @@
+<div class="ui padded grid">
+    <div class="twelve wide computer column no-padding">
+        {% include breadcrumb.html %}
+    </div>
+    {% if page.date %}
+    <div class="right aligned four wide computer column no-padding timestamp">
+        {{ page.date | date_to_string }}
+    </div>
+    {% endif %}
+</div>
+<div class="ui divider"></div>

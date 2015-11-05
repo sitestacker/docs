@@ -1,0 +1,10 @@
+<div class="ui breadcrumb">
+    {% assign parts = page.url | split: '/' %}
+    {% if parts[1] == "categories" %}
+    <div class="section">Categories</div>
+    {% else %}
+    <a class="section" href="{{ "/categories/" | prepend: site.baseurl }}{{ page.category | slugify }}">{{ page.category }}</a>
+    {% endif %}
+    <span class="divider">/</span>
+    <div class="active section">{{ page.title }}</div>
+</div>

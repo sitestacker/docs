@@ -1,0 +1,15 @@
+<header>
+    <div class="ui attached borderless inverted menu">
+        <div class="ui container">
+            <a class="header item" href="{{ "/" | prepend: site.baseurl }}">
+                <img class="ui logo" width="20" src="{{ "/assets/img/logo_flat.png" | prepend: site.baseurl }}" alt="Site Stacker">
+                {{ site.title }}
+            </a>
+        </div>
+    </div>
+    <div class="ui menu borderless attached large one item search-menu">
+        <div class="ui container">
+            {% include search-field.html transparent=1 %}
+        </div>
+    </div>
+</header>

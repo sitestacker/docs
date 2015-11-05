@@ -1,0 +1,43 @@
+collections:
+  articles:
+    output: true
+    permalink: /articles/:name.html
+  categories:
+    output: true
+    permalink: /categories/:path.html
+
+defaults:
+  -
+    scope:
+      path: ""
+      type: "articles"
+    values:
+      layout: "article"
+      category: Uncategorized
+  -
+    scope:
+      path: ""
+      type: "categories"
+    values:
+      layout: "page"
+
+title: Site Stacker Documentation
+
+# When using this template with a project page set the baseurl to '/project-name'
+# For user/organization pages set this to an empty string
+# When working locally use jekyll serve --baseurl '' so that you can view everything at localhost:4000
+# See http://jekyllrb.com/docs/github-pages/ for more info
+baseurl: ''
+url: "http://docs.sitestacker.com" # the base hostname & protocol for your site
+
+# Build settings
+highlighter: pygments
+
+markdown: redcarpet
+redcarpet:
+  extensions: ["no_intra_emphasis", "autolink", "tables", "with_toc_data", "strikethrough", "superscript", "underline", "highlight", "quote", "footnotes"]
+
+gems:
+  - jemoji
+  - jekyll-redirect-from
+  - octopress-debugger
