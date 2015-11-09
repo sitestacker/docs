@@ -160,3 +160,30 @@ a.comments-link:hover {
 .ui.right.attached.button.show-nav:hover .text {
     opacity: 1;
 }
+
+/*sidebar items focused class and indents*/
+.ui.inverted.menu a.item.focused {
+	background: rgba(255, 255, 255, 0.08);
+}
+.ui.inverted.menu a.item.indent-small {
+	padding-left: 1.9999em;
+}
+.ui.inverted.menu a.item.indent-big {
+	padding-left: 2.5555em;
+}
+
+/*show/hide elements on different screen sizes*/
+.hide-on-desktop {
+	display: none !important;
+}
+.hide-on-mobile {
+	display: block !important;
+}
+@media only screen and (max-width: 850px) {
+	.hide-on-desktop {
+		display: block !important;
+	}
+	.hide-on-mobile {
+		display: none !important;
+	}
+}
