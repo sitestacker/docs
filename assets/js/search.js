@@ -31,7 +31,8 @@
 
     var shouldTriggerSearch = function(e) {
       var code = e.which;
-      return !e.metaKey && (code >= 65 && code <= 90 /* a-zA-Z */ ||
+      
+      return !e.metaKey && !e.altKey && !e.ctrlKey && !e.shiftKey && (code >= 65 && code <= 90 /* a-zA-Z */ ||
         code >= 48 && code <= 57 /* 0-9 */ ||
         code == 191 /* '/' */);
     };
