@@ -11,9 +11,9 @@ $(document).ready(function(){
 
 	$('<a/>').addClass('icon item show-nav hide-on-desktop').html('<i class="content icon large"></i>').prependTo('header .ui.inverted .container');
 
-    var navButtonHtml = '<i class="content icon"></i><span class="text">Press (.)</span>';
+    var navButtonHtml = '<i class="content icon"></i><span class="text">Menu</span>';
 
-    var $stickyButton = $('<div/>').addClass('ui black big show-nav right attached button hide-on-mobile').html(navButtonHtml).prependTo('.pusher');
+    var $stickyButton = $('<div/>').addClass('ui black big show-nav right attached fixed button hide-on-mobile').html(navButtonHtml).prependTo('body');
 
     var $sideBar = $('<div/>').addClass('ui vertical sidebar inverted menu left nav-panel borderless').prependTo('body');
 
@@ -34,14 +34,16 @@ $(document).ready(function(){
 	// initialize sidebar
     $sideBar.sidebar({
         dimPage: false,
-        transition: 'overlay',
-        mobileTransition: 'overlay',
-	    duration: 50,
+        // transition: 'overlay',
+        // mobileTransition: 'overlay',
+	    duration: 30,
 	    onVisible: function(){
 		    //$sideBarMenu.find('a.active').addClass('focused');
+            $stickyButton.hide();
 	    },
 	    onHidden: function(){
 		    $sideBarMenu.find('a').removeClass('focused');
+            $stickyButton.show();
 	    }
     });
 

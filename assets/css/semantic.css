@@ -143,7 +143,7 @@ a.comments-link:hover {
     transition: 0.3s width ease, 0.5s transform ease;
 }
 .ui.right.attached.button.show-nav:hover {
-    width: 125px;
+    width: 120px;
 }
 .ui.right.attached.button.show-nav .text {
     position: absolute;
@@ -166,7 +166,7 @@ a.comments-link:hover {
 	background: rgba(255, 255, 255, 0.08);
 }
 .ui.inverted.menu a.item.indent-small {
-	padding-left: 1.9999em;
+    padding-left: 1.9999em;
 }
 .ui.inverted.menu a.item.indent-big {
 	padding-left: 2.5555em;
@@ -175,9 +175,6 @@ a.comments-link:hover {
 /*show/hide elements on different screen sizes*/
 .hide-on-desktop {
 	display: none !important;
-}
-.hide-on-mobile {
-	display: block !important;
 }
 @media only screen and (max-width: 850px) {
 	.hide-on-desktop {
