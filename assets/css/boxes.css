@@ -53,8 +53,8 @@ tip:after {
 }
 
 important {
-    background: #FFEDDE;
-    color: #F2711C;
+    background: #FFE8E6;
+    color: #DB2828;
 }
 important:after {
     content: "\f06a";
