@@ -1,17 +1,3 @@
-function truncate(str, n, useWordBoundary) {
-    var singular, tooLong = str.length > n;
-    useWordBoundary = useWordBoundary || true;
-
-    // Edge case where someone enters a ridiculously long string.
-    str = tooLong ? str.substr(0, n-1) : str;
-
-    singular = (str.search(/\s/) === -1) ? true : false;
-    if(!singular) {
-      str = useWordBoundary && tooLong ? str.substr(0, str.lastIndexOf(' ')) : str;
-    }
-
-    return  tooLong ? str + '&hellip;' : str;
-}
 $(document).ready(function() {
 
   var resultdiv = $('.ui.items');

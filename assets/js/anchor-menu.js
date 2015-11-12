@@ -11,7 +11,7 @@ $(document).ready(function(){
 
 	$('<a/>').addClass('icon item show-nav hide-on-desktop').html('<i class="content icon large"></i>').prependTo('header .ui.inverted .container');
 
-    var navButtonHtml = '<i class="content icon"></i><span class="text">Menu</span>';
+    var navButtonHtml = '<i class="content icon"></i><span class="text">Quick Nav</span>';
 
     var $stickyButton = $('<div/>').addClass('ui black big show-nav right attached fixed button hide-on-mobile').html(navButtonHtml).prependTo('body');
 
@@ -59,7 +59,9 @@ $(document).ready(function(){
 	    if($sideBar.sidebar('is visible') && e.which == 13){
 		    window.location.hash = $sideBarMenu.find('a.focused').attr('href');
 		    $('html, body').scrollTop($($sideBarMenu.find('a.focused').attr('href')).offset().top);
-		    $sideBar.sidebar('toggle');
+            if (!e.shiftKey) {
+    		    $sideBar.sidebar('toggle');
+            }
 	    }
 	    if($sideBar.sidebar('is visible') && (e.which == 38 || e.which == 40)){
 		    e.preventDefault();

@@ -143,7 +143,7 @@ a.comments-link:hover {
     transition: 0.3s width ease, 0.5s transform ease;
 }
 .ui.right.attached.button.show-nav:hover {
-    width: 120px;
+    width: 150px;
 }
 .ui.right.attached.button.show-nav .text {
     position: absolute;
