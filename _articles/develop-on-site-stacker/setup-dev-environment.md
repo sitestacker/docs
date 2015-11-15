@@ -45,14 +45,17 @@ In PhpStorm/WebStorm, configure a
 [file watcher](https://www.jetbrains.com/webstorm/help/file-watchers.html)
 for your `.jsx` files as below:
 
-![jsx-watcher](https://git.sitestacker.com/sitestacker/docs/uploads/2865e1ebc700c92a6b1fab8993a561cb/image.png)
+![jsx-watcher](https://git.sitestacker.com/sitestacker/docs/uploads/464809a852443001fac624e84bb924af/image.png)
 
-Make sure the **Program** points to the babel executable and replace the
-default **Arguments** field with the following:
+Make sure the **Program** points to the babel executable (on Windows 
+this will be a `.exe`), replace the default **Arguments** field with the following:
 
 ```
 --presets react --source-maps --out-file $FileNameWithoutExtension$.js $FilePath$
 ```
+
+and in the **Environment variables** field add `NODE_ENV=production` to 
+prevent babel from inlining the `__source` key in the generated JS files.
 
 Now, you can create `.jsx` files that will be automatically transformed into
 corresponding `.js` files in the same directory, on every save.
