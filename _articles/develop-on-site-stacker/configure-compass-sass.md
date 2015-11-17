@@ -28,3 +28,7 @@ tags: compass,sass
 6. Possible errors:
    1. "LoadError on line ["#"] of X: cannot load such file -- compass/import-once/activate"  
 Fix by installing Import Once plugin: `gem install compass-import-once`
+
+<tip>
+    This steps are required only if you also compiling the SiteStacker ExtJS theme. If you don't need support for ExtJS theme just install the latest versions of Ruby, SASS and Compass.
+</tip>
