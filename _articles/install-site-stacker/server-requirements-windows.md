@@ -66,6 +66,7 @@ date: 2015-11-02 00:00:00
    * short_open_tag=On
    * allow_url_fopen=On
    * session.auto_start=Off
+   * session.cookie_httponly=1
    * date.timezone=[`the server’s timezone`]
    * memory_limit=128M
    * soap.wsdl_cache_enabled=On
