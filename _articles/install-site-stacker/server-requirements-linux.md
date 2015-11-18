@@ -55,6 +55,7 @@ date: 2015-08-13 00:00:00
    * short_open_tag=On
    * allow_url_fopen=On
    * session.auto_start=Off
+   * session.cookie_httponly=1
    * date.timezone=[`the server’s timezone`]
    * memory_limit=128M
    * DOMDocument (don’t use `--disable-dom` when compiling PHP)
