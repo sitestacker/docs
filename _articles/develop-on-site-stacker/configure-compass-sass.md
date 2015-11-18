@@ -2,10 +2,13 @@
 title: Configure Compass Sass
 category: Develop on Site Stacker
 date: 2015-11-17 19:00:00
-tags: compass,sass
+tags: scss
 ---
 
-### This guide will explain how to install Ruby, Compass and Sass so ExtJS compiling will work correctly.
+<note>
+    - This guide will explain how to install Ruby, Compass and Sass so ExtJS compiling will work correctly.  
+    - These steps are required only if you also compiling the SiteStacker ExtJS theme. If you don't need support for ExtJS theme just install the latest versions of Ruby, SASS and Compass.
+</note>
 
 1. Install Ruby 1.9.3 (any greater version will not work) from [here](http://rubyinstaller.org/downloads/)
 
@@ -28,7 +31,3 @@ tags: compass,sass
 6. Possible errors:
    1. "LoadError on line ["#"] of X: cannot load such file -- compass/import-once/activate"  
 Fix by installing Import Once plugin: `gem install compass-import-once`
-
-<tip>
-    This steps are required only if you also compiling the SiteStacker ExtJS theme. If you don't need support for ExtJS theme just install the latest versions of Ruby, SASS and Compass.
-</tip>
