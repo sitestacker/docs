@@ -10,9 +10,11 @@ This guide will explain how to correctly configure PHP Storm for best developmen
 #### Setting up the resource directory
 
 Open PHP Storm settings window (File > Settings or Ctrl+Alt+S)
+
 1. In the left panel navigate to and expand `Project` and then click on `Directories`
 2. In the right panel select the SiteStacker `webroot` directory
 3. Click on `Resource Root` button from the top toolbar
+
 <note>
 This will make PHP Storm know that the webroot folder is holding all the possible assets and will offer paths auto completion.
 </note>
@@ -25,6 +27,7 @@ PHP Storm is building the JS auto complete options by reading every JS file foun
 
 #### Required and Optional PHP Storm plugins
 We have a list of required and optional plugins that you need to install. Here is the list:
+
 1. **EditorConfig** (REQUIRED) - This plugin will make sure that all the developers are using the same indents and EOL's on different file types.
 2. **MultiMarkdown** (OPTIONAL) - Enable support for Markdown `.md` files.
 3. **.gitignore** (OPTIONAL) - Enable support for `.gitignore` files.
