@@ -29,6 +29,8 @@ PHPStorm is building the JS auto complete options by reading every JS file found
 We have a list of required and optional plugins that you need to install. Here is the list:
 
 1. **EditorConfig** (==REQUIRED==) - This plugin will make sure that all the developers are using the same indents and EOL's on different file types.
+    - When you open some files you might get a notice from PHPStorm telling you that the `.editorconfig` file is overwriting some formatting settings. If you get this notice click `Dismiss`.
+    - Some existing files might not match the `.editorconfig` settings. If you work on a file like this, before you start making your changes, click on Code > Reformat code from the top menu and immediately commit this change.
 2. **MultiMarkdown** (OPTIONAL) - Enable support for Markdown `.md` files.
 3. **.gitignore** (OPTIONAL) - Enable support for `.gitignore` files.
 4. **Database Tools and SQL** (OPTIONAL) - Enable MySQL and MSSQL support and syntax highlighting.
