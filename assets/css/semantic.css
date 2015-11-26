@@ -172,6 +172,11 @@ a.comments-link:hover {
 	padding-left: 2.5555em;
 }
 
+/*inline code boxes border*/
+.markdown-body code {
+    border: solid 1px rgba(0,0,0,0.15);
+}
+
 /*show/hide elements on different screen sizes*/
 .hide-on-desktop {
 	display: none !important;
