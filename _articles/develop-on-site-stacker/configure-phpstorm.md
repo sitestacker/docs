@@ -3,6 +3,8 @@ title: Configure PHPStorm
 category: Develop on Site Stacker
 date: 2015-11-17 19:00:00
 tags: php storm, editor
+redirect_from:
+    - /articles/configure-php-storm.html
 ---
 
 This guide will explain how to correctly configure PHPStorm for best development experience.
