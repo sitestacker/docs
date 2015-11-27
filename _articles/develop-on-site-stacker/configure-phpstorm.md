@@ -22,7 +22,7 @@ This will make PhpStorm know that the webroot folder is holding all the possible
 </note>
 
 #### Marking `lib/Cake` and `App/Lib` duplicated PHP files as Plain text  
-Each file located in `App/Lib` has a corresponding file in `lib/Cake`. In order to have correct auto completion when using CakePHP methods in your code make sure that each file found in `App/Lib` has the corresponding file in `lib/Cake` and mark all files in `lib/Cake` as plain text. You can do this by right clicking the file and choosing the `Mark as plain text` option.
+Each file located in `App/Lib` has a corresponding file in `lib/Cake`. In order to have correct auto completion when using CakePHP methods in your code make sure that each file found in `App/Lib` has the corresponding file in `lib/Cake` and mark all duplicated files in `lib/Cake` as plain text. You can do this by right clicking the file and choosing the `Mark as plain text` option.
 
 #### Marking `webroot/lib` files as Plain text
 PhpStorm is building the JS auto complete options by reading every JS file found in the `Resource` directory which is the `webroot` folder. Because SiteStacker has a lot of JS libraries in the `webroot/lib` folder, PhpStorm will sometime become unresponsive and offer very slow JS auto completion. To fix this you can `Mark as plain text` every JS and CSS file found in `webroot/lib`. This can take some time but it will dramatically improve PhpStorm functionality and responsiveness.
