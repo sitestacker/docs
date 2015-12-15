@@ -35,6 +35,12 @@ prerequisites:
     npm install babel-preset-react
     ```
 
+- [Babel ES2015 preset](http://babeljs.io/docs/plugins/preset-es2015/) - [Learn ES2015](http://babeljs.io/docs/learn-es2015/)
+
+    ```sh
+    npm install babel-preset-es2015
+    ```
+
 ### Configure React in PhpStorm/WebStorm
 
 See [Using ReactJS in JavaScript and TypeScript](https://www.jetbrains.com/webstorm/help/using-reactjs-in-javascript-and-typescript.html).
@@ -47,14 +53,14 @@ for your `.jsx` files as below:
 
 ![jsx-watcher](https://git.sitestacker.com/sitestacker/docs/uploads/464809a852443001fac624e84bb924af/image.png)
 
-Make sure the **Program** points to the babel executable (on Windows 
+Make sure the **Program** points to the babel executable (on Windows
 this will be a `.exe`), replace the default **Arguments** field with the following:
 
 ```
 --presets react --source-maps --out-file $FileNameWithoutExtension$.js $FilePath$
 ```
 
-and in the **Environment variables** field add `NODE_ENV=production` to 
+and in the **Environment variables** field add `NODE_ENV=production` to
 prevent babel from inlining the `__source` key in the generated JS files.
 
 Now, you can create `.jsx` files that will be automatically transformed into
