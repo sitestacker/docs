@@ -1,7 +1,7 @@
 ---
 title: Install on Production
 category: Install Site Stacker
-date: 2015-12-16 00:00:00
+date: 2015-12-23 00:00:00
 ---
 
 This guide will run you trough the process of installing a fresh copy of
@@ -268,3 +268,7 @@ executing 'Console/cake SystemManager.Update'
 
 :thumbsup: You're done! Go to http://localhost/admin
 and login with the default user (see above).
+
+## Next Steps
+
+You might want to check out [Setting up the first site](setting-up-the-first-site).
