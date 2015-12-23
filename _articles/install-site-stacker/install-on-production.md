@@ -129,6 +129,12 @@ sitestacker initialized successfully at '/Users/myuser/Sites/sitestacker'
 'packages/components/GenSend' initialized successfully
 ```
 
+<tip>
+You can use the `sitestacker init` command at any time *in a Site Stacker
+installation* to clone any sub-repository(ies) you want, by running
+something like `sitestacker init templates/Wycliffe [components/GenSend ...]`.
+</tip>
+
 ### Configure DB access
 
 To configure the database access, you need to enter the database connection
@@ -140,7 +146,7 @@ Authentication, run (this will also create an empty database if doesn't exist):
 
 ```PowerShell
 # inside the Site Stacker root directory
-$ sitestacker set-db --mssql -H localhost -u '' -p '' -d MYDB_NAME --create
+$ sitestacker set-db --mssql -H localhost --user="" --password="" -d MYDB_NAME --create
 ```
 
 To see all available flags run:
