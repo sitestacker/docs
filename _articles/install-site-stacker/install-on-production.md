@@ -38,7 +38,7 @@ If not, you'll need to [create one](https://git.sitestacker.com/admin/users/new)
 
 Upon creation, the user needs *Reporter* access to the
 [sitestacker/sitestacker](https://git.sitestacker.com/sitestacker/sitestacker)
-repository and *Developer* access to all its [templates](https://git.sitestacker.com/groups/templates),
+repository and *Developer* access to all the [templates](https://git.sitestacker.com/groups/templates),
 [components](https://git.sitestacker.com/groups/components) and
 [themes](https://git.sitestacker.com/groups/themes)
 that were built specifically for that client (at least one template),
@@ -86,10 +86,10 @@ cli, as follows (you will be prompted to enter the password for the given
 
 ```sh
 # clone all repos the user has access to:
-$ sitestacker init -u <user> --all <path-to-sitestacker>
+$ sitestacker init -u <user> --all [<path-to-sitestacker>]
 
 # or specify sub-repositories individually:
-$ sitestacker init -u <user> <subrepo>... <path-to-sitestacker>
+$ sitestacker init -u <user> <subrepo>... [<path-to-sitestacker>]
 ```
 
 Where:
@@ -154,7 +154,7 @@ $ sitestacker set-db -h
 To finish a Site Stacker installation run `sitestacker doctor` as below:
 
 ```sh
-$ sitestacker doctor 'localhost'
+$ sitestacker doctor '<URL>'
 checking server requirements...
 creating symlinks...
 setting permissions...
@@ -182,6 +182,72 @@ Site Stacker installation, to make sure Site Stacker runs fine.
 
 :thumbsup: You're done! You can now access the admin interface at [http://&lt;your-domain&gt;/admin](),
 and login with `admin@sitestacker.com` / `admin`.
+
+## Full Example on Windows
+
+In the following example we will install Site Stacker on a Windows
+machine at `C:\inetput\wwwroot\sitestacker`, for the
+[`namb` GitLab user](https://git.sitestacker.com/admin/users/namb), and
+two of the [sub-repositories the user has access to](https://git.sitestacker.com/admin/users/namb/projects),
+[templates/MobilizeMe](https://git.sitestacker.com/templates/MobilizeMe)
+and [components/GenSend](https://git.sitestacker.com/components/GenSend).
+
+Since IIS doesn't let you create a site without the path existing,
+we need to create it after we've run the `sitestacker init` command,
+and point it to `C:\inetput\wwwroot\sitestacker\webroot`, accessible
+at http://localhost.
+
+![IIS Site Stacker site](https://git.sitestacker.com/sitestacker/docs/uploads/777e12c4e5a4ff79b34fc32f71754d29/image.png)
+
+The database is a local SQL Server 2014 using Windows Authentication,
+with the following connection information:
+
+Type | Host | Port | User | Password | Database
+--- | --- | --- | --- | --- | ---
+MSSQL | `localhost` | `1433` | | | `sitestackerdb`
+
+Following are all the commands for this installation (including the output):
+
+```PowerShell
+# check if the daemon is installed
+$ sitestacker -v
+sitestacker version x.x.x
+
+# initialize Site Stacker and two subrepos for the 'namb' user
+$ sitestacker init -u namb templates/MobilizeMe components/GenSend C:\inetput\wwwroot\sitestacker
+Password: *******
+sitestacker initialized successfully at 'C:\inetpub\wwwroot\sitestacker'
+'packages/components/GenSend' initialized successfully
+'packages/templates/MobilizeMe' initialized successfully
+
+$ cd C:\inetput\wwwroot\sitestacker
+
+# configure the database access
+$ sitestacker set-db --create --mssql -H localhost --user="" --password="" -d sitestackerdb
+database.php successfully saved
+Type:     mssql
+Host:     localhost
+User:
+Password:
+Database: sitestackerdb
+Port:
+UNC:
+database 'sitestackerdb' does not exist
+database 'sitestackerdb' successfully created
+
+# finish installation
+$ sitestacker doctor 'localhost'
+checking server requirements...
+creating symlinks...
+setting permissions...
+checking db access...
+executing 'Console/cake schema create DbAcl --yes --nodrop --quiet'
+executing 'Console/cake schema create -p Migrations --yes --nodrop --quiet'
+executing 'Console/cake SystemManager.Update'
+```
+
+:thumbsup: You're done! Go to http://localhost/admin
+and login with the default user (see above).
 
 ## Full Example on Linux (or OS X)
 
@@ -217,7 +283,7 @@ Type | Host | Port | User | Password | Database
 --- | --- | --- | --- | --- | ---
 MySQL | `localhost` | `3306` | `root` | | `sitestackerdb`
 
-Following are all the commands for this installation:
+Following are all the commands for this installation (including the output):
 
 ```sh
 # check if the daemon is installed
@@ -233,7 +299,7 @@ sitestacker initialized successfully at '/Users/user/Sites/sitestacker'
 'packages/templates/MobilizeMe' initialized successfully
 'packages/components/GenSend' initialized successfully
 
-$ cd ~/Sites/sitestacker
+$ cd /Users/user/Sites/sitestacker
 
 # configure the database access
 $ sitestacker set-db --create --mysql -H localhost -P 3306 -u root -p '' -d sitestackerdb
