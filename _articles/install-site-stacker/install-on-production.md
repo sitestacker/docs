@@ -1,7 +1,7 @@
 ---
 title: Install on Production
 category: Install Site Stacker
-date: 2015-12-23 00:00:00
+date: 2016-01-06 00:00:00
 ---
 
 This guide will run you trough the process of installing a fresh copy of
@@ -19,7 +19,7 @@ the server requirements automatically, see below the `doctor` command):
 - Windows: [Server Requirements](server-requirements-windows)
 - Linux: [Server Requirements](server-requirements-linux)
 
-## Install the Site Stacker daemon
+## Install the Site Stacker Service
 
 The first thing to do is to install the [Site Stacker Service (daemon)](http://sitestacker.github.io/service/)
 on the web server where Site Stacker will run.
@@ -59,7 +59,7 @@ following command in a cli (PowerShell, cmd.exe, Terminal, ...):
 
 ```sh
 $ sitestacker -v
-sitestacker version 0.0.137
+sitestacker version x.x.x
 ```
 
 If you don't see the version printed as above, the service is not installed
@@ -72,17 +72,17 @@ and you cannot continue.
 A Site Stacker installation includes the core
 [sitestacker/sitestacker](https://git.sitestacker.com/sitestacker/sitestacker)
 repository and one or many sub-repositories like templates, components and/or
-themes built specifically for that client.
+themes built specifically for that client. The `sitestacker init` command
+will clone all these repositories for you (it's recommended to check the
+command's help first: `sitestacker init -h`).
 
-You have two options to initialize these sub-repositories:
+You have two options to initialize the sub-repositories:
 
 1. Using the `--all` flag to initialize *all* sub-repositories the user
 has access to.
 2. Specifying each sub-repository individually, e.g. `templates/Wycliffe`.
 
-To clone Site Stacker repos you should use the `sitestacker init` command in a
-cli, as follows (you will be prompted to enter the password for the given
-&lt;user&gt;):
+Example (you will be prompted to enter the password for the given &lt;user&gt;):
 
 ```sh
 # clone all repos the user has access to:
@@ -95,9 +95,10 @@ $ sitestacker init -u <user> <subrepo>... [<path-to-sitestacker>]
 Where:
 
 - `<user>` is the [GitLab user created above](#site-stacker-gitlab-user)
-- `<path-to-sitestacker>` is the path to the Site Stacker core (**note**
-that the webserver's DOCUMENT_ROOT should point to
-`<path-to-sitestacker>/webroot`)
+- `[<path-to-sitestacker>]` is the path to the Site Stacker root (**note** that
+the webserver's DOCUMENT_ROOT should point to
+`<path-to-sitestacker>/webroot`); this is
+optional if you're already in the directory where you want to install Site Stacker
 - `<subrepo>` is any template, component or theme the user has access to,
 given as `<group>/<repo-name>` (e.g. `templates/Wycliffe`,
 `components/Wycliffe`, `themes/Contributions-LifeUnited`)
@@ -188,6 +189,15 @@ Site Stacker installation, to make sure Site Stacker runs fine.
 
 :thumbsup: You're done! You can now access the admin interface at [http://&lt;your-domain&gt;/admin](),
 and login with `admin@sitestacker.com` / `admin`.
+
+## Setup the Cron
+
+For the cron jobs defined in the **Cron** component to work, you need to
+configure a master cron job for the entire installation. To do this check
+out the following guides, based on your platform:
+
+- [Setting up Cron on Windows](setting-up-cron-on-windows)
+- [Setting up Cron on Linux](setting-up-cron-on-linux)
 
 ## Full Example on Windows
 
