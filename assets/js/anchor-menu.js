@@ -9,13 +9,15 @@ $(document).ready(function(){
 		return false;
 	}
 
+    $(document.body).addClass('sidebar-on');
+
 	$('<a/>').addClass('icon item show-nav hide-on-desktop').html('<i class="content icon large"></i>').prependTo('header .ui.inverted .container');
 
     var navButtonHtml = '<i class="content icon"></i><span class="text">Quick Nav</span>';
 
     var $stickyButton = $('<div/>').addClass('ui black big show-nav right attached fixed button hide-on-mobile').html(navButtonHtml).prependTo('body');
 
-    var $sideBar = $('<div/>').addClass('ui vertical sidebar inverted menu left nav-panel borderless').prependTo('body');
+    var $sideBar = $('<div/>').addClass('ui vertical sidebar inverted menu left nav-panel borderless');
 
     $('<div/>').addClass('item').html('<h4 class="ui header inverted">Quick Nav</h4>').appendTo($sideBar);
     var $sideBarMenu = $('<div/>').addClass('menu').appendTo($sideBar);
@@ -30,6 +32,11 @@ $(document).ready(function(){
 
 	    $('<a/>').addClass('item ' + indentClass + ' ' + $anchor.attr('id')).html($anchor.html()).attr('href', '#'+$anchor.attr('id')).appendTo($sideBarMenu);
     });
+
+    // var toc = $('<div/>').addClass('toc').prependTo('.full.height');
+    // var $sideBar2 = $sideBar.clone().addClass('visible').appendTo(toc);
+    var $sideBar2 = $sideBar.clone().addClass('visible toc').prependTo('.pusher');
+    $sideBar.prependTo('body');
 
 	// initialize sidebar
     $sideBar.sidebar({
@@ -50,7 +57,7 @@ $(document).ready(function(){
 	// handle events
     $sideBar.sidebar('attach events', '.show-nav');
     $(document).on('keydown', function(e) {
-        if(e.which == 190){
+        if(!$sideBar2.is(':visible') && e.which == 190){
             $sideBar.sidebar('toggle');
         }
 	    if($sideBar.sidebar('is visible') && e.which == 27){
@@ -104,12 +111,16 @@ $(document).ready(function(){
 		    }
 	    }
     });
+
 	$(document).on('scroll', function(e) {
 		$anchors.each(function (index, anchor) {
 			var $anchor = $(anchor);
 			if(elementInViewport($anchor)){
 				$sideBarMenu.find('a').removeClass('active focused');
 				$sideBarMenu.find('a.'+$anchor.attr('id')).addClass('active')
+
+                $sideBar2.find('a').removeClass('active focused');
+				$sideBar2.find('a.'+$anchor.attr('id')).addClass('active');
 			}
 		});
 	});

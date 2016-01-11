@@ -192,3 +192,38 @@ a.comments-link:hover {
 		display: none !important;
 	}
 }
+
+/* Always display a sidebar on desktop screens > 1280px */
+
+@media only screen and (max-width: 1279px) {
+    .toc {
+        display: none !important; /* hide the always-on sidebar after 1280px */
+    }
+}
+@media only screen and (min-width: 1280px) {
+    .show-nav {
+        display: none !important; /* don't show the QuickNav button if sidebar is on */
+    }
+}
+@media only screen and (min-width: 1280px) and (max-width: 1740px) {
+    .sidebar-on .ui.container {
+        margin-left: 300px !important; /* always obey this left limit to prevent overlapping with the sidebar */
+    }
+}
+@media only screen and (min-width: 1320px) and (max-width: 1460px) {
+    .sidebar-on .ui.container {
+        width: 1000px; /* it was 1127px from semantic */
+    }
+}
+@media only screen and (min-width: 1280px) and (max-width: 1320px) {
+    .sidebar-on .ui.container {
+        width: 940px; /* it was 1127px from semantic */
+    }
+}
+/* make 'QuickNav' sidebar title it as high as the header title */
+.sidebar > .item {
+    height: 50px;
+}
+.sidebar > .item h4 {
+    line-height: 24px; /* it has a padding of 13px top and bottom */
+}
