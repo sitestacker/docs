@@ -3,6 +3,7 @@ title: Writing an Article
 category: Writing on Site Stacker Docs
 tags: documentation
 date: 2015-11-06 00:00:00
+readtime: 5
 ---
 
 Articles are the most important content and each article represents a page.

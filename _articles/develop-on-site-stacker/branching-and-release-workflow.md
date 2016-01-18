@@ -3,6 +3,7 @@ title: Branching and Release Workflow
 category: Develop on Site Stacker
 date: 2016-01-14 00:00:00
 tags: development, model, strategy
+readtime: 12
 ---
 
 Site Stacker Branching and Release Workflow is a simple, git-based workflow that takes full advantage of git branches and tags. This guide explains how Site Stacker Workflow works and how to use it.

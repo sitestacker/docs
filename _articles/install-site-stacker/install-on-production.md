@@ -2,6 +2,7 @@
 title: Install on Production
 category: Install Site Stacker
 date: 2016-01-06 00:00:00
+readtime: 5
 ---
 
 This guide will run you trough the process of installing a fresh copy of

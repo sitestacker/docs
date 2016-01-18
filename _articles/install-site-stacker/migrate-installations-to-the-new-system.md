@@ -2,6 +2,7 @@
 title: Migrate installations to the new system
 category: Install Site Stacker
 date: 2016-01-07 00:00:00
+readtime: 3
 ---
 
 This article explains how to migrate an existing (old) Site Stacker
