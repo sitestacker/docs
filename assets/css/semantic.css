@@ -48,6 +48,14 @@
     }
 }
 
+/* Read Time and Last Modified sub-header */
+.page-title > .ui.header {
+    margin-top:.3em;
+}
+.page-title > .ui.header .sub.header > span:not(:last-child) {
+    margin-right: 1.5em;
+}
+
 /* Don't remove the margin left/right for the search container */
 @media only screen and (max-width: 767px) {
     .ui.menu.search-menu > .ui.container {

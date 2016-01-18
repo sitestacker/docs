@@ -9,4 +9,22 @@
             </a>
         </div>
     </div>
+    {% if page.readtime or page.date %}
+    <div class="ui header">
+        <div class="sub header">
+            {% if page.readtime %}
+            <span>
+                <i class="horizontally flipped wait icon"></i>
+                <span>{{ page.readtime }} minute read</span>
+            </span>
+            {% endif %}
+            {% if page.date %}
+            <span>
+                <i class="calendar outline icon"></i>
+                <span>{{ page.date | date_to_string }}</span>
+            </span>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
 </h1>

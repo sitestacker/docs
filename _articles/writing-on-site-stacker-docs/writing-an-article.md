@@ -22,6 +22,7 @@ title: Markdown Elements
 category: Writing on Site Stacker Docs
 tags: documentation,markdown
 date: 2015-11-06 00:00:00
+readtime: 5
 ---
 ```
 
@@ -32,6 +33,7 @@ header with the following information:
 - [`category`](#article-category) The article category.
 - [`tags`](#article-tags) Article tags.
 - [`date`](#article-date) The date when the article was last modified.
+- [`readtime`](#article-read-time) Article read time.
 
 ### Article title
 
@@ -153,6 +155,12 @@ zero, e.g. `2008-12-14 00:00:00`, not ~~`2008-12-14`~~.
 <title>Update the date</title>
 When you edit an article, don't forget to update its date.
 </important>
+
+### Article read time
+
+It's a good idea to specify how long does it take to read an article, in minutes. Generally you should keep it at or under 5 minutes, but greater values might also be appropriate for more complex guides.
+
+The expected value is always the number of minutes, e.g. `readtime: 5`.
 
 ## Article Content
 
