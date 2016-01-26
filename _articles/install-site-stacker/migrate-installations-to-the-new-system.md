@@ -1,7 +1,7 @@
 ---
 title: Migrate installations to the new system
 category: Install Site Stacker
-date: 2016-01-26 00:00:00
+date: 2016-01-27 00:00:00
 readtime: 3
 ---
 
@@ -117,3 +117,54 @@ in System Manager, so the installation only receives updates from those branches
 
 You can do this in System Manager, by clicking the bottom right icon to
 open **Settings** and follow the instructions there.
+
+## Troubleshooting
+
+### sh: Console/cake: Permission denied
+
+If you get this error when opening System Manager, it's most probably because SELinux prevents Apache from executing the Cake executable. In `syslog` you will see something like this:
+
+> Jan 26 12:22:52 web audit: <audit-1400> avc:  denied  { execute } for  pid=27429 comm="sh" name="cake" dev="dm-0" ino=1076943158 scontext=system_u:system_r:httpd_t:s0 tcontext=unconfined_u:object_r:httpd_sys_rw_content_t:s0 tclass=file permissive=0
+
+To fix this problem, you need to change the SELinux fcontext to `httpd_sys_script_exec_t` for the Cake executable using:
+
+```sh
+# note: replace `/var/www/html` with your own path
+$ semanage fcontext -a -t httpd_sys_script_exec_t /var/www/html/App/Console/cake
+$ restorecon -R -v /var/www/html/App/Console/cake
+restorecon reset /var/www/html/App/Console/cake context unconfined_u:object_r:httpd_sys_rw_content_t:s0->unconfined_u:object_r:httpd_sys_script_exec_t:s0
+```
+
+If you get an error like `ValueError: Type httpd_sys_script_exec_t is invalid, must be a file or device type`, you can list available SELinux contexts using:
+
+```sh
+$ semanage fcontext -l |grep httpd_sys
+/srv/([^/]*/)?web(/.*)? all files system_u:object_r:httpd_sys_content_t:s0
+/srv/([^/]*/)?www(/.*)? all files system_u:object_r:httpd_sys_content_t:s0
+/var/www(/.*)? all files system_u:object_r:httpd_sys_content_t:s0
+/var/www/[^/]*/cgi-bin(/.*)? all files system_u:object_r:httpd_sys_script_exec_t:s0
+/etc/htdig(/.*)? all files system_u:object_r:httpd_sys_content_t:s0
+/var/www/svn(/.*)? all files system_u:object_r:httpd_sys_rw_content_t:s0
+...
+```
+
+To check the SELinux status use:
+
+```sh
+$ sestatus
+SELinux status:                 enabled
+SELinuxfs mount:                /sys/fs/selinux
+SELinux root directory:         /etc/selinux
+Loaded policy name:             targeted
+Current mode:                   enforcing
+Mode from config file:          enforcing
+Policy MLS status:              enabled
+Policy deny_unknown status:     allowed
+Max kernel policy version:      29
+```
+
+If anything goes wrong you can temporarily change SELinux to `permissive` mode using:
+
+```sh
+$ setenforce 0
+```
