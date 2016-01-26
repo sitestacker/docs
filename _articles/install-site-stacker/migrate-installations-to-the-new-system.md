@@ -1,7 +1,7 @@
 ---
 title: Migrate installations to the new system
 category: Install Site Stacker
-date: 2016-01-07 00:00:00
+date: 2016-01-26 00:00:00
 readtime: 3
 ---
 
@@ -37,8 +37,10 @@ running the `sitestacker migrate` command on the remote server's cli. As
 always you should check the command's help first: `sitestacker migrate -h`.
 
 It is recommended to run the command with the `--dry-run` (`-n`) flag
-first to check for errors without making any changes. The command is
-as following:
+first to check for any errors without making changes. Also this gives
+you the chance to see what sub-repositories the user needs access to.
+
+The command is:
 
 ```sh
 $ sitestacker migrate -u <user> [--dry-run] [<path-to-sitestacker>]
@@ -50,6 +52,36 @@ Where:
 - `[<path-to-sitestacker>]` is the path to the Site Stacker root; this is
 optional if you're already in the directory you want to migrate
 
+### Ensure proper access for the user
+
+Before you can run the `migrate` command, the `<user>` you'll be using with the command needs to have at least *Reporter* access for the [`sitestacker/sitestacker`](https://git.sitestacker.com/sitestacker/sitestacker) repository. After this access is granted [in GitLab](https://git.sitestacker.com/sitestacker/sitestacker/project_members), running the command in `--dry-run` (`-n`) mode will tell you all the repositories he needs access to:
+
+```sh
+$ sitestacker migrate -u <user> -n
+Password: *******
+cloning sitestacker into temporary location '/tmp/sitestacker-migrate-081162076'
+packages/templates/Clean
+error: Unexpected HTTP status code: 404
+packages/themes/Contributions/LifeUnited
+error: Unexpected HTTP status code: 404
+No changes were made because the --dry-run (-n) flag was specified.
+```
+
+In the output you see that the `<user>` needs (at least) *Reporter* access to [`templates/Clean`](https://git.sitestacker.com/templates/Clean) and [`themes/Contributions-LifeUnited`](https://git.sitestacker.com/themes/Contributions-LifeUnited) repositories. Once it has the proper access, you should see no errors:
+
+```sh
+$ sitestacker migrate -u <user> -n
+Password: *******
+cloning sitestacker into temporary location '/tmp/sitestacker-migrate-791163659'
+packages/templates/Clean
+packages/themes/Contributions/LifeUnited
+No changes were made because the --dry-run (-n) flag was specified.
+```
+
+At this point you can do the actual migration.
+
+### Perform the migration
+
 An example of a successful migration looks like this:
 
 ```sh
@@ -57,8 +89,8 @@ An example of a successful migration looks like this:
 $ sitestacker migrate -u <user>
 Password: *****
 initializing sitestacker at 'C:\inetpub\wwwroot\sitestacker'
-packages/components/MyComponent
 packages/templates/Clean
+packages/themes/Contributions/LifeUnited
 ```
 
 After the `migrate` command runs successfully, run the `doctor` command to make
@@ -73,8 +105,6 @@ The `<URL>` is where the system can be accessed in the browser. Also we're
 ignoring any server requirements problems (`--ignore-reqs`) because the
 system already ran on this server, although any errors should be examined.
 </note>
-
-### Done
 
 :thumbsup: At this point the installation is migrated and the system should be
 working as normal. To check the new System Manager, refresh the admin interface
