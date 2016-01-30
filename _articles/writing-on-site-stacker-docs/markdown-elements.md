@@ -1,8 +1,7 @@
 ---
 title: Markdown Elements
 category: Writing on Site Stacker Docs
-tags: documentation
-date: 2015-11-03 00:00:00
+date: 2016-02-05 00:00:00
 ---
 
 Articles are written in [Markdown](http://daringfireball.net/projects/markdown/).
@@ -451,3 +450,90 @@ use other HTML tags beside `<title>` and `<br>`.
     Some paragraph here.<br>
     One more line in this paragraph.
 </important>
+
+## OS-specific blocks
+
+==Windows==
+
+This is a Windows-only block.
+
+==/Windows==
+
+==Mac==
+
+This is a Mac-only block.
+
+==/Mac==
+
+==Linux==
+
+This is a Linux-only block.
+
+==/Linux==
+
+==Block:Unix BSD==
+
+This is a custom block named **Unix BSD**.
+
+==/Block:Unix BSD==
+
+You can add OS-specific blocks in two ways:
+
+1. By simply adding consecutive code blocks with the following code syntax keywords:
+    - <code>```PowerShell</code> - this will translate to **Windows**
+    - <code>```bash</code> - this will translate to **Mac**
+    - <code>```sh</code> - this will translate to **Unix**
+
+    ```PowerShell
+    $ echo $env:PATH
+    ```
+
+    ```bash
+    $ say "I'll be back!"
+    ```
+
+    ```sh
+    $ echo $PATH
+    ```
+
+2. By using start and end syntax: `=={BlockName}==` ... `==/{BlockName}==`. Possible values:
+    - `==Windows==` ... `==/Windows==`
+    - `==Mac==` ... `==/Mac==`
+    - `==Linux==` ... `==/Linux==`
+    - `==Block:Unix BSD==` ... `==/Block:Unix BSD==` - with this format you can create any custom block by simply prefixing it with `Block:`
+
+    ==Windows==
+
+    Note: **Run PowerShell as Administrator**.
+
+    ```PowerShell
+    $ echo $env:PATH
+    ```
+
+    ==/Windows==
+
+    ==Mac==
+
+    Mac is the Terminator!
+
+    ```bash
+    $ say "I'll be back!"
+    ```
+
+    ==/Mac==
+
+    ==Linux==
+
+    Simply Linux.
+
+    ```sh
+    $ echo $PATH
+    ```
+
+    ==/Linux==
+
+    ==Block:Unix BSD==
+
+    This is a custom block named **Unix BSD**.
+
+    ==/Block:Unix BSD==
