@@ -235,3 +235,8 @@ a.comments-link:hover {
 .sidebar > .item h4 {
     line-height: 24px; /* it has a padding of 13px top and bottom */
 }
+
+/* OS buttons */
+.markdown-body .ui.buttons {
+    margin-bottom: 16px;
+}
