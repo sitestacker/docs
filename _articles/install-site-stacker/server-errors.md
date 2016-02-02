@@ -15,7 +15,7 @@ Other errors, from `/var/log/mariadb/mariadb.log`:
 > [ERROR] Error in accept: Too many open files  
 > [ERROR] mysqld: Can't open file: './db/table.frm' (errno: 24)
 
-This likely means MySQL (or MariaDB) has reached the open files limit. Most of the solutions found on the internet [^out-of-resources] advise to check the `/etc/security/limits.conf` and `/etc/my.cnf` settings using:
+This likely means MySQL (or MariaDB) has reached the open files limit. Most of the solutions found on the internet ([Upgrade to mysql 5.5 - SQLSTATE[HY000]: General error: 23 Out of resources](https://forums.cpanel.net/threads/upgrade-to-mysql-5-5-sqlstate-hy000-general-error-23-out-of-resources.286172/) or [Increasing nproc for processes launched by systemd on CentOS 7](http://serverfault.com/questions/628610/increasing-nproc-for-processes-launched-by-systemd-on-centos-7)) advise to check the `/etc/security/limits.conf` and `/etc/my.cnf` settings using:
 
 ```sh
 $ sudo -u mysql bash
@@ -44,7 +44,7 @@ $ mysqladmin var | grep open_files_limit
 | open_files_limit                  | 1024
 ```
 
-This is because `systemd` has its own limit that controls how many files a service can open, regardless of what you configure in `/etc/my.cnf` or `/etc/security/limits.conf` [^increase-open-files-systemd] (at least on RHEL and CentOS 7). To verify this inspect MySQL's `/proc/XXX/limits` and check `Max open files`:
+This is because `systemd` has its own limit that controls how many files a service can open, regardless of what you configure in `/etc/my.cnf` or `/etc/security/limits.conf` (at least on RHEL and CentOS 7 - [Increase open-files-limit in MariaDB on CentOS 7 with systemd](https://ma.ttias.be/increase-open-files-limit-in-mariadb-on-centos-7-with-systemd/) and [MariaDB on CentOS 7 – “Error in accept: Too many open files”](http://blogs.reliablepenguin.com/2015/08/28/mariadb-on-centos-7-error-in-accept-too-many-open-files)). To verify this inspect MySQL's `/proc/XXX/limits` and check `Max open files`:
 
 ```sh
 $ ps aux | grep mysql # find out mysql pid
@@ -135,6 +135,3 @@ systemctl restart mariadb
 ```
 
 You can inspect MySQL's `/proc/XXX/limits` again as above and you should see `Max open files = 65536`, which is what `LimitNOFILE=infinity` translates to.
-
-[^out-of-resources]: [Upgrade to mysql 5.5 - SQLSTATE[HY000]: General error: 23 Out of resources](https://forums.cpanel.net/threads/upgrade-to-mysql-5-5-sqlstate-hy000-general-error-23-out-of-resources.286172/) or [Increasing nproc for processes launched by systemd on CentOS 7](http://serverfault.com/questions/628610/increasing-nproc-for-processes-launched-by-systemd-on-centos-7)
-[^increase-open-files-systemd]: [Increase open-files-limit in MariaDB on CentOS 7 with systemd](https://ma.ttias.be/increase-open-files-limit-in-mariadb-on-centos-7-with-systemd/) and [MariaDB on CentOS 7 – “Error in accept: Too many open files”](http://blogs.reliablepenguin.com/2015/08/28/mariadb-on-centos-7-error-in-accept-too-many-open-files)

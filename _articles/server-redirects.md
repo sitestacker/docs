@@ -16,7 +16,7 @@ print_r($arr);
 
 ### Redirect http to https
 
-```apache
+```conf
 # Redirect everything to HTTPS
 RewriteCond %{HTTPS} !=on
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
@@ -30,7 +30,7 @@ Redirect permanent / https://git.sitestacker.com/
 
 ### Redirect www to non-www
 
-```apache
+```conf
 # Redirect www to non-www
 RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
 RewriteRule ^(.*)$ http://%1/$1 [L,R=301]

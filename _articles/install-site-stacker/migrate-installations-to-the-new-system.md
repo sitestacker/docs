@@ -101,8 +101,8 @@ $ sitestacker doctor --ignore-reqs '<URL>'
 ```
 
 <note>
-The `<URL>` is where the system can be accessed in the browser. Also we're
-ignoring any server requirements problems (`--ignore-reqs`) because the
+The <code>&lt;URL&gt;</code> is where the system can be accessed in the browser. Also we're
+ignoring any server requirements problems (<code>--ignore-reqs</code>) because the
 system already ran on this server, although any errors should be examined.
 </note>
 

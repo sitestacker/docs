@@ -25,7 +25,7 @@ When you're working on Site Stacker, you're usually adding a new feature or func
 In every case, you should create a branch (based on `master`) that is called development branch. Changes you make on a branch don't affect the other branches, so you're free to experiment and commit changes, safe in the knowledge that your branch won't be merged until it's ready to be reviewed by someone you're collaborating with. You can also push any of these branches to the same named branch on the server.
 
 <note>
-Sometimes the changes are very simple and creating a development branch is overkill. In these situations you can commit directly on `master`, but make sure your changes are ready to be released at any time (and follow the same commit rules as below).
+Sometimes the changes are very simple and creating a development branch is overkill. In these situations you can commit directly on <code>master</code>, but make sure your changes are ready to be released at any time (and follow the same commit rules as below).
 </note>
 
 Except `master`, development branches are usually short-lived, but **are always temporary**, because eventually they will get deleted, after the changes have been merged or discarded. Keep in mind that the longer a development branch lives without getting merged in for a release, the greater risk for merge conflicts and challenges for deployment. Short lived branches merge and deploy cleaner.
@@ -47,7 +47,7 @@ Once your branch has been created, it's time to start making changes. Whenever y
 Commits also create a transparent history of your work that others can follow to understand what you've done and why. Each commit has an associated commit message, which is a description explaining why a particular change was made. Furthermore, **each commit is considered a separate unit of change**. This lets you roll back changes if a bug is found, or if you decide to head in a different direction.
 
 <tip>
-Commit messages are important, especially since Git tracks your changes and then displays them as commits once they're pushed to the server. By writing clear commit messages, you can make it easier for other people to follow along and provide feedback. See [Commit Guidelines](https://github.com/clns/node-commit-msg/blob/master/GUIDELINES.md).
+Commit messages are important, especially since Git tracks your changes and then displays them as commits once they're pushed to the server. By writing clear commit messages, you can make it easier for other people to follow along and provide feedback. See <a href="https://github.com/clns/node-commit-msg/blob/master/GUIDELINES.md">Commit Guidelines</a>.
 </tip>
 
 When working in a development branch, is also common to commit often and not necessarily following the above rules. That's perfectly fine as long as you [squash the commits](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History#Squashing-Commits) when you're merging in the branch. Also since this is a temporary branch you're free to [rewrite the history](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History) as you feel appropriate, while notifying any co-worker that may be working on the same branch.
@@ -93,7 +93,7 @@ The main release branch is `release`, but other release branches can be created 
 Release branches are usually long-lived, but it's also possible to delete a release branch if it's no longer needed, thus changing the release stream for that client back to the `release` branch.
 
 <note>
-If the `release` branch doesn't exist, you need to [create it](#creating-a-release-branch).
+If the <code>release</code> branch doesn't exist, you need to <a href="#creating-a-release-branch">create it</a>.
 </note>
 
 ### Release branch naming convention
@@ -159,7 +159,7 @@ By default, System Manager shows all available tags and no branches. This is not
 ### Filter branches
 
 <note>
-Tags are tightly coupled with branches, so to limit which tags are available on an installation you need to filter the branches that **the tags are accessible from**.
+Tags are tightly coupled with branches, so to limit which tags are available on an installation you need to filter the branches that <b>the tags are accessible from</b>.
 </note>
 
 You can filter the branches in the **Branch Filter** section of the *Settings* screen in System Manager. The page is pretty self-explanatory.

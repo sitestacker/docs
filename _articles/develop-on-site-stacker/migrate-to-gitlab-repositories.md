@@ -6,12 +6,12 @@ date: 2015-11-08 00:00:00
 
 <note>
 This guide is intended for Site Stacker developers that currently work on
-the repository cloned from **ssrepository.com**. If you have
-any issues [leave a comment](#disqus).
+the repository cloned from <b>ssrepository.com</b>. If you have
+any issues <a href="#disqus">leave a comment</a>.
 </note>
 
 The Site Stacker repository was migrated to an on-premise installation of
-[GitLab](https://about.gitlab.com) at https://git.sitestacker.com
+[GitLab](https://about.gitlab.com) at <https://git.sitestacker.com>
 and **will not accept any new push**.
 Everyone that was working on that repository will need to clone Site Stacker
 from the new location.
@@ -64,8 +64,8 @@ require you to specify the USER and PASSWORD. To be able to use it
 you need to [configure an SSH Key](http://doc.gitlab.com/ce/ssh/README.html).
 
 <note>
-If you're using [PhpStorm](https://www.jetbrains.com/phpstorm) you can use method #2 because PhpStorm
-stores your [GitLab login credentials](#gitlab-account) so you don't have
+If you're using <a href="https://www.jetbrains.com/phpstorm">PhpStorm</a> you can use method #2 because PhpStorm
+stores your <a href="#gitlab-account">GitLab login credentials</a> so you don't have
 to keep entering them.
 </note>
 
@@ -116,7 +116,7 @@ At this point you have Site Stacker core successfully cloned from GitLab.
 
 #### Configure the git identity
 
-It is ==VERY IMPORTANT== to correctly [configure the git identity](#configure-git-identity)
+It is **VERY IMPORTANT** to correctly [configure the git identity](#configure-git-identity)
 before pushing any commits, to avoid your push being rejected.
 
 #### Copy your `database.php` and `email.php` files
@@ -135,9 +135,9 @@ If you had unversioned files in your old project, you may copy them over.
 
 <tip>
 <title>ProTip: Ignore unversioned files in webroot</title>
-If you have unversioned files in `webroot/` (e.g. user uploaded files)
-you can create a [`webroot/.gitignore`](https://git-scm.com/docs/gitignore)
-file and exclude those files. This `.gitignore` file will be ignored
+If you have unversioned files in <code>webroot/</code> (e.g. user uploaded files)
+you can create a <a href="https://git-scm.com/docs/gitignore"><code>webroot/.gitignore</code></a>
+file and exclude those files. This <code>.gitignore</code> file will be ignored
 by git, so you don't have to worry about it.
 </tip>
 
@@ -201,15 +201,15 @@ When prompted to open the directory, chose _No_.
 
 <important>
 <title>Configure the Git Identity</title>
-If you haven't [configured it globally](#configure-the-git-user-globally),
-you'll need to [configure your git identity](#configure-the-git-user-per-repository)
+If you haven't <a href="#configure-the-git-user-globally">configured it globally</a>,
+you'll need to <a href="#configure-the-git-user-per-repository">configure your git identity</a>
 for every repository you clone.
 </important>
 
 #### Cloning subrepos from terminal
 
 If you're using the terminal, you can use `git clone` with the
-appropriate URL and path, ==from the Site Stacker root==:
+appropriate URL and path, **from the Site Stacker root**:
 
 ```sh
 # template (replace <CLONE-URL> and TEMPLATE, twice)
@@ -241,8 +241,8 @@ git config --global user.email "joedoe@example.com"
 #### Configure the git user per repository
 
 <note>
-If you didn't configure your git user globally, you'll need to do this ==for
-every== Site Stacker repository you cloned (e.g. core, templates, components...).
+If you didn't configure your git user globally, you'll need to do this <b>for
+every</b> Site Stacker repository you cloned (e.g. core, templates, components...).
 </note>
 
 ```sh
@@ -264,7 +264,7 @@ a notice about **Synchronous branch control enabled**:
 
 ![synchronous branch control](https://git.sitestacker.com/sitestacker/docs/uploads/2e8e17cf51d01158ea9b071392a2ebc3/synchronous-branch.png)
 
-This is usually not desirable so you should ==disable== it by unchecking it here:
+This is usually not desirable so you should **disable** it by unchecking it here:
 
 ![uncheck-synchronous-branch](https://git.sitestacker.com/sitestacker/docs/uploads/697af6627d18c5a240f1f33a13bf78d5/uncheck-sync-branch.png)
 
@@ -279,9 +279,9 @@ THE IMPLICATIONS!*
 
 To change the user in Apache, you need to modify the
 `/etc/apache2/httpd.conf` file. Open it in your editor of choice
-==with `sudo`== and search for lines that look like this:
+**with `sudo`** and search for lines that look like this:
 
-```apache
+```conf
 #
 # If you wish httpd to run as a different user or group, you must run
 # httpd as root initially and it will switch.  
@@ -296,7 +296,7 @@ Group _www
 
 Change them to match your user and group, for example:
 
-```apache
+```conf
 User calin
 Group staff
 ```

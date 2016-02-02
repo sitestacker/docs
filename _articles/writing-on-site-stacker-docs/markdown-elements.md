@@ -1,26 +1,22 @@
 ---
 title: Markdown Elements
 category: Writing on Site Stacker Docs
-date: 2016-02-05 00:00:00
+date: 2016-02-02 00:00:00
 ---
 
-Articles are written in [Markdown](http://daringfireball.net/projects/markdown/).
-This page shows all elements that can be used in a page.
+Articles are written in [Markdown](http://daringfireball.net/projects/markdown/) and this site uses [kramdown](http://kramdown.gettalong.org/syntax.html) to parse the code. This page shows all elements that can be used in a page.
 
 ## Basic writing
 
 ### Paragraphs
 
-Paragraphs are just one or more lines of consecutive text followed by one
-or more blank lines.
+Paragraphs are just one or more lines of consecutive text followed by one or more blank lines.
 
-On July 2, an alien mothership entered Earth's orbit and deployed several
-dozen saucer-shaped "destroyer" spacecraft, each 15 miles (24 km) wide.
+On July 2, an alien mothership entered Earth's orbit and deployed several dozen saucer-shaped "destroyer" spacecraft, each 15 miles (24 km) wide.
 
 ### Headings
 
-You can create a heading by adding one or more `#` symbols before your
-heading text. The number of `#` you use will determine the size of the heading.
+You can create a heading by adding one or more `#` symbols before your heading text. The number of `#` you use will determine the size of the heading.
 
 ```
 # The largest heading (an <h1> tag)
@@ -45,36 +41,17 @@ In the words of Abraham Lincoln:
 
 ### Styling text
 
-You can make text **bold**, *italic*, _underline_, ==highlight==,
-~~strikethrough~~, superscript^(ed), "quoted" or add footnote [^1].
+You can make text **bold**, *italic*, "quoted" or add footnote [^1] (see <http://kramdown.gettalong.org/syntax.html#emphasis>).
+
+[^1]: This is the first footnote, placed anywhere in the document.
 
 ```
-*This text will be italic*  
-**This text will be bold**  
-_This text will be underline_  
-==This text will be highlighted==  
-~~This text will be strikethrough~~  
-This is a superscript: 2^(nd)  
-"This is a quote"  
-This is a footnote [^1]  
+You can make text **bold**, *italic*, "quoted" or add footnote [^1]
 
 [^1]: This is the first footnote, placed anywhere in the document.
 ```
 
-*This text will be italic*  
-**This text will be bold**  
-_This text will be underline_  
-==This text will be highlighted==  
-~~This text will be strikethrough~~  
-This is a superscript: 2^(nd)  
-"This is a quote"  
-This is a footnote [^1]  
-
-[^1]: This is the first footnote, placed anywhere in the document.
-
-__bold__ text can use either a `*` or an `_` around the text for styling,
-and *italic* text can only use a `*`. This allows you to combine both
-bold and italic if needed.
+__bold__ and _italic_ text can use either a `*` or an `_` around the text for styling. This allows you to combine both bold and italic if needed.
 
 ```
 *Everyone __must__ attend the meeting at 5 o'clock today.*
@@ -84,10 +61,11 @@ bold and italic if needed.
 
 ## Lists
 
+You should indent lists with four spaces.
+
 ### Unordered lists
 
-You can make an [unordered list](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul)
-by preceding list items with either a `*` or a `-`.
+You can make an [unordered list](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul) by preceding list items with either a `*` or a `-`.
 
 ```
 - Item 1
@@ -107,8 +85,7 @@ by preceding list items with either a `*` or a `-`.
 
 ### Ordered lists
 
-You can make an [ordered list](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol)
-by preceding list items with a number.
+You can make an [ordered list](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol) by preceding list items with a number.
 
 ```
 1. Item 1
@@ -148,17 +125,15 @@ You can create nested lists by indenting list items by four spaces.
 
 ### Lists with code
 
-You can create unordered or ordered lists that contain code by indenting
-list items and the code by four spaces, leaving an empty line between the
-item and the code block.
+You can create unordered or ordered lists that contain code by indenting the code by **two** spaces, leaving an empty line between the item and the code block.
 
 ```
 - Item 1 with php code:
 
-    ```php
-    <?php
-    $x = 1
-    ```
+  ```php
+  <?php
+  $x = 1
+  ```
 
 - Item 2
     - Subitem 1 with JS code:
@@ -170,24 +145,23 @@ item and the code block.
 
 - Item 1 with php code:
 
-    ```php
-    <?php
-    $x = 1
-    ```
+  ```php
+  <?php
+  $x = 1
+  ```
 
 - Item 2
     - Subitem 1 with JS code:
 
-        ```js
-        alert('Hy');
-        ```
+      ```js
+      alert('Hy');
+      ```
 
 ## Code formatting
 
 ### Inline formats
 
-Use single backticks (<code>`</code>) to format text in a special monospace format.
-Everything within the backticks appear as-is, with no other special formatting.
+Use single backticks (<code>`</code>) to format text in a special monospace format. Everything within the backticks appear as-is, with no other special formatting.
 
 ```
 Here's an idea: why don't we take `SuperiorProject` and turn it into `**Reasonable**Project`.
@@ -219,17 +193,15 @@ what is x
 
 ## Links
 
-You can create an inline link by wrapping link text in brackets ( `[ ]` ),
-and then wrapping the link in parentheses ( `( )` ).
+You can create an inline link by wrapping link text in brackets ( `[ ]` ), and then wrapping the link in parentheses ( `( )` ).
 
-For example, to create a hyperlink to [docs.sitestacker.com](docs.sitestacker.com),
-with a link text that says, Visit Site Stacker Docs!, you'd write this in Markdown:
-`[Visit Site Stacker Docs!](http://docs.sitestacker.com)`.
+For example, to create a hyperlink to [docs.sitestacker.com](docs.sitestacker.com), with a link text that says, Visit Site Stacker Docs!, you'd write this in Markdown: `[Visit Site Stacker Docs!](http://docs.sitestacker.com)`.
 
 [Visit Site Stacker Docs!](http://docs.sitestacker.com)
 
-==IMPORTANT:== For linking to relative pages within the documentation see
-[Writing an Article](writing-an-article#linking).
+**IMPORTANT:** For linking to relative pages within the documentation see [Writing an Article](writing-an-article#linking).
+
+You can also create automatic links with no text by surrounding the link with `<` and `>`, e.g.: `<http://google.com>` <http://google.com>.
 
 ## Images
 
@@ -249,13 +221,11 @@ You can include images with the following syntax:
 
 ## Syntax highlighting
 
-Code blocks can be taken a step further by adding syntax highlighting.
-In your fenced block, add an optional [language identifier](http://pygments.org/languages/)
-and we'll run it through syntax highlighting.
+Code blocks can be taken a step further by adding syntax highlighting. In your fenced block, add an optional [language identifier](https://github.com/jneen/rouge/wiki/List-of-supported-languages-and-lexers) and we'll run it through syntax highlighting.
 
-We use [pygments](http://pygments.org/) to perform language detection
-and syntax highlighting. You can find out which languages are supported
-[here](http://pygments.org/languages/).
+<important>
+Don't use <code>```apache</code> even though it is listed as a supported language identifier because it will break GitHub Pages page build, without any other information. Use <code>```conf</code> instead.
+</important>
 
 ### PHP
 
@@ -268,29 +238,17 @@ $arr = array(1, 'test');
 print_r($arr);
 ```
 
-==IMPORTANT:== For PHP code you **must** include the `<?php` tag at the
-beginning of the script for the syntax highlighter to work properly.
+**IMPORTANT:** For PHP code you MUST include the `<?php` tag at the beginning of the script for the syntax highlighter to work properly.
 
-### JS, with line numbers
+### JS
 
-Use the <code>```js</code> code fence tag or liquid tags as below
-to also include line numbers:
+Use the <code>```js</code> code fence tag:
 
-```
-{% raw %}
-{% highlight js linenos %}
+```js
 var fn = function() {
   alert('Hello');
 }
-{% endhighlight %}
-{% endraw %}
 ```
-
-{% highlight js linenos %}
-var fn = function() {
-  alert('Hello');
-}
-{% endhighlight %}
 
 ### HTML
 
@@ -312,18 +270,11 @@ Use the <code>```html</code> code fence tag:
 
 ### Smarty
 
-Use the <code>```smarty</code> code fence tag:
-
-```smarty
-<h1>{$title}</h1>
-<p>{$summary}</p>
-```
+Unfortunately smarty is not supported anymore with the Rouge highlighter (<https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0>), use <code>```html</code> instead.
 
 ## Tables
 
-You can create tables by assembling a list of words and dividing them
-with hyphens `-` (for the first row), and then separating each column
-with a pipe `|`:
+You can create tables by assembling a list of words and dividing them with hyphens `-` (for the first row), and then separating each column with a pipe `|`:
 
 ```
 First Header  | Second Header
@@ -351,22 +302,21 @@ Note that the dashes at the top don't need to match the length of the header tex
 | Help      | Display the help window.|
 | Close     | Closes a window     |
 
-You can also include inline Markdown such as links, bold, italics, or strikethrough:
+You can also include inline Markdown such as links, bold or italics:
 
 ```
 | Name | Description          |
 | ------------- | ----------- |
-| Help      | ~~Display the~~ help window.|
+| Help      | Display the [help window](http://google.com).|
 | Close     | _Closes_ a window     |
 ```
 
 | Name | Description          |
 | ------------- | ----------- |
-| Help      | ~~Display the~~ help window.|
+| Help      | Display the [help window](http://google.com).|
 | Close     | _Closes_ a window     |
 
-Finally, by including colons `:` within the header row, you can define
-text to be left-aligned, right-aligned, or center-aligned:
+Finally, by including colons `:` within the header row, you can define text to be left-aligned, right-aligned, or center-aligned:
 
 ```
 | Left-Aligned  | Center Aligned  | Right Aligned |
@@ -382,33 +332,30 @@ text to be left-aligned, right-aligned, or center-aligned:
 | col 2 is      | centered        |   $12 |
 | zebra stripes | are neat        |    $1 |
 
-A colon on the **left-most** side indicates a left-aligned column; a colon
-on the **right-most** side indicates a right-aligned column; a colon on
-**both** sides indicates a center-aligned column.
+A colon on the **left-most** side indicates a left-aligned column; a colon on the **right-most** side indicates a right-aligned column; a colon on **both** sides indicates a center-aligned column.
 
 ## Emoji
 
-You can use emoji anywhere in the document :+1:
+You can use emoji anywhere in the document :heart_eyes:
 
-For a full list of available emoji check out :point_right:
-[emoji-cheat-sheet.com](http://www.emoji-cheat-sheet.com/) :metal:
+For a full list of available emoji check out :point_right: [emoji-cheat-sheet.com](http://www.emoji-cheat-sheet.com/) :metal:
 
 ## Hints
 
-You can use `<note>`, `<tip>` and `<important>` tags to indicate useful hints.
-Note that the `<title>` tag is optional. Also inside the tags you ==cannot==
-use other HTML tags beside `<title>` and `<br>`.
+You can use `<note>`, `<tip>` and `<important>` tags to indicate useful hints. Note that the `<title>` tag is optional.
+
+Note that inside the tags you **cannot** use other Markdown elements, so you should specify links, bolds, italics, etc. using HTML tags.
 
 ```
 <note>
-    <title>A note</title>
-    Some paragraph _here_
+    <title>Title is optional</title>
+    Note body goes <i>here</i>.
 </note>
 ```
 
 <note>
-    <title>A note</title>
-    Some paragraph _here_
+    <title>Title is optional</title>
+    Note body goes <i>here</i>.
 </note>
 
 ```
@@ -424,19 +371,19 @@ use other HTML tags beside `<title>` and `<br>`.
 ```
 <tip>
     <title>ProTip: Use a search engine</title>
-    Use [Google](http://google.com) or [~~Bing](http://bing.com).
+    Use <a href="http://google.com">Google</a> or <a href="http://bing.com">Bing</a>.
 </tip>
 ```
 
 <tip>
     <title>ProTip: Use a search engine</title>
-    Use [Google](http://google.com) or [~~Bing~~](http://bing.com).
+    Use <a href="http://google.com">Google</a> or <a href="http://bing.com">Bing</a>.
 </tip>
 
 ```
 <important>
     <title>Be careful!</title>
-    Some **paragraph** here.<br>
+    Some <b>paragraph</b> here.<br>
     <br>
     Some paragraph here.<br>
     One more line in this paragraph.
@@ -445,7 +392,7 @@ use other HTML tags beside `<title>` and `<br>`.
 
 <important>
     <title>Be careful!</title>
-    Some **paragraph** here.<br>
+    Some <b>paragraph</b> here.<br>
     <br>
     Some paragraph here.<br>
     One more line in this paragraph.
@@ -479,61 +426,71 @@ This is a custom block named **Unix BSD**.
 
 You can add OS-specific blocks in two ways:
 
-1. By simply adding consecutive code blocks with the following code syntax keywords:
-    - <code>```PowerShell</code> - this will translate to **Windows**
-    - <code>```bash</code> - this will translate to **Mac**
-    - <code>```sh</code> - this will translate to **Unix**
+#### Method #1
 
-    ```PowerShell
-    $ echo $env:PATH
-    ```
+By using start and end syntax: `=={BlockName}==` ... `==/{BlockName}==`. Possible values:
 
-    ```bash
-    $ say "I'll be back!"
-    ```
+- `==Windows==` ... `==/Windows==`
+- `==Mac==` ... `==/Mac==`
+- `==Linux==` ... `==/Linux==`
+- `==Block:Unix BSD==` ... `==/Block:Unix BSD==` - with this format you can create any custom block by simply prefixing it with `Block:`
 
-    ```sh
-    $ echo $PATH
-    ```
+==Windows==
 
-2. By using start and end syntax: `=={BlockName}==` ... `==/{BlockName}==`. Possible values:
-    - `==Windows==` ... `==/Windows==`
-    - `==Mac==` ... `==/Mac==`
-    - `==Linux==` ... `==/Linux==`
-    - `==Block:Unix BSD==` ... `==/Block:Unix BSD==` - with this format you can create any custom block by simply prefixing it with `Block:`
+Note: **Run PowerShell as Administrator**.
 
-    ==Windows==
+```powershell
+$ echo $env:PATH
+```
 
-    Note: **Run PowerShell as Administrator**.
+==/Windows==
 
-    ```PowerShell
-    $ echo $env:PATH
-    ```
+==Mac==
 
-    ==/Windows==
+Mac is the Terminator!
 
-    ==Mac==
+```bash
+$ say "I'll be back!"
+```
 
-    Mac is the Terminator!
+==/Mac==
 
-    ```bash
-    $ say "I'll be back!"
-    ```
+==Linux==
 
-    ==/Mac==
+Simply Linux.
 
-    ==Linux==
+```sh
+$ echo $PATH
+```
 
-    Simply Linux.
+==/Linux==
 
-    ```sh
-    $ echo $PATH
-    ```
+==Block:Unix BSD==
 
-    ==/Linux==
+This is a custom block named **Unix BSD**.
 
-    ==Block:Unix BSD==
+==/Block:Unix BSD==
 
-    This is a custom block named **Unix BSD**.
+#### Method #2
 
-    ==/Block:Unix BSD==
+**This method is not working anymore since upgrading to Jekyll 3.0. See <https://github.com/jneen/rouge/issues/379>**
+
+By simply adding consecutive code blocks with the following code syntax keywords:
+
+- <code>```powershell</code> - this will translate to **Windows**
+- <code>```bash</code> - this will translate to **Mac**
+- <code>```sh</code> - this will translate to **Unix**
+
+```powershell
+$ echo $env:PATH
+```
+
+```bash
+$ say "I'll be back!"
+```
+
+```sh
+$ echo $PATH
+```
+
+---

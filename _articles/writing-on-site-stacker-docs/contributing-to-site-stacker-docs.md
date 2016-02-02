@@ -26,7 +26,7 @@ No setup required | Cannot delete articles, only add new ones or edit existing o
 Suited for small changes and typo fixes | Adding new categories or changing multiple articles is cumbersome
  | Difficult to preview changes
  | Every save creates a new commit in the repository
- | It's very easy to ==break the site==
+ | It's very easy to **break the site**
 
 ### Edit a page
 
@@ -49,13 +49,12 @@ can make changes right there:
 ![GitHub Editor](https://git.sitestacker.com/sitestacker/docs/uploads/97290c22539982f65be1fffb6e6b740e/image.png)
 
 <note>
-For information about the article syntax and content, see
-[Writing an Article](writing-an-article).
+For information about the article syntax and content, see <a href="writing-an-article">Writing an Article</a>.
 </note>
 
 <important>
 <title>Save only once</title>
-Since every change represents a commit, use the _Preview changes_ tab to preview your changes and **ONLY** save when you're satisfied with the changes.
+Since every change represents a commit, use the <i>Preview changes</i> tab to preview your changes and <b>ONLY</b> save when you're satisfied with the changes.
 </important>
 
 <important>
@@ -89,9 +88,7 @@ will be live.
 
 <note>
 <title>Delete your fork</title>
-It's recommended to [delete your fork](https://help.github.com/articles/deleting-a-repository/)
-after you created the pull request, so next time you
-want to propose changes you'll start fresh.
+It's recommended to <a href="https://help.github.com/articles/deleting-a-repository/">delete your fork</a> after you created the pull request, so next time you want to propose changes you'll start fresh.
 </note>
 
 ## Clone the repository locally

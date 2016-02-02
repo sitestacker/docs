@@ -27,7 +27,7 @@ readtime: 5
 ---
 ```
 
-Every article ==must== include a [Jekyll Front Matter](http://jekyllrb.com/docs/frontmatter/)
+Every article **must** include a [Jekyll Front Matter](http://jekyllrb.com/docs/frontmatter/)
 header with the following information:
 
 - [`title`](#article-title) *(required)* The Article title. This is very important to get right!
@@ -45,7 +45,7 @@ it's *highly recommended to set all the fields*.
 <important>
 <title>Article title should be unique!</title>
 Every article title should be unique throughout the entire site, even if the
-file is added in a subdirectory in [_articles/]({{ site.data.github.repourl }}/tree/gh-pages/_articles).
+file is added in a subdirectory in <a href="{{ site.data.github.repourl }}/tree/gh-pages/_articles">_articles/</a>.
 </important>
 
 #### Article file
@@ -58,7 +58,7 @@ The file name is a slug[^slug] of the title, suffixed with the `.md` extension.
 To find the slug[^slug] of an article take its *title* and:
 
 1. lowercase all letters
-2. replace all special characters (non alphanumeric) with a ==single== `-` (dash)
+2. replace all special characters (non alphanumeric) with a **single** `-` (dash)
 
 After you determined the slug[^slug], add the `.md` extension to it and you
 have the article file name.
@@ -73,10 +73,10 @@ Ask Questions !!! | {{ "Ask Questions !!!" | slugify }}.md
 No more `system_repository.xml` | {{ "No more `system_repository.xml`" | slugify }}.md
 
 <note>
-The article file can be placed directly in the [_articles/]({{ site.data.github.repourl }}/tree/gh-pages/_articles)
+The article file can be placed directly in the <a href="{{ site.data.github.repourl }}/tree/gh-pages/_articles">_articles/</a>
 folder, or inside another directory. The extra directory it's only for
 organization purposes and can have any name, but it's recommended to name
-it by its category slug[^slug], as the [article file name](#article-file-name-rule).
+it by its category slug, as the <a href="#article-file-name-rule">article file name</a>.
 </note>
 
 ### Article category
@@ -150,7 +150,7 @@ The date can be given in the following formats:
 - `YYYY-MM-DD HH:MM:SS +/-TTTT` (to specify a time zone using an offset from UTC. e.g. `2008-12-14 10:30:00 +0200`)
 
 Note that you cannot omit the time part. You can only leave it
-zero, e.g. `2008-12-14 00:00:00`, not ~~`2008-12-14`~~.
+zero, e.g. `2008-12-14 00:00:00`, not `2008-12-14`.
 
 <important>
 <title>Update the date</title>

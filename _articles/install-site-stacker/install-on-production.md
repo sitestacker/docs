@@ -30,7 +30,7 @@ TODO: Figure out how to handle load balancing.
 ### Site Stacker GitLab user
 
 <note>
-You need to be an [admin on GitLab](https://git.sitestacker.com/admin/users?filter=admins) to create/manage users.
+You need to be an <a href="https://git.sitestacker.com/admin/users?filter=admins">admin on GitLab</a> to create/manage users.
 </note>
 
 First, make sure a user for that client exists in
@@ -109,7 +109,7 @@ given as `<group>/<repo-name>` (e.g. `templates/Wycliffe`,
 Clone Site Stacker at `C:\inetpub\wwwroot\sitestacker` with *all*
 sub-repositories the user has access to:
 
-```PowerShell
+```powershell
 $ sitestacker init -u namb --all C:\inetpub\wwwroot\sitestacker
 Password: *******
 sitestacker initialized successfully at 'C:\inetpub\wwwroot\sitestacker'
@@ -132,9 +132,9 @@ sitestacker initialized successfully at '/Users/myuser/Sites/sitestacker'
 ```
 
 <tip>
-You can use the `sitestacker init` command at any time *in a Site Stacker
-installation* to clone any sub-repository(ies) you want, by running
-something like `sitestacker init templates/Wycliffe [components/GenSend ...]`.
+You can use the <code>sitestacker init</code> command at any time <i>in a Site Stacker
+installation</i> to clone any sub-repository(ies) you want, by running
+something like <code>sitestacker init templates/Wycliffe [components/GenSend ...]</code>.
 </tip>
 
 ### Configure DB access
@@ -146,7 +146,7 @@ information in `database.php`. To do this you can use the
 For example, to set up a local db server on Windows using Windows
 Authentication, run (this will also create an empty database if doesn't exist):
 
-```PowerShell
+```powershell
 # inside the Site Stacker root directory
 $ sitestacker set-db --mssql -H localhost --user="" --password="" -d MYDB_NAME --create
 ```
@@ -182,7 +182,7 @@ with the other steps by specifying the `--ignore-reqs` flag. However **only
 do this if you know what are you doing**.
 
 <tip>
-You can run the `sitestacker doctor` command at any time on any existing
+You can run the <code>sitestacker doctor</code> command at any time on any existing
 Site Stacker installation, to make sure Site Stacker runs fine.
 </tip>
 
@@ -212,7 +212,7 @@ and [components/GenSend](https://git.sitestacker.com/components/GenSend).
 Since IIS doesn't let you create a site without the path existing,
 we need to create it after we've run the `sitestacker init` command,
 and point it to `C:\inetput\wwwroot\sitestacker\webroot`, accessible
-at http://localhost.
+at <http://localhost>.
 
 ![IIS Site Stacker site](https://git.sitestacker.com/sitestacker/docs/uploads/777e12c4e5a4ff79b34fc32f71754d29/image.png)
 
@@ -225,7 +225,7 @@ MSSQL | `localhost` | `1433` | | | `sitestackerdb`
 
 Following are all the commands for this installation (including the output):
 
-```PowerShell
+```powershell
 # check if the daemon is installed
 $ sitestacker -v
 sitestacker version x.x.x
@@ -263,7 +263,7 @@ executing 'Console/cake schema create -p Migrations --yes --nodrop --quiet'
 executing 'Console/cake SystemManager.Update'
 ```
 
-:thumbsup: You're done! Go to http://localhost/admin
+:thumbsup: You're done! Go to <http://localhost/admin>
 and login with the default user (see above).
 
 ## Full Example on Linux (or OS X)
@@ -273,9 +273,9 @@ machine at `/Users/user/Sites/sitestacker`, for the [`namb` GitLab user](https:/
 including [all the sub-repositories the user has access to](https://git.sitestacker.com/admin/users/namb/projects).
 
 We already have a vhost configured, pointing at `/Users/user/Sites/sitestacker/webroot`
-and accessible at http://localhost. Here is the vhost code:
+and accessible at <http://localhost>. Here is the vhost code:
 
-```apache
+```conf
 <VirtualHost *:80>
     ServerAdmin webmaster@dummy-host2.example.com
     DocumentRoot "/Users/user/Sites/sitestacker/webroot"
@@ -349,7 +349,7 @@ executing 'Console/cake schema create -p Migrations --yes --nodrop --quiet'
 executing 'Console/cake SystemManager.Update'
 ```
 
-:thumbsup: You're done! Go to http://localhost/admin
+:thumbsup: You're done! Go to <http://localhost/admin>
 and login with the default user (see above).
 
 ## Next Steps

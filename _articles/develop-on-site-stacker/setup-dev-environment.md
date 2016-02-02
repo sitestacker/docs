@@ -7,13 +7,13 @@ date: 2015-11-11 00:00:00
 ## React
 
 <note>
-For now, we'll use `.jsx` files and transform them one by one into
-`.js` files, using a configured File Watcher in PhpStorm/WebStorm.
-Then, every `.js` file will be included using the usual
-`$this->Html->script()` helper in the necessary views (`.ctp` files).<br>
+For now, we'll use <code>.jsx</code> files and transform them one by one into
+<code>.js</code> files, using a configured File Watcher in PhpStorm/WebStorm.
+Then, every <code>.js</code> file will be included using the usual
+<code>$this->Html->script()</code> helper in the necessary views (<code>.ctp</code> files).<br>
 <br>
 In the future we should investigate more complex methods like
-[Webpack](https://webpack.github.io/).
+<a href="https://webpack.github.io/">Webpack</a>.
 </note>
 
 To be able to write [JSX files](https://facebook.github.io/react/docs/jsx-in-depth.html)

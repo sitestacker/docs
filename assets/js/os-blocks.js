@@ -1,19 +1,19 @@
 $(document).ready(function() {
 
     var getCodeStart = function($el) {
-        return $el.children('pre').children('code[data-lang=sh], code[data-lang=bash], code[data-lang=PowerShell]');
+        return $el.children('pre').children('code[data-lang=sh], code[data-lang=bash], code[data-lang=powershell]');
     }
 
     var $markdownBody = $('article.markdown-body');
 
     var $els = $();
-    $els = $els.add($markdownBody.find('p').children('mark:contains(Windows), mark:contains(Mac), mark:contains(Linux), mark:contains(Block:)').not('mark:contains(/)').parent());
-    $els = $els.add(getCodeStart($markdownBody.find('div.highlight')).parent().parent());
+    $els = $els.add($markdownBody.find('p:contains(==Windows), p:contains(==Mac), p:contains(==Linux), p:contains(==Block:)'));
+    // $els = $els.add(getCodeStart($markdownBody.find('div.highlight')).parent().parent());
 
     var getOpt = function(txt) {
         txt = txt.replace('Block:', '');
         switch (txt) {
-            case 'PowerShell': return 'Windows';
+            case 'powershell': return 'Windows';
             case 'bash': return 'Mac';
             case 'sh': return 'Unix';
             default: return txt;
@@ -34,8 +34,8 @@ $(document).ready(function() {
         if ((state==0 || state==1) && $el.is('p')) {
 
             state = 1;
-            text = $el.children('mark:first').text();
-            $optEls = $el.nextUntil('p:has(> mark:contains(\'/'+text+'\'))');
+            text = $el.text().replace(/==/g, '');
+            $optEls = $el.nextUntil('p:contains(\'==/'+text+'\')');
             $els = $els.not($optEls);
             $el.remove();
             $el = $optEls.last().next().next();

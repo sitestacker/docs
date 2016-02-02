@@ -76,7 +76,8 @@ excerpt: Developer guides and resources
 
     <div class="ui text container basic segment">
         <div class="ui relaxed items">
-            {% for category in site.collections.categories.docs %}
+            {% assign categories = site.collections | where: "label", "categories" | first %}
+            {% for category in categories.docs %}
             <div class="item">
                 <div class="content">
                     <a class="header" href="{{ "/categories/" | prepend: site.baseurl }}{{ category.title | slugify }}">{{ category.title }}</a>

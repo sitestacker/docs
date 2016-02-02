@@ -30,12 +30,9 @@ title: Site Stacker Documentation
 baseurl: ''
 url: "http://docs.sitestacker.com" # the base hostname & protocol for your site
 
-# Build settings
-highlighter: pygments
-
-markdown: redcarpet
-redcarpet:
-  extensions: ["no_intra_emphasis", "autolink", "tables", "with_toc_data", "strikethrough", "superscript", "underline", "highlight", "quote", "footnotes"]
+kramdown:
+  input: GFM
+  hard_wrap: false # this should be removed (default is true) to work the same as on GitHub Pages
 
 gems:
   - jemoji

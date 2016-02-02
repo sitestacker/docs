@@ -6,7 +6,7 @@ readtime: 2
 ---
 
 <note>
-Tests can only run on CakePHP 2.6+, so this means you cannot run tests on `master` [until `cakephp-2.6` is merged in](https://git.sitestacker.com/sitestacker/sitestacker/merge_requests/1). Testing is only possible on branches that diverged from `cakephp-2.6`.
+Tests can only run on CakePHP 2.6+, so this means you cannot run tests on <code>master</code> <a href="https://git.sitestacker.com/sitestacker/sitestacker/merge_requests/1">until `cakephp-2.6` is merged in</a>. Testing is only possible on branches that diverged from <code>cakephp-2.6</code>.
 </note>
 
 ## Prerequisites
