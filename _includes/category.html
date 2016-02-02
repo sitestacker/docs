@@ -1,4 +1,4 @@
-{% assign articles = site.articles | where: "category", include.category %}
+{% assign articles = site.articles | where: "category", include.category | sort: "title" %}
 <div class="ui large list">
     {% for article in articles %}
     <div class="item">
