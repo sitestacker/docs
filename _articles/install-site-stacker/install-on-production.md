@@ -1,7 +1,7 @@
 ---
 title: Install on Production
 category: Install Site Stacker
-date: 2016-01-06 00:00:00
+date: 2016-02-04 00:00:00
 readtime: 5
 ---
 
@@ -79,7 +79,7 @@ command's help first: `sitestacker init -h`).
 
 You have two options to initialize the sub-repositories:
 
-1. Using the `--all` flag to initialize *all* sub-repositories the user
+1. Using the `--all-subrepos` flag to initialize *all* sub-repositories the user
 has access to.
 2. Specifying each sub-repository individually, e.g. `templates/Wycliffe`.
 
@@ -87,7 +87,7 @@ Example (you will be prompted to enter the password for the given &lt;user&gt;):
 
 ```sh
 # clone all repos the user has access to:
-$ sitestacker init -u <user> --all [<path-to-sitestacker>]
+$ sitestacker init -u <user> --all-subrepos [<path-to-sitestacker>]
 
 # or specify sub-repositories individually:
 $ sitestacker init -u <user> <subrepo>... [<path-to-sitestacker>]
@@ -110,7 +110,7 @@ Clone Site Stacker at `C:\inetpub\wwwroot\sitestacker` with *all*
 sub-repositories the user has access to:
 
 ```powershell
-$ sitestacker init -u namb --all C:\inetpub\wwwroot\sitestacker
+$ sitestacker init -u namb --all-subrepos C:\inetpub\wwwroot\sitestacker
 Password: *******
 sitestacker initialized successfully at 'C:\inetpub\wwwroot\sitestacker'
 'packages/templates/NAMBContributions' initialized successfully
@@ -136,6 +136,19 @@ You can use the <code>sitestacker init</code> command at any time <i>in a Site S
 installation</i> to clone any sub-repository(ies) you want, by running
 something like <code>sitestacker init templates/Wycliffe [components/GenSend ...]</code>.
 </tip>
+
+### Checkout a different branch
+
+The `sitestacker init` command will clone and point the repositories to their default branch, which is `master` in most cases. However you might need to change this, maybe you want to point them to a tag or to a release branch.
+
+You can do this using the `sitestacker checkout` command. See the command help with `sitestacker checkout -h` for possible usages.
+
+To checkout sitestacker to the `release` branch do:
+
+```sh
+$ sitestacker checkout release
+sitestacker checked out at 0ecb3de41e6c031b808cda6ebd116556428fe58d
+```
 
 ### Configure DB access
 
@@ -308,7 +321,7 @@ $ sitestacker -v
 sitestacker version x.x.x
 
 # initialize all Site Stacker repos for the 'namb' user
-$ sitestacker init -u namb --all /Users/user/Sites/sitestacker
+$ sitestacker init -u namb --all-subrepos /Users/user/Sites/sitestacker
 Password: *******
 sitestacker initialized successfully at '/Users/user/Sites/sitestacker'
 'packages/templates/NAMBContributions' initialized successfully
