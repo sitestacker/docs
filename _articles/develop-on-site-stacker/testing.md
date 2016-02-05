@@ -70,3 +70,7 @@ This example creates two [jobs](http://doc.gitlab.com/ce/ci/yaml/README.html#job
 TODO
 
 *This section documents best practices for writing jobs in a `.gitlab-ci.yml` file and running scripts inside these jobs. This is a work in progress, taking into account that each job and script per job has a significant overhead on the build time, so fewer jobs and a single script per job looks to be the way to go. But we're not sure yet how to group the jobs.*
+
+### Skipping builds
+
+If your commit message contains `[ci skip]`, the builds will be skipped (<http://doc.gitlab.com/ce/ci/yaml/README.html#skipping-builds>).
