@@ -2,7 +2,10 @@
 title: Configure PhpStorm
 category: Develop on Site Stacker
 date: 2015-11-17 19:00:00
-tags: php storm, editor
+tags:
+  - php storm
+  - editor
+  - ide
 redirect_from:
     - /articles/configure-php-storm.html
 ---

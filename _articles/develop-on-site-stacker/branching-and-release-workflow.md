@@ -2,7 +2,7 @@
 title: Branching and Release Workflow
 category: Develop on Site Stacker
 date: 2016-01-14 00:00:00
-tags: development, model, strategy
+tags: development,model,strategy
 readtime: 12
 ---
 

@@ -1,7 +1,6 @@
 ---
 title: Contributing to Site Stacker Docs
 category: Writing on Site Stacker Docs
-tags: documentation
 date: 2015-11-06 00:00:00
 ---
 

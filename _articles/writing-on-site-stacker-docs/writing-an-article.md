@@ -1,7 +1,6 @@
 ---
 title: Writing an Article
 category: Writing on Site Stacker Docs
-tags: documentation
 date: 2015-11-06 00:00:00
 readtime: 5
 ---
@@ -134,9 +133,27 @@ Articles can have tags. Tags are optional but if present are used to
 improve the article's discoverability in the search results.
 
 Tags can be specified as a [YAML list](https://en.wikipedia.org/wiki/YAML#Lists)
-or a comma-separated string. See
+or as comma-separated values (**no spaces**). See
 [tags on jekyll docs](http://jekyllrb.com/docs/frontmatter/#predefined-global-variables)
 for more details.
+
+#### Tags as a YAML list
+
+```
+tags:
+  - first tag
+  - second tag
+```
+
+Note: tags can contain spaces in this format.
+
+#### Tags as comma-separated values
+
+```
+tags: development,model,strategy
+```
+
+Note: tags cannot contain spaces in this format, any space will be transformed into a tag.
 
 ### Article date
 
