@@ -10,20 +10,15 @@ Site Stacker on a production server.
 
 ## Prerequisites
 
-To install Site Stacker, you need to have access to the web server (either
-RDP access for Windows or SSH for Linux), and the credentials for connecting
-to the database server.
+To install Site Stacker you need:
 
-Also make sure the servers meet the requirements (Site Stacker will check
-the server requirements automatically, see below the `doctor` command):
-
-- Windows: [Server Requirements](server-requirements-windows)
-- Linux: [Server Requirements](server-requirements-linux)
+- access to the web server (either RDP for Windows or SSH for Linux)
+- credentials for connecting to the database server
 
 ## Install the Site Stacker Service
 
 The first thing to do is to install the [Site Stacker Service (daemon)](http://sitestacker.github.io/service/)
-on the web server where Site Stacker will run.
+on the web server where Site Stacker will run. For this you need to connect to the server.
 
 TODO: Figure out how to handle load balancing.
 
@@ -137,6 +132,23 @@ installation</i> to clone any sub-repository(ies) you want, by running
 something like <code>sitestacker init templates/Wycliffe [components/GenSend ...]</code>.
 </tip>
 
+### Server Requirements
+
+The server needs to meet the following requirements, depending on the platform:
+
+- [Windows Server Requirements](server-requirements-windows)
+- [Linux Server Requirements](server-requirements-linux)
+
+You can check the server requirements automatically with:
+
+```sh
+sitestacker reqs <URL>
+```
+
+<note>
+You need to provide a URL where the Site Stacker installation can be accessed.
+</note>
+
 ### Checkout a different branch
 
 The `sitestacker init` command will clone and point the repositories to their default branch, which is `master` in most cases. However you might need to change this, maybe you want to point them to a tag or to a release branch.
@@ -176,7 +188,6 @@ To finish a Site Stacker installation run `sitestacker doctor` as below:
 
 ```sh
 $ sitestacker doctor '<URL>'
-checking server requirements...
 creating symlinks...
 setting permissions...
 checking db access...
@@ -186,13 +197,8 @@ executing 'Console/cake SystemManager.Update'
 ```
 
 <note>
-You need to provide a URL where the current Site Stacker installation
-can be accessed. Any URL that points to the vhost (or IIS site) will do.
+You need to provide a URL where the current Site Stacker installation can be accessed. Any URL that points to the vhost (or IIS site) will do.
 </note>
-
-If the server doesn't meet the requirements, you can ignore the error and continue
-with the other steps by specifying the `--ignore-reqs` flag. However **only
-do this if you know what are you doing**.
 
 <tip>
 You can run the <code>sitestacker doctor</code> command at any time on any existing
@@ -267,7 +273,6 @@ database 'sitestackerdb' successfully created
 
 # finish installation
 $ sitestacker doctor 'localhost'
-checking server requirements...
 creating symlinks...
 setting permissions...
 checking db access...
@@ -346,14 +351,10 @@ database 'sitestackerdb' successfully created
 
 # finish installation
 $ sitestacker doctor 'localhost'
-checking server requirements...
 Module mod_deflate is not available.
 error: server does not meet the requirements, aborting
 
-# since the mod_deflate module is not critical, we're ignoring the error with '--ignore-reqs'
-$ sitestacker doctor 'localhost' --ignore-reqs
-checking server requirements...
-Module mod_deflate is not available.
+$ sitestacker doctor 'localhost'
 creating symlinks...
 setting permissions...
 checking db access...

@@ -68,7 +68,7 @@ date: 2015-11-02 00:00:00
    * session.auto_start=Off
    * session.cookie_httponly=1
    * date.timezone=[`the server’s timezone`]
-   * memory_limit=128M
+   * memory_limit=512M
    * soap.wsdl_cache_enabled=On
    * soap.wsdl_cache_dir=C:\Windows\Temp
    * DOMDocument (don’t use `--disable-dom` when compiling PHP)

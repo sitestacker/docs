@@ -82,11 +82,11 @@ packages/themes/Contributions/LifeUnited
 After the `migrate` command runs successfully, run the `doctor` command to make sure everything is working fine:
 
 ```sh
-$ sitestacker doctor --ignore-reqs '<URL>'
+$ sitestacker doctor '<URL>'
 ```
 
 <note>
-The <code>&lt;URL&gt;</code> is where the system can be accessed in the browser. Also we're ignoring any server requirements problems (<code>--ignore-reqs</code>) because the system already ran on this server, although any errors should be examined.
+The <code>&lt;URL&gt;</code> is where the system can be accessed in the browser.
 </note>
 
 :thumbsup: At this point the installation is migrated and the system should be working as normal. To check the new System Manager, refresh the admin interface and click on the System Manager icon. The new UI should open in a new tab.
