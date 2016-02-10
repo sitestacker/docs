@@ -1,6 +1,6 @@
 ---
 title: Markdown Elements
-category: Writing on Site Stacker Docs
+category: Contributing to Site Stacker Docs
 date: 2016-02-02 00:00:00
 ---
 

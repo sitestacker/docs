@@ -1,6 +1,6 @@
 ---
 title: Writing an Article
-category: Writing on Site Stacker Docs
+category: Contributing to Site Stacker Docs
 date: 2015-11-06 00:00:00
 readtime: 5
 ---
