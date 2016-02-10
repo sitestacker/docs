@@ -92,4 +92,4 @@ It's recommended to <a href="https://help.github.com/articles/deleting-a-reposit
 
 ## Clone the repository locally
 
-TODO
+Follow the instructions in the repository: <https://github.com/sitestacker/docs/blob/gh-pages/README.md>.
