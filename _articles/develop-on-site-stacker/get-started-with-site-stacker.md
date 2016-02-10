@@ -12,9 +12,7 @@ This guide is intended for OS X and Windows. On Linux the setup is less complex 
 ## Prerequisites
 
 - [Git](https://git-scm.com/downloads) (make sure you install the 64-bit version)
-- [Docker](https://www.docker.com/) (see the instructions for your platform):
-  - [Installation on Mac OS X](https://docs.docker.com/engine/installation/mac/)
-  - [Installation on Windows](https://docs.docker.com/engine/installation/windows/)
+- [Docker](docker)
 
 ## Quick Start
 
@@ -39,67 +37,7 @@ cd ~/sitestacker
 
 ## Start Docker
 
-### Start the VM
-
-You should check if your VM is running using `docker-machine status` (:exclamation: On Windows, **run PowerShell as Administrator**):
-
-```sh
-$ docker-machine status default
-Stopped
-```
-
-If it's stopped, start it using `docker-machine start`:
-
-```sh
-$ docker-machine start default
-Starting "default"...
-(default) Waiting for an IP...
-Machine "default" was started.
-Started machines may have new IP addresses. You may need to re-run the `docker-machine env` command.
-```
-
-### Configure your shell for `docker`
-
-Once the VM is running, you can configure your shell (*Terminal* on OS X or *PowerShell* on Windows) by running the appropriate command printed by `docker-machine env`:
-
-==Windows==
-
-```powershell
-$ docker-machine env default
-$Env:DOCKER_TLS_VERIFY = "1"
-$Env:DOCKER_HOST = "tcp://192.168.99.100:2376"
-$Env:DOCKER_CERT_PATH = "C:\Users\Calin\.docker\machine\machines\default"
-$Env:DOCKER_MACHINE_NAME = "default"
-# Run this command to configure your shell:
-# & "C:\Program Files\Docker Toolbox\docker-machine.exe" env default | Invoke-Expression
-
-$ & "C:\Program Files\Docker Toolbox\docker-machine.exe" env default | Invoke-Expression
-```
-
-==/Windows==
-
-==Mac==
-
-```bash
-$ docker-machine env default
-export DOCKER_TLS_VERIFY="1"
-export DOCKER_HOST="tcp://192.168.99.100:2376"
-export DOCKER_CERT_PATH="/Users/calin/.docker/machine/machines/default"
-export DOCKER_MACHINE_NAME="default"
-# Run this command to configure your shell:
-# eval "$(docker-machine env default)"
-
-$ eval "$(docker-machine env default)"
-```
-
-==/Mac==
-
-To check if it worked, run:
-
-```sh
-$ docker ps
-CONTAINER ID    IMAGE     COMMAND     CREATED     STATUS     PORTS     NAMES
-```
+See [Docker: Start Docker](docker#start-docker).
 
 ## Start the Site Stacker container
 
