@@ -28,9 +28,14 @@ This guide is intended for OS X and Windows. On Linux the setup is less complex 
 
 Clone sitestacker **into a location in your users directory**. Note that you need to **specify your GitLab user and password in the url**.
 
-The following command clones sitestacker in `~/sitestacker` (don't forget to replace `<user>` and `<pass>` with your own):
+<note>
+Because Docker automatically mounts <code>C:\Users</code> (<code>/Users</code> on OS X) into the VM at <code>/c/Users</code>, you should clone sitestacker somewhere in this path so you can share the directory without any other configuration. See <a href="https://github.com/sitestacker/docs#clone-to-a-different-location">Clone to a different location</a> for a workaround (<i>not recommended</i>).
+</note>
+
+The following command clones sitestacker in `~/sitestacker`:
 
 ```sh
+# don't forget to replace `<user>` and `<pass>` with your own
 git clone https://<user>:<pass>@git.sitestacker.com/sitestacker/sitestacker.git ~/sitestacker
 cd ~/sitestacker
 ```
