@@ -95,9 +95,9 @@ executing 'Console/cake SystemManager.Update'
 
 ## Access Site Stacker
 
-Once the container is started (and Site Stacker was previously cloned and configured) you're successfully running Site Stacker on a [Debian 8 ("jessie")](https://www.debian.org/releases/jessie/) Linux with Apache 2, PHP 5.6.x and MySQL 5.x.
+Once the container is started (and Site Stacker was previously cloned and configured) you're successfully running Site Stacker on a [Debian 8 ("jessie")](https://www.debian.org/releases/jessie/) Linux with Apache 2, PHP 5.6.x, MySQL 5.x and elasticsearch.
 
-You can access Site Stacker from your preferred browser at the VMs IP address `192.168.99.100`. Example:
+You can access Site Stacker from your preferred browser at the [VM's IP address](#vm-ip-address). Example:
 
 - <http://192.168.99.100/admin> Login with `admin@sitestacker.com` - `admin`.
 
@@ -107,7 +107,7 @@ You can access Site Stacker from your preferred browser at the VMs IP address `1
 
 You should configure PhpStorm by following the [Configure PhpStorm](configure-phpstorm) guide. Besides this, to be able to debug the code inside the container you need to configure a server and set the correct mappings in *Settings &gt; Languages & Frameworks &gt; PHP &gt; Servers*.
 
-The host should be `192.168.99.100` and the root should be mapped to `/var/www/html`, as seen in the image below:
+The host should be [`192.168.99.100`](#vm-ip-address) and the root should be mapped to `/var/www/html`, as seen in the image below:
 
 ![PHP Server](https://git.sitestacker.com/sitestacker/docs/uploads/783d5be704495150a8494554c6f7810e/image.png)
 
@@ -126,23 +126,45 @@ You can connect to the database using any MySQL client through TCP/IP (for examp
 
 Property | Value
 ---- | ----
-Hostname / IP | `192.168.99.100`
+Hostname / IP | [`192.168.99.100`](#vm-ip-address)
 User | `root`
 Password | *(leave empty)*
 Port | `3306`
 
+### Connect to elasticsearch
+
+Elasticsearch default port `9200` is exposed to the VM, so you can connect to it using the [VM's IP address](#vm-ip-address), e.g.:
+
+- <http://192.168.99.100:9200>
+
 ### Use custom domains
 
-Instead of using <http://192.168.99.100/>, you can use custom domains by [mapping them](https://en.wikipedia.org/wiki/Hosts_(file)) to the `192.168.99.100` IP in `/etc/hosts` (or `C:\Windows\System32\drivers\etc\hosts` on Windows). An example looks like this:
+Instead of using [http://192.168.99.100/](#vm-ip-address), you can use custom domains by [mapping them](https://en.wikipedia.org/wiki/Hosts_(file)) to the [VM's IP](#vm-ip-address) in `/etc/hosts` (or `C:\Windows\System32\drivers\etc\hosts` on Windows). An example looks like this:
 
 ```
+192.168.99.100   docker
 192.168.99.100   ss.dev
 192.168.99.100   namb.dev
 ```
 
+<tip>
+It is highly recommended to use custom domains instead of the <a href="#vm-ip-address">VM IP address</a> because the IP can change.
+</tip>
+
 ### Use an SQL Server database
 
 The default setup uses a MySQL database, but if you need to use SQL Server see [Connect to SQL Server from Unix](connect-to-sql-server-from-unix).
+
+### VM IP address
+
+By default Docker creates the VM with the IP `192.168.99.100`. However this can change, so you can check the IP using `docker-machine ip`:
+
+```sh
+$ docker-machine ip default
+192.168.99.100
+```
+
+If the IP is different, you should of course change it accordingly anywhere you use it. For this reason it is recommended to use [custom domains](#use-custom-domains).
 
 ### Get access to more powerful `sitestacker` commands
 
