@@ -30,7 +30,7 @@ If you get `An error occurred trying to connect` or similar, you need to make su
 
 *This is only needed on Mac OS X and Windows. Linux users run Docker natively.*
 
-The easiest method is to open **Docker Quickstart Terminal** (:exclamation: On Windows, **run it as Administrator**), which should start the VM automatically and configure your shell.
+The easiest method is to open [**Docker Quickstart Terminal**](#docker-quickstart-terminal) (:exclamation: On Windows, **run it as Administrator**), which should start the VM automatically and configure your shell.
 
 If this doesn't work for some reason, or your prefer to do this manually (maybe to use PowerShell instead of the bash shell on Windows), follow the steps below.
 
@@ -121,3 +121,28 @@ Server:
 ```
 
 On Max OS X and Windows, you can upgrade Docker by re-installing the [Docker Toolbox](https://www.docker.com/products/docker-toolbox).
+
+## Appendix
+
+### Docker Quickstart Terminal
+
+Using **Docker Quickstart Terminal** is the recommended way to use Docker on Windows and Mac OS X. This is because when you open it, it makes sure your VM is running and you can start using `docker` commands.
+
+#### Docker Quickstart Terminal on Windows
+
+On Windows, to make it even easier to work with, configure it to always run as Administrator, so you don't have to do it each time:
+
+![](https://git.sitestacker.com/sitestacker/docs/uploads/03d4bcc861fa7c50cf09018cc136d2a2/start-menu.png)
+![](https://git.sitestacker.com/sitestacker/docs/uploads/699ce3488e5f7da299f339e9052d10a4/properties.png)
+![](https://git.sitestacker.com/sitestacker/docs/uploads/406103e32e79b69396c24fe1f04cc1e6/advanced.png)
+![](https://git.sitestacker.com/sitestacker/docs/uploads/1cf603f3dfa2f417df0e0bd55872c62a/administrator.png)
+
+#### Shortcut `bash.exe` not found
+
+If the **Docker Quickstart Terminal** doesn't start and complains about a missing shortcut, make sure the `Target` field in the shortcut *Properties* has the correct value:
+
+Property | Value
+--- | ---
+`Target` | `C:\Users\USERNAME\AppData\Local\Programs\Git\bin\bash.exe --login -i "C:\Program Files\Docker Toolbox\start.sh"`
+
+_* Replace `USERNAME` with your user._
