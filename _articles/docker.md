@@ -8,6 +8,12 @@ When working on Site Stacker, or any other distributed application, it's a very 
 
 This guide explains how to install and configure your shell to use `docker` commands, especially on Mac OS X and Windows where you need extra steps since Docker only runs on Linux.
 
+If you're a non-technical user interested in learning about Docker, you should read these very explanatory and easy to follow guides, based on your platform:
+
+- [Get Started with Docker for Windows](https://docs.docker.com/windows/)
+- [Get Started with Docker for Mac OS X](https://docs.docker.com/mac/)
+- [Get Started with Docker Engine for Linux](https://docs.docker.com/linux/)
+
 ## Check if Docker is running
 
 In your shell (Terminal, PowerShell, etc.), run:
