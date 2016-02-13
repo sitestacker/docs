@@ -186,9 +186,9 @@ packages/** = refs/remotes/origin/release
 
 ### Deploy branches
 
-On a sandbox installation, it's very common you want to deploy branches instead of tags, so you can quickly test things out without needing to make an official release. To enable this simply toggle the **Is Sandbox?** button in the System Manager *Settings* screen, and make sure you have at least one development branch in the **Branch Filter**.
+On a sandbox installation, it's very common you want to deploy branches instead of tags, so you can quickly test things out without needing to make an official release. To enable this simply toggle the **Is Sandbox?** button in the System Manager *Settings* screen, and make sure your branch is added in the **Branch Filter** field.
 
-You can deploy any branch by adding the appropriate branch filter. [In the example above](#custom-client-installation-filter), the installation that uses the `wycliffe` branch for updates will also see the `master` and `cool-feature` branches as available updates for the core Site Stacker:
+[In the example above](#custom-client-installation-filter), we can deploy `master` and `cool-feature` by adding two new lines in the branch filter field, thus the installation will also receive updates from these 2 branches, for the Site Stacker core repository.
 
 ```
 . = refs/remotes/origin/wycliffe
