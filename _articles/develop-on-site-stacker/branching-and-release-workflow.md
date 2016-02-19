@@ -277,16 +277,20 @@ unreleased change -> *        * <- 1.0.1
 
 To merge your development branch into a release branch, you need to switch to the target branch and then do the merge. This can become a drag, especially when having an unclean working tree.
 
-You can configure a special git alias that will allow you to do the merge without checking out the release branch. Note that this only works when the merge can be done automatically. It doesn't work for merges that require conflict resolution.
+You can configure a special git alias that will allow you to do the merge without checking out the release branch. Note that this **only works when the merge can be done automatically**. It doesn't work for merges that require conflict resolution.
 
 If you do attempt a merge that requires conflict resolution, `git release` will abort the merge and leave your working directory clean, UNLESS the branch you're merging to is the current branch, in which case it will leave the merge in the working directory for you to resolve the conflict and commit, just like `git merge`.
+
+<important>
+You should have at least Git 2.0. Check your current Git version by running <code>git --version</code> in a shell.
+</important>
 
 To configure the alias run the following command in your shell:
 
 ==Block:PowerShell==
 
 ```powershell
-git config --global alias.release '!sh -c ''set -e; targetBranch() { if [ $# -eq 1 ]; then echo $1; else echo $2; fi; }; sourceBranch() { if [ $# -eq 1 ]; then echo $(git symbolic-ref -q --short HEAD); else echo $1; fi; }; targetRemote() { u=$(git rev-parse --abbrev-ref --symbolic-full-name $(targetBranch $@)@{u} 2>/dev/null) || true; if [ $u ]; then echo ${u%/*}; else echo; fi; }; if [ $# -eq 0 ]; then echo error: no target branch given >&2; exit 1; fi; if ! git forward-merge -h &>/dev/null; then bindir=$(dirname $(which git)); echo installing git-forward-merge in $bindir; curl -so $bindir/git-forward-merge https://cdn.rawgit.com/schuyler1d/git-forward-merge/master/git-forward-merge.sh; fi; if ! git forward-merge -h &>/dev/null; then echo error: git-forward-merge failed to install >&2; exit 1; fi; tr=$(targetRemote $@); if [ $tr ]; then echo pull $tr/$(targetBranch $@); git fetch $tr $(targetBranch $@):$(targetBranch $@); fi; echo merge $(sourceBranch $@) into $(targetBranch $@); git forward-merge $(sourceBranch $@) $(targetBranch $@); if [ $tr ]; then echo push $(targetBranch $@); git push $tr $(targetBranch $@) || echo after fixing the problem run: git push $tr $(targetBranch $@); fi;'' -'
+git config --global alias.release '!sh -c ''set -e; targetBranch() { if [ $# -eq 1 ]; then echo $1; else echo $2; fi; }; sourceBranch() { if [ $# -eq 1 ]; then echo $(git symbolic-ref -q --short HEAD); else echo $1; fi; }; targetRemote() { u=$(git rev-parse --abbrev-ref --symbolic-full-name $(targetBranch $@)@{u} 2>/dev/null) || true; if [ $u ]; then echo ${u%/*}; else echo; fi; }; if [ $# -eq 0 ]; then echo error: no target branch given >&2; exit 1; fi; if ! git forward-merge -h &>/dev/null; then bindir=$(dirname $(which git)); echo installing git-forward-merge in $bindir; curloutput=$(curl -vo $bindir/git-forward-merge https://cdn.rawgit.com/schuyler1d/git-forward-merge/master/git-forward-merge.sh); fi; if ! git forward-merge -h &>/dev/null; then echo error: git-forward-merge failed to install >&2; echo $curloutput >&2 ; exit 1; fi; if ! git show-ref --verify --quiet refs/heads/$(targetBranch $@); then echo error: $(targetBranch $@) does not exist locally >&2; exit 1; fi; tr=$(targetRemote $@); if [ $tr ]; then echo pull $tr/$(targetBranch $@); git fetch $tr $(targetBranch $@):$(targetBranch $@); fi; echo merge $(sourceBranch $@) into $(targetBranch $@); git forward-merge $(sourceBranch $@) $(targetBranch $@); if [ $tr ]; then echo push $(targetBranch $@); git push $tr $(targetBranch $@) || echo after fixing the problem run: git push $tr $(targetBranch $@); fi;'' -'
 ```
 
 ==/Block:PowerShell==
@@ -294,14 +298,24 @@ git config --global alias.release '!sh -c ''set -e; targetBranch() { if [ $# -eq
 ==Block:Bash==
 
 ```sh
-git config --global alias.release '!sh -c '"'"'set -e; targetBranch() { if [ $# -eq 1 ]; then echo $1; else echo $2; fi; }; sourceBranch() { if [ $# -eq 1 ]; then echo $(git symbolic-ref -q --short HEAD); else echo $1; fi; }; targetRemote() { u=$(git rev-parse --abbrev-ref --symbolic-full-name $(targetBranch $@)@{u} 2>/dev/null) || true; if [ $u ]; then echo ${u%/*}; else echo; fi; }; if [ $# -eq 0 ]; then echo error: no target branch given >&2; exit 1; fi; if ! git forward-merge -h &>/dev/null; then bindir=$(dirname $(which git)); echo installing git-forward-merge in $bindir; curl -so $bindir/git-forward-merge https://cdn.rawgit.com/schuyler1d/git-forward-merge/master/git-forward-merge.sh; fi; if ! git forward-merge -h &>/dev/null; then echo error: git-forward-merge failed to install >&2; exit 1; fi; tr=$(targetRemote $@); if [ $tr ]; then echo pull $tr/$(targetBranch $@); git fetch $tr $(targetBranch $@):$(targetBranch $@); fi; echo merge $(sourceBranch $@) into $(targetBranch $@); git forward-merge $(sourceBranch $@) $(targetBranch $@); if [ $tr ]; then echo push $(targetBranch $@); git push $tr $(targetBranch $@) || echo after fixing the problem run: git push $tr $(targetBranch $@); fi;'"'"' -'
+git config --global alias.release '!sh -c '"'"'set -e; targetBranch() { if [ $# -eq 1 ]; then echo $1; else echo $2; fi; }; sourceBranch() { if [ $# -eq 1 ]; then echo $(git symbolic-ref -q --short HEAD); else echo $1; fi; }; targetRemote() { u=$(git rev-parse --abbrev-ref --symbolic-full-name $(targetBranch $@)@{u} 2>/dev/null) || true; if [ $u ]; then echo ${u%/*}; else echo; fi; }; if [ $# -eq 0 ]; then echo error: no target branch given >&2; exit 1; fi; if ! git forward-merge -h &>/dev/null; then bindir=$(dirname $(which git)); echo installing git-forward-merge in $bindir; curloutput=$(curl -vo $bindir/git-forward-merge https://cdn.rawgit.com/schuyler1d/git-forward-merge/master/git-forward-merge.sh); fi; if ! git forward-merge -h &>/dev/null; then echo error: git-forward-merge failed to install >&2; echo $curloutput >&2 ; exit 1; fi; if ! git show-ref --verify --quiet refs/heads/$(targetBranch $@); then echo error: $(targetBranch $@) does not exist locally >&2; exit 1; fi; tr=$(targetRemote $@); if [ $tr ]; then echo pull $tr/$(targetBranch $@); git fetch $tr $(targetBranch $@):$(targetBranch $@); fi; echo merge $(sourceBranch $@) into $(targetBranch $@); git forward-merge $(sourceBranch $@) $(targetBranch $@); if [ $tr ]; then echo push $(targetBranch $@); git push $tr $(targetBranch $@) || echo after fixing the problem run: git push $tr $(targetBranch $@); fi;'"'"' -'
 ```
 
 ==/Block:Bash==
 
-Use it like this:
+#### Usage
 
 ```sh
 git release target-branch # uses the current branch as source branch
 git release source-branch target-branch
 ```
+
+#### Test if it's working
+
+You can test if it's working by merging a branch into itself:
+
+```sh
+git release <branch> <branch>
+```
+
+If you get errors like `error: git-forward-merge failed to install` (probably you're on Windows), you'll need to install [git-forward-merge](https://github.com/schuyler1d/git-forward-merge) manually. To easiest method is to download [git-forward-merge.sh](https://cdn.rawgit.com/schuyler1d/git-forward-merge/master/git-forward-merge.sh) and place it somewhere in your PATH, e.g. `C:\Windows\System32\git-forward-merge`. **Make sure you remove the `.sh` extension!**
