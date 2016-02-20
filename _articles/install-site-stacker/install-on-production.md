@@ -68,24 +68,22 @@ and you cannot continue.
 A Site Stacker installation includes the core
 [sitestacker/sitestacker](https://git.sitestacker.com/sitestacker/sitestacker)
 repository and one or many sub-repositories like templates, components and/or
-themes built specifically for that client. The `sitestacker init` command
-will clone all these repositories for you (it's recommended to check the
-command's help first: `sitestacker init -h`).
+themes built specifically for a client. The `sitestacker clone` command
+will clone all these repositories for you (check the command's help first: `sitestacker clone -h`).
 
-You have two options to initialize the sub-repositories:
+You have two options to clone the sub-repositories:
 
-1. Using the `--all-subrepos` flag to initialize *all* sub-repositories the user
-has access to.
+1. Using the `--all-subrepos` flag to clone *all* sub-repositories the user has access to.
 2. Specifying each sub-repository individually, e.g. `templates/Wycliffe`.
 
 Example (you will be prompted to enter the password for the given &lt;user&gt;):
 
 ```sh
 # clone all repos the user has access to:
-$ sitestacker init -u <user> --all-subrepos [<path-to-sitestacker>]
+$ sitestacker clone -u <user> --all-subrepos [<path-to-sitestacker>]
 
 # or specify sub-repositories individually:
-$ sitestacker init -u <user> <subrepo>... [<path-to-sitestacker>]
+$ sitestacker clone -u <user> <subrepo>... [<path-to-sitestacker>]
 ```
 
 Where:
@@ -105,13 +103,13 @@ Clone Site Stacker at `C:\inetpub\wwwroot\sitestacker` with *all*
 sub-repositories the user has access to:
 
 ```powershell
-$ sitestacker init -u namb --all-subrepos C:\inetpub\wwwroot\sitestacker
+$ sitestacker clone -u namb --all-subrepos C:\inetpub\wwwroot\sitestacker
 Password: *******
-sitestacker initialized successfully at 'C:\inetpub\wwwroot\sitestacker'
-'packages/templates/NAMBContributions' initialized successfully
-'packages/templates/NAMB' initialized successfully
-'packages/templates/MobilizeMe' initialized successfully
-'packages/components/GenSend' initialized successfully
+sitestacker cloned successfully at C:\inetpub\wwwroot\sitestacker
+templates/NAMBContributions clone successfully at packages/templates/NAMBContributions
+templates/NAMB clone successfully at packages/templates/NAMB
+templates/MobilizeMe clone successfully at packages/templates/MobilizeMe
+components/GenSend clone successfully at packages/components/GenSend
 ```
 
 #### Example 2
@@ -119,17 +117,17 @@ sitestacker initialized successfully at 'C:\inetpub\wwwroot\sitestacker'
 Clone Site Stacker at `/Users/myuser/Sites/sitestacker` with 2 subrepos:
 
 ```sh
-$ sitestacker init -u namb templates/NAMB components/GenSend /Users/myuser/Sites/sitestacker
+$ sitestacker clone -u namb templates/NAMB components/GenSend /Users/myuser/Sites/sitestacker
 Password: *******
-sitestacker initialized successfully at '/Users/myuser/Sites/sitestacker'
-'packages/templates/NAMB' initialized successfully
-'packages/components/GenSend' initialized successfully
+sitestacker cloned successfully at /Users/myuser/Sites/sitestacker
+templates/NAMB clone successfully at packages/templates/NAMB
+components/GenSend clone successfully at packages/components/GenSend
 ```
 
 <tip>
-You can use the <code>sitestacker init</code> command at any time <i>in a Site Stacker
+You can use the <code>sitestacker clone</code> command at any time <i>in a Site Stacker
 installation</i> to clone any sub-repository(ies) you want, by running
-something like <code>sitestacker init templates/Wycliffe [components/GenSend ...]</code>.
+something like <code>sitestacker clone templates/Wycliffe [components/GenSend ...]</code>.
 </tip>
 
 ### Server Requirements
@@ -151,7 +149,7 @@ You need to provide a URL where the Site Stacker installation can be accessed.
 
 ### Checkout a different branch
 
-The `sitestacker init` command will clone and point the repositories to their default branch, which is `master` in most cases. However you might need to change this, maybe you want to point them to a tag or to a release branch.
+The `sitestacker clone` command will clone and point the repositories to their default branch, which is `master` in most cases. However you might need to change this, maybe you want to point them to a tag or to a release branch.
 
 You can do this using the `sitestacker checkout` command. See the command help with `sitestacker checkout -h` for possible usages.
 
@@ -229,7 +227,7 @@ two of the [sub-repositories the user has access to](https://git.sitestacker.com
 and [components/GenSend](https://git.sitestacker.com/components/GenSend).
 
 Since IIS doesn't let you create a site without the path existing,
-we need to create it after we've run the `sitestacker init` command,
+we need to create it after we've run the `sitestacker clone` command,
 and point it to `C:\inetput\wwwroot\sitestacker\webroot`, accessible
 at <http://localhost>.
 
@@ -249,12 +247,12 @@ Following are all the commands for this installation (including the output):
 $ sitestacker -v
 sitestacker version x.x.x
 
-# initialize Site Stacker and two subrepos for the 'namb' user
-$ sitestacker init -u namb templates/MobilizeMe components/GenSend C:\inetput\wwwroot\sitestacker
+# clone Site Stacker and two subrepos for the 'namb' user
+$ sitestacker clone -u namb templates/MobilizeMe components/GenSend C:\inetput\wwwroot\sitestacker
 Password: *******
-sitestacker initialized successfully at 'C:\inetpub\wwwroot\sitestacker'
-'packages/components/GenSend' initialized successfully
-'packages/templates/MobilizeMe' initialized successfully
+sitestacker cloned successfully at C:\inetpub\wwwroot\sitestacker
+components/GenSend cloned successfully at packages/components/GenSend
+templates/MobilizeMe cloned successfully at packages/templates/MobilizeMe
 
 $ cd C:\inetput\wwwroot\sitestacker
 
@@ -325,14 +323,14 @@ Following are all the commands for this installation (including the output):
 $ sitestacker -v
 sitestacker version x.x.x
 
-# initialize all Site Stacker repos for the 'namb' user
-$ sitestacker init -u namb --all-subrepos /Users/user/Sites/sitestacker
+# clone all Site Stacker repos for the 'namb' user
+$ sitestacker clone -u namb --all-subrepos /Users/user/Sites/sitestacker
 Password: *******
-sitestacker initialized successfully at '/Users/user/Sites/sitestacker'
-'packages/templates/NAMBContributions' initialized successfully
-'packages/templates/NAMB' initialized successfully
-'packages/templates/MobilizeMe' initialized successfully
-'packages/components/GenSend' initialized successfully
+sitestacker cloned successfully at /Users/user/Sites/sitestacker
+templates/NAMBContributions cloned successfully at packages/templates/NAMBContributions
+templates/NAMB cloned successfully at packages/templates/NAMB
+templates/MobilizeMe cloned successfully at packages/templates/MobilizeMe
+components/GenSend cloned successfully at packages/components/GenSend
 
 $ cd /Users/user/Sites/sitestacker
 
