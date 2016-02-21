@@ -1,3 +1,9 @@
+---
+---
+body.pushable.sidebar-on {
+    overflow: visible;
+}
+
 /* Set the semantic font (Lato) for everything (overwrite GitHub's font) */
 .markdown-body {
     font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
@@ -54,6 +60,31 @@
 }
 .page-title > .ui.header .sub.header > span:not(:last-child) {
     margin-right: 1.5em;
+}
+
+/* Since the header is fixed, we need to account for it here */
+.markdown-body h1:before,
+.markdown-body h2:before,
+.markdown-body h3:before,
+.markdown-body h4:before,
+.markdown-body h5:before,
+.markdown-body h6:before {
+    content: "";
+    display: block;
+    height: 50px;
+    margin: -50px 0 0;
+}
+.pusher {
+    margin-top: 50px;
+    z-index: auto !important;
+}
+
+/* Fix search field border 1px left and right */
+.ui.menu.search-menu {
+    border-left: 0px !important;
+    border-right: 0px !important;
+    width: 100% !important;
+    max-width: 100% !important;
 }
 
 /* Don't remove the margin left/right for the search container */

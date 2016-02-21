@@ -1,10 +1,14 @@
 ---
 layout: base
 ---
-
+{% include header.html %}
 <div class="pusher">
     <div>
-        {% include header.html %}
+        <div class="ui menu borderless attached large one item search-menu">
+            <div class="ui container">
+                {% include search-field.html transparent=1 %}
+            </div>
+        </div>
 
         <div class="ui main container">
             {{ content }}
