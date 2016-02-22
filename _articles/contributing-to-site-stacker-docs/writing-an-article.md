@@ -224,14 +224,14 @@ To link to [Article Header](#article-header), use:
 
 #### Link to other pages
 
-To link to other pages that are not articles, you need to enter the entire
-url without the domain, beginning with a `/` (slash).
+To link to other pages that are not articles, you need to use an absolute url prefixed with `{% raw %}{{ site.github.url }}{% endraw %}`.
 
-To link to the [Writing on Site Stacker Docs](/categories/writing-on-site-stacker-docs)
-category page, use:
+For example, to link to the [Contributing to Site Stacker Docs]({{ site.github.url }}/categories/contributing-to-site-stacker-docs) category page, use:
 
 ```
-[Writing on Site Stacker Docs](/categories/writing-on-site-stacker-docs)
+{% raw %}
+[Contributing to Site Stacker Docs]({{ site.github.url }}/categories/contributing-to-site-stacker-docs)
+{% endraw %}
 ```
 
 ### Images
