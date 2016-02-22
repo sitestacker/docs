@@ -1,5 +1,3 @@
----
----
 $(document).ready(function(){
     var $markdownBody = $('.markdown-body');
     var $anchors = $markdownBody.find('h1[class!="page-title"], h2[class!="page-title"], h3[class!="page-title"]');
@@ -13,7 +11,7 @@ $(document).ready(function(){
 
     $(document.body).addClass('sidebar-on');
 
-	$('<a/>').addClass('icon item show-nav hide-on-desktop').html('<i class="content icon large"></i>').prependTo('header.ui.inverted .container');
+	$('<a/>').addClass('icon item show-nav hide-on-desktop').html('<i class="content icon large"></i>').prependTo('header .ui.inverted .container');
 
     var navButtonHtml = '<i class="content icon"></i><span class="text">Quick Nav</span>';
 
@@ -43,8 +41,8 @@ $(document).ready(function(){
 	// initialize sidebar
     $sideBar.sidebar({
         dimPage: false,
-        transition: 'push',
-        mobileTransition: 'push',
+        // transition: 'overlay',
+        // mobileTransition: 'overlay',
 	    duration: 30,
 	    onVisible: function(){
 		    //$sideBarMenu.find('a.active').addClass('focused');
