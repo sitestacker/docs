@@ -80,7 +80,7 @@ excerpt: Developer guides and resources
             {% for category in categories.docs %}
             <div class="item">
                 <div class="content">
-                    <a class="header" href="{{ "/categories/" | prepend: site.baseurl }}{{ category.title | slugify }}">{{ category.title }}</a>
+                    <a class="header" href="{{ "/categories/" | prepend: site.github.url }}{{ category.title | slugify }}">{{ category.title }}</a>
                     <div class="ui fitted divider"></div>
                     {% include category.html category=category.title %}
                 </div>

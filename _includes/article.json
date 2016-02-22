@@ -2,7 +2,7 @@
     "url": "{{ article.url | replace:'.html' }}",
     "title": "{{ article.title }}",
     "category": "{{ article.category }}",
-    "category_url": "{{ '/categories/' | prepend: site.baseurl }}{{ article.category | slugify }}",
+    "category_url": "{{ '/categories/' | prepend: site.github.url }}{{ article.category | slugify }}",
     "tags": "{{ article.tags | strip_newlines | remove:'"' | strip }}",
     "body": "{% include sanitize.html content=article.content %}"
 }

@@ -3,7 +3,7 @@
     {% if parts[1] == "categories" %}
     <div class="section">Categories</div>
     {% else %}
-    <a class="section" href="{{ "/categories/" | prepend: site.baseurl }}{{ page.category | slugify }}">{{ page.category }}</a>
+    <a class="section" href="{{ "/categories/" | prepend: site.github.url }}{{ page.category | slugify }}">{{ page.category }}</a>
     {% endif %}
     <span class="divider">/</span>
     <div class="active section">{{ page.title }}</div>

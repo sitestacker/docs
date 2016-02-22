@@ -4,8 +4,8 @@
     <div class="item">
         <i class="right triangle icon"></i>
         <div class="content">
-            <a href="{{ "/articles/" | prepend: site.baseurl }}{{ article.title | slugify }}">{{ article.title }}</a>
-            <a class="comments-link" href="{{ "/articles/" | prepend: site.baseurl | prepend: site.github.url }}{{ article.title | slugify }}#disqus_thread"></a>
+            <a href="{{ "/articles/" | prepend: site.github.url }}{{ article.title | slugify }}">{{ article.title }}</a>
+            <a class="comments-link" href="{{ "/articles/" | prepend: site.github.url }}{{ article.title | slugify }}#disqus_thread"></a>
         </div>
     </div>
     {% endfor %}

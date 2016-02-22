@@ -10,16 +10,16 @@
 
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.css">
     <link rel="stylesheet" href="//rawgit.com/sindresorhus/github-markdown-css/gh-pages/github-markdown.css">
-    <link rel="stylesheet" href="{{ "/assets/css/semantic.css" | prepend: site.baseurl }}">
-    <link rel="stylesheet" href="{{ "/assets/css/boxes.css" | prepend: site.baseurl }}">
-    <link rel="stylesheet" href="{{ "/assets/css/syntax.css" | prepend: site.baseurl }}">
+    <link rel="stylesheet" href="{{ "/assets/css/semantic.css" | prepend: site.github.url }}">
+    <link rel="stylesheet" href="{{ "/assets/css/boxes.css" | prepend: site.github.url }}">
+    <link rel="stylesheet" href="{{ "/assets/css/syntax.css" | prepend: site.github.url }}">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.github.url }}">
+    <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.github.url }}">
 
     <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <script src="{{ site.baseurl }}/assets/js/respond.min.js"></script>
+    <script src="{{ site.github.url }}/assets/js/respond.min.js"></script>
     <![endif]-->
     {% include analytics.html %}
 </head>
@@ -32,8 +32,8 @@
     <script src="//rawgit.com/dennyferra/TypeWatch/master/jquery.typewatch.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/lunr.js/0.6.0/lunr.min.js"></script>
-    <script src="{{ "/assets/js/utils.js" | prepend: site.baseurl }}"></script>
-    <script src="{{ "/assets/js/search.js" | prepend: site.baseurl }}"></script>
+    <script src="{{ "/assets/js/utils.js" | prepend: site.github.url }}"></script>
+    <script src="{{ "/assets/js/search.js" | prepend: site.github.url }}"></script>
     <script id="dsq-count-scr" src="//sitestacker.disqus.com/count.js" async></script>
 </body>
 </html>
