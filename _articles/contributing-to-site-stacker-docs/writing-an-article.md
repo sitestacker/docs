@@ -93,7 +93,7 @@ thing you need to do, which is to *add the new category file* (see below).
 #### Adding a new category
 
 Each category has its own page (e.g.
-[Writing on Site Stacker Docs]({{ site.url }}/categories/{{ "Writing on Site Stacker Docs" | slugify }})
+[Writing on Site Stacker Docs]({{ site.github.url }}/categories/{{ "Writing on Site Stacker Docs" | slugify }})
 ). If you want to add a new category, you need to create a new file named
 using the same rules as the [article file name](#article-file-name-rule),
 but with the `.html` extension, in the
@@ -250,4 +250,4 @@ See [Markdown Elements #Images](markdown-elements#images) for the syntax to
 include images.
 
 [^slug]: [What is a "slug" in Django?](http://stackoverflow.com/questions/427102/what-is-a-slug-in-django)
-[^existing-category]: You can find all existing categories on the [site homepage]({{ site.url }})
+[^existing-category]: You can find all existing categories on the [site homepage]({{ site.github.url }})

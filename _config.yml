@@ -23,13 +23,6 @@ defaults:
 
 title: Site Stacker Documentation
 
-# When using this template with a project page set the baseurl to '/project-name'
-# For user/organization pages set this to an empty string
-# When working locally use jekyll serve --baseurl '' so that you can view everything at localhost:4000
-# See http://jekyllrb.com/docs/github-pages/ for more info
-baseurl: ''
-url: "http://docs.sitestacker.com" # the base hostname & protocol for your site
-
 kramdown:
   input: GFM
   hard_wrap: false # this should be removed (default is true) to work the same as on GitHub Pages
@@ -37,4 +30,5 @@ kramdown:
 gems:
   - jemoji
   - jekyll-redirect-from
+  - jekyll-sitemap
   - octopress-debugger

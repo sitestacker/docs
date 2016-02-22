@@ -1,2 +1,2 @@
-repourl: "https://github.com/sitestacker/docs"
-editurl: "https://github.com/sitestacker/docs/edit/gh-pages/" # where edits happen
+repourl: {{ site.github.repository_url }}
+editurl: "{{ site.data.github.repourl }}/edit/gh-pages/" # where edits happen
