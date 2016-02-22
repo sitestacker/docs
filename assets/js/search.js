@@ -1,3 +1,5 @@
+---
+---
 (function() {
 
   // initialize
@@ -18,7 +20,7 @@
 
   // load data and add to index
 
-  $.get('/json/articles.json', function(data) {
+  $.get('{{ site.github.url }}/json/articles.json', function(data) {
     data.forEach(function(obj) {
       index.add(obj);
     });
@@ -31,7 +33,7 @@
 
     var shouldTriggerSearch = function(e) {
       var code = e.which;
-      
+
       return !e.metaKey && !e.altKey && !e.ctrlKey && !e.shiftKey && (code >= 65 && code <= 90 /* a-zA-Z */ ||
         code >= 48 && code <= 57 /* 0-9 */ ||
         code == 191 /* '/' */);
@@ -49,7 +51,7 @@
         }
       } else {
         if (e.which == 13 && searchField.val()) {
-          location.href = '/search/?q=' + searchField.val();
+          location.href = '{{ site.github.url }}/search/?q=' + searchField.val();
         }
       }
     });
@@ -73,7 +75,7 @@
               // Add 'See more results' and break
               results[maxResults-1] = {
                 title: '<span style="color:grey; font-weight:normal;">See more results</span>',
-                url: '/search/?q=' + query
+                url: '{{ site.github.url }}/search/?q=' + query
               };
               break;
             }
