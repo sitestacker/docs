@@ -1,3 +1,5 @@
+---
+---
 /* Set the semantic font (Lato) for everything (overwrite GitHub's font) */
 .markdown-body {
     font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
@@ -55,6 +57,14 @@
 .page-title > .ui.header .sub.header > span:not(:last-child) {
     margin-right: 1.5em;
 }
+
+/* Fix menu border 1px left and right */
+header > .ui.menu.borderless {
+    border-left: 0px !important;
+    border-right: 0px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+ }
 
 /* Don't remove the margin left/right for the search container */
 @media only screen and (max-width: 767px) {
