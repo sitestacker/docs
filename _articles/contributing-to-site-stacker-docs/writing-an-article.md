@@ -6,7 +6,7 @@ readtime: 5
 ---
 
 Articles are the most important content and each article represents a page.
-They are located in the [_articles/]({{ site.data.github.repourl }}/tree/gh-pages/_articles)
+They are located in the [_articles/]({{ site.github.repository_url }}/tree/gh-pages/_articles)
 directory and are written in Markdown.
 
 An article is comprised of two things:
@@ -44,12 +44,12 @@ it's *highly recommended to set all the fields*.
 <important>
 <title>Article title should be unique!</title>
 Every article title should be unique throughout the entire site, even if the
-file is added in a subdirectory in <a href="{{ site.data.github.repourl }}/tree/gh-pages/_articles">_articles/</a>.
+file is added in a subdirectory in <a href="{{ site.github.repository_url }}/tree/gh-pages/_articles">_articles/</a>.
 </important>
 
 #### Article file
 
-The title dictates the name of the article's file in [_articles/]({{ site.data.github.repourl }}/tree/gh-pages/_articles).
+The title dictates the name of the article's file in [_articles/]({{ site.github.repository_url }}/tree/gh-pages/_articles).
 The file name is a slug[^slug] of the title, suffixed with the `.md` extension.
 
 ##### Article file name rule
@@ -72,7 +72,7 @@ Ask Questions !!! | {{ "Ask Questions !!!" | slugify }}.md
 No more `system_repository.xml` | {{ "No more `system_repository.xml`" | slugify }}.md
 
 <note>
-The article file can be placed directly in the <a href="{{ site.data.github.repourl }}/tree/gh-pages/_articles">_articles/</a>
+The article file can be placed directly in the <a href="{{ site.github.repository_url }}/tree/gh-pages/_articles">_articles/</a>
 folder, or inside another directory. The extra directory it's only for
 organization purposes and can have any name, but it's recommended to name
 it by its category slug, as the <a href="#article-file-name-rule">article file name</a>.
@@ -97,7 +97,7 @@ Each category has its own page (e.g.
 ). If you want to add a new category, you need to create a new file named
 using the same rules as the [article file name](#article-file-name-rule),
 but with the `.html` extension, in the
-[_categories/]({{ site.data.github.repourl }}/tree/gh-pages/_categories) folder.
+[_categories/]({{ site.github.repository_url }}/tree/gh-pages/_categories) folder.
 
 Examples:
 
