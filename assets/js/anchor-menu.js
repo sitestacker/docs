@@ -1,3 +1,5 @@
+---
+---
 $(document).ready(function(){
     var $markdownBody = $('.markdown-body');
     var $anchors = $markdownBody.find('h1[class!="page-title"], h2[class!="page-title"], h3[class!="page-title"]');
@@ -11,11 +13,16 @@ $(document).ready(function(){
 
     $(document.body).addClass('sidebar-on');
 
-	$('<a/>').addClass('icon item show-nav hide-on-desktop').html('<i class="content icon large"></i>').prependTo('header .ui.inverted .container');
-
     var navButtonHtml = '<i class="content icon"></i><span class="text">Quick Nav</span>';
 
     var $stickyButton = $('<div/>').addClass('ui black big show-nav right attached fixed button hide-on-mobile').html(navButtonHtml).prependTo('body');
+
+    var $btnGroup = $('<div/>').addClass('ui icon secondary big buttons').css({position:'fixed',left:10,bottom:30,zIndex:2}).appendTo('body');
+    if (!isMobile()) {
+        // $('<a/>').addClass('ui button').attr('href', '{{site.github.url }}/').html('<i class="icon home"></i>').appendTo($btnGroup);
+        // $btnGroup.addClass('vertical');
+    }
+    var $menuOpener = $('<a/>').addClass('ui show-nav button').html('<i class="icon content"></i>').appendTo($btnGroup);
 
     var $sideBar = $('<div/>').addClass('ui vertical sidebar inverted menu left nav-panel borderless');
 
@@ -47,16 +54,22 @@ $(document).ready(function(){
 	    onVisible: function(){
 		    //$sideBarMenu.find('a.active').addClass('focused');
             $stickyButton.hide();
+            $btnGroup.css('visibility', 'hidden');
 	    },
 	    onHidden: function(){
 		    $sideBarMenu.find('a').removeClass('focused');
             $stickyButton.show();
+            $btnGroup.css('visibility', 'visible');
 	    }
     });
 
 	// handle events
     $sideBar.sidebar('attach events', '.show-nav');
     $(document).on('keydown', function(e) {
+        if (e.which == 36 /* HOME */) {
+            window.location = '{{ site.github.url }}/';
+            return;
+        }
         if(!$sideBar2.is(':visible') && e.which == 190){
             $sideBar.sidebar('toggle');
         }

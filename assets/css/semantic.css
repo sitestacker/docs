@@ -219,7 +219,7 @@ a.comments-link:hover {
     }
 }
 @media only screen and (min-width: 1280px) {
-    .show-nav {
+    body > .buttons {
         display: none !important; /* don't show the QuickNav button if sidebar is on */
     }
 }
@@ -249,4 +249,12 @@ a.comments-link:hover {
 /* OS buttons */
 .markdown-body .ui.buttons {
     margin-bottom: 16px;
+}
+
+body > .buttons {
+    opacity: 0.7;
+    transition: opacity 0.3s ease-in-out;
+}
+body > .buttons:hover {
+    opacity: 1;
 }
