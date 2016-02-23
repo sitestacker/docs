@@ -146,39 +146,6 @@ a.comments-link:hover {
     margin-bottom:0.2em;
 }
 
-/*position nav button*/
-.ui.right.attached.button.show-nav {
-    position: fixed;
-    top: 100px;
-    left: 0;
-    width: 40px;
-    white-space: nowrap;
-    overflow: hidden;
-    -webkit-transition: 0.3s width ease, 0.5s transform ease;
-    -moz-transition: 0.3s width ease, 0.5s transform ease;
-    -o-transition: 0.3s width ease, 0.5s transform ease;
-    -ms-transition: 0.3s width ease, 0.5s transform ease;
-    transition: 0.3s width ease, 0.5s transform ease;
-}
-.ui.right.attached.button.show-nav:hover {
-    width: 150px;
-}
-.ui.right.attached.button.show-nav .text {
-    position: absolute;
-    white-space: nowrap;
-    top: auto;
-    left: 45px;
-    opacity: 0;
-    -webkit-transition: 0.3s opacity 0.3s;
-    -moz-transition: 0.3s opacity 0.3s;
-    -o-transition: 0.3s opacity 0.3s;
-    -ms-transition: 0.3s opacity 0.3s;
-    transition: 0.3s opacity 0.3s;
-}
-.ui.right.attached.button.show-nav:hover .text {
-    opacity: 1;
-}
-
 /*sidebar items focused class and indents*/
 .ui.inverted.menu a.item.focused {
 	background: rgba(255, 255, 255, 0.08);

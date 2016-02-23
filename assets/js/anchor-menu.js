@@ -13,10 +13,6 @@ $(document).ready(function(){
 
     $(document.body).addClass('sidebar-on');
 
-    var navButtonHtml = '<i class="content icon"></i><span class="text">Quick Nav</span>';
-
-    var $stickyButton = $('<div/>').addClass('ui black big show-nav right attached fixed button hide-on-mobile').html(navButtonHtml).prependTo('body');
-
     var $btnGroup = $('<div/>').addClass('ui icon secondary big buttons').css({position:'fixed',left:10,bottom:30,zIndex:2}).appendTo('body');
     if (!isMobile()) {
         // $('<a/>').addClass('ui button').attr('href', '{{site.github.url }}/').html('<i class="icon home"></i>').appendTo($btnGroup);
@@ -53,12 +49,10 @@ $(document).ready(function(){
 	    duration: 30,
 	    onVisible: function(){
 		    //$sideBarMenu.find('a.active').addClass('focused');
-            $stickyButton.hide();
             $btnGroup.css('visibility', 'hidden');
 	    },
 	    onHidden: function(){
 		    $sideBarMenu.find('a').removeClass('focused');
-            $stickyButton.show();
             $btnGroup.css('visibility', 'visible');
 	    }
     });
