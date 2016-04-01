@@ -69,7 +69,7 @@ Either:
    * php_soap
    * php_sockets
    * php_mbstring (this is needed by CakePdf)
-   * php_openssl
+   * php_openssl (with TLS v1.2)
 * Settings:
    * short_open_tag=On
    * allow_url_fopen=On
