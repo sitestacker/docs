@@ -59,3 +59,23 @@ important {
 important:after {
     content: "\f06a";
 }
+
+/* New Boxes */
+
+blockquote.box {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    color: #000;
+}
+blockquote.important {
+    background-color: rgba(234,122,111,0.15);
+    border-left-color: rgba(211,87,73,0.25);
+}
+blockquote.tip {
+    background-color: rgba(100,53,201,0.1);
+    border-left-color: rgba(100,53,201,0.2);
+}
+blockquote.note {
+    background-color: rgba(0,0,0,0.05);
+    border-left-color: rgba(0,0,0,0.15);
+}
