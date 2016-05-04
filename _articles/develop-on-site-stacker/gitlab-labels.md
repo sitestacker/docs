@@ -1,7 +1,7 @@
 ---
 title: GitLab Labels
 category: Develop on Site Stacker
-date: 2016-04-21 00:00:00
+date: 2016-05-04 00:00:00
 readtime: 2
 ---
 
@@ -13,31 +13,35 @@ Site Stacker uses several [label categories](https://git.sitestacker.com/admin/l
 
 Most of the work can be categorized into 3 main types, which are described by the type labels.
 
-#### `type:feature`
+#### `type/feature`
 
 The issue is a request for new functionality including changes, enhancements, refactors, etc.
 
-#### `type:bug`
+#### `type/bug`
 
 The issue documents broken, incorrect, or confusing behavior.
 
-#### `type:question`
+#### `type/question`
 
 The issue is more of a question than a request for new features or a report of broken features, but can sometimes lead to further discussion or changes of confusing or incongruous behavior or documentation.
+
+#### `type/test`
+
+The issue is related to a (unit) test.
 
 ### Priority
 
 Priority labels specify the priority an issue should be handled by. There are just 3 priority types.
 
-#### `priority:critical`
+#### `priority/critical`
 
 The issue should be fixed right now.
 
-#### `priority:high`
+#### `priority/high`
 
 The issue should be fixed asap.
 
-#### `priority:low`
+#### `priority/low`
 
 The issue is not a high priority one and can be handled later. This label allows issues to be documented without the need of working on them immediately.
 
@@ -45,15 +49,15 @@ The issue is not a high priority one and can be handled later. This label allows
 
 Value labels describe who's benefiting from the issue. This helps scheduling issues better.
 
-#### `value:client`
+#### `value/client`
 
 The issue will benefit the client.
 
-#### `value:admin`
+#### `value/admin`
 
 The issue will benefit admin users. Sometimes admin users are not necessarily the client.
 
-#### `value:developer`
+#### `value/developer`
 
 The issue will benefit developers.
 
@@ -61,15 +65,15 @@ The issue will benefit developers.
 
 These labels offer a rough estimate on the change involved.
 
-#### `change:minor(<2hrs)`
+#### `change/minor(<2hrs)`
 
 The issue usually takes a couple of hours or less.
 
-#### `change:medium(<1day)`
+#### `change/medium(<1day)`
 
 The issue takes less than a day, but it's not a quick fix.
 
-#### `change:major(>1day)`
+#### `change/major(>1day)`
 
 The issue involves major changes and takes more than 1 day.
 
