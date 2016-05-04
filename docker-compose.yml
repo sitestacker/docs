@@ -1,7 +1,9 @@
-docs:
-  build: .
-  container_name: sitestacker-docs
-  ports:
-    - "4000:4000"
-  volumes:
-    - .:/usr/src/app
+version: '2'
+services:
+  docs:
+    build: .
+    container_name: sitestacker-docs
+    ports:
+      - "4000:4000"
+    volumes:
+      - .:/usr/src/app
