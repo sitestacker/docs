@@ -52,7 +52,7 @@ The user used to connect to the database server needs the following access:
 - Server Roles (server-wide security privileges): `bulkadmin`, `dbcreator`
 - User Mapping (database role membership): `db_owner` (on the designated database)
 
-If `dbcreator` cannot be granted, a second (empty) database called `sitestacker_test` needs to be created and the user should be a `db_owner` on that database as well.
+If `dbcreator` cannot be granted, a second (empty) database called `sitestacker_test` needs to be created and the user should be a `db_owner` on that database.
 
 
 ### 6. PHP
