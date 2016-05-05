@@ -1,5 +1,5 @@
 ---
-title: Release and QA Process
+title: Release Process
 category: Develop on Site Stacker
 date: 2016-02-17 00:00:00
 readtime: 5
