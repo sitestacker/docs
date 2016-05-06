@@ -1,30 +1,25 @@
 ---
 title: Release Process
 category: Develop on Site Stacker
-date: 2016-02-17 00:00:00
+date: 2016-05-06 00:00:00
 readtime: 5
 ---
 
-This guide is for both developers and non-technical users who are involved in the Release and Quality Assurance Process. It explains:
+This guide is for developers and non-technical users alike who are involved in the Release Process and explains:
 
 - what a typical Site Stacker setup looks like
 - how changes flow from development to release branches
-- how changes are pushed to a development environment
+- how changes are pushed to a sandbox environment
 - how to create releases and add information for the client
 - how to install and test new releases on a test environment
 - how to edit the release notes for an existing release
-- how to push releases to production
 
 ## Prerequisites
 
-This guide assumes all repositories and servers involved were properly configured by a developer. This includes:
+First of all, you should be familiar with the [Branching and Release Workflow](branching-and-release-workflow) guide. Also this guide assumes all repositories and servers involved were properly configured by a developer. This includes:
 
-- repositories have at least one release branch available (e.g. `release`, a client-specific branch)
-- System Manager *Settings* are configured to track **only one release branch** and no other branches in *Branch Filter* and *Is Sandbox* is ON only on the development server
-
-Detailed information about this is available in the [Branching and Release Workflow](branching-and-release-workflow) guide.
-
-*Make sure these prerequisites are met before continuing.*
+- all repositories have at least one release branch (e.g. `2.5`)
+- System Manager is configured correctly to track a release branch and **Is Sandbox** is ON *only* on the development server
 
 ## A typical Site Stacker setup
 
@@ -34,93 +29,82 @@ A typical Site Stacker setup includes 3 servers:
 2. Test (Staging) Server *(optional)*
 3. Production Server
 
-and 2 release branches:
+In this guide we'll assume the latest release branch is `2.5`, however it can be replaced verbatim with any other release branch.
 
-1. `release-test` *(optional)*
-2. `release`
+All servers use the `2.5` branch to get the updates from, in System Manager. So the Branch Filter looks like this:
 
-In this guide we'll assume our release branch is called `release`, however it can be replaced verbatim with any other client-specific release branch.
+![System Manager Settings](https://git.sitestacker.com/sitestacker/docs/uploads/e4c099dc0aa22073d183ce6fbdb73922/image.png)
 
-The development and test servers should be configured to use the `release-test` branch and the production server should use `release`. If `release-test` doesn't exist, all servers should use `release`.
+The only difference is the development server, which has **Is Sandbox** turned ON.
 
-![SS Branching Flow](https://git.sitestacker.com/sitestacker/docs/uploads/56f5d9bc7e64b8a6bc4a021485f2b0a4/SS_Branching_Flow.jpg)
+### Changes Flow
 
-The above image shows how changes flow from development branches (e.g. `master`) to the two release branches we have.
+The following image shows how changes get from development branches (e.g. `master`) into release branches:
+
+![SS Branching Flow](https://git.sitestacker.com/sitestacker/docs/uploads/e2baf71cb633fe3c357feee84e511cb6/branch-flow.jpg)
 
 ## Development (Sandbox) Server
 
-Developers are responsible for making available the changes they work on by merging in development branches into release branches. In our example, development branches are usually merged into `master` and `master` is periodically merged into `release-test`.
+Developers are responsible for making available the changes they work on by merging in development branches into release branches. In our example, development branches are merged into `master` as features are ready for production and `master` is merged into `2.5` to make the changes available.
 
-After new changes are pushed into a release branch, the development server can be updated by QA people right away.
+After the changes are pushed into a release branch, they become available immediately on the development server.
 
 ![Dev Update](https://git.sitestacker.com/sitestacker/docs/uploads/7ad609a2188e9930159cf07628670642/image.png)
 
 ### Create release
 
-Once you're satisfied with the changes, you can create a release.
-
-<important>
-Before creating a release, make sure you're not on a development branch. The easiest way is to check the <b>Branch Filter</b> field in System Manager <i>Settings</i>. If you're unsure, ask a developer.
-</important>
-
-The easiest way to create a release is from System Manager on the development server, using the *Create release* button:
+Once you're satisfied with the changes, you can create a release. The easiest way is from System Manager on the development server, using the **Create release** button:
 
 ![Create Release](https://git.sitestacker.com/sitestacker/docs/uploads/625cf92fae65929ef4b9291c26ff0316/create-release.png)
 
-<note>
-When you create a release in this way, you can be sure that the release will only contain the changes that were already updated on this server, and nothing else.
-</note>
+> Note: When you create a release in this way, you can be sure that the release will only contain the changes that were already installed on this server, and nothing else.
 
-If you don't use the *Create release* button in System Manager you'll have to enter the commit hash manually in the *Create from* field in GitLab, which will require a developer to do this.
+If you don't use the **Create release** button from System Manager, you'll have to enter the commit hash manually in the *Create from* field in GitLab, which will require a developer to do this.
 
-#### New Tag
+#### Create a release in GitLab
+
+After clicking on **Create Release** button in System Manager, you'll be taken to the **New Tag** screen in GitLab where you should enter:
+
+- **Tag name** (see [Release naming convention](branching-and-release-workflow#release-naming-convention))
+- **Message** (see below)
 
 ![New Tag](https://git.sitestacker.com/sitestacker/docs/uploads/104e0d42e3e0b2183568090bcff15817/image.png)
-
-You'll be taken to the *New Tag* screen in GitLab where you should enter:
-
-- the **Tag name** (see [Release naming convention](branching-and-release-workflow#release-naming-convention))
-- the **Message** (see below)
 
 Note that the *Release notes* section is ignored because that information is only stored in GitLab's database.
 
 #### Release message
 
-The release message is [what the client sees](#test-staging-server) when they update to a release. It should contain all the information relevant to that release, including major changes and fixes, references to any external materials, etc. so the client knows what to expect when updating. This information should begin at the previous release (tag).
+The release message is [what the client sees](#test-and-production-servers) when they update to a release. It should contain all the information relevant to that release, including major changes and fixes, references to any external materials, etc. so the client knows what to expect when updating. This information should begin at the previous release (tag).
 
-To find out what the major changes and fixes are, the easiest way is to use the button next to *Create release* in System Manager:
+To find out what the major changes and fixes are, the easiest way is to use the button next to **Create release** in System Manager:
 
 ![View Diff](https://git.sitestacker.com/sitestacker/docs/uploads/ec251c4487a07e1c33a3351a4f96f9e9/view-diff.png)
 
-You'll be taken to the *Compare* view in GitLab where you can see all the commits and the files that were changed. You might want to *Switch base of comparison* as well to see changes that will be removed from the release:
+You'll be taken to the **Compare** view in GitLab where you can see all the commits and the files that were changed since the previous tag. You might want to *Switch base of comparison* to see changes that will be removed from the release (if any):
 
 ![Switch Comp Base](https://git.sitestacker.com/sitestacker/docs/uploads/dc21e46719434003a364b08d7ef4dbb2/switch-comp-base.png)
 
 *Note that this is an advanced tool and you should understand how it works in order to perform correct comparisons.*
 
-## Test (Staging) Server
+## Test and Production Servers
 
-Once a release is created, it will become available on the test server.
+Once a release is created, it will become available on the test (staging) and production servers.
 
 ![Update on Test](https://git.sitestacker.com/sitestacker/docs/uploads/51775d2f7094fd15614099f62e934251/image.png)
 
-After the changes are tested on this server, there are three things that can happen:
+At this point the release can be tested on the test server and, if everything is ok, the production server can be updated. If issues are found, the developers should fix them and the release process will restart.
 
-1. Everything works fine but you want to [edit the release notes](#edit-release) before releasing to production.
-2. There are new bugs found that require additional work before releasing to production. In this case the job goes back to the developers.
-3. Everything is good and you want to [release to production](#release-to-production).
-
-### Edit release
+## Edit release
 
 To edit an existing release, you need to delete the tag and create a new one in place.
 
-#### Find existing tag
+### Find existing tag
 
-You first need to find it. You can either use the *View release* button in System Manager or you can search for it on GitLab.
+You first need to find it. You can use the **View release** button in System Manager on the development server or you can search for it on GitLab.
 
 ![View Release](https://git.sitestacker.com/sitestacker/docs/uploads/dc25ccf9ba54471d87c1a364da438ba2/view-release.png)
 
-#### Add a new tag in place
+### Add a new tag in place
 
 After you find the tag, you should click on the commit hash and copy it to clipboard as follows:
 
@@ -132,16 +116,10 @@ Now that you have the commit hash copied to clipboard, you can create the new ta
 
 ![New Tag](https://git.sitestacker.com/sitestacker/docs/uploads/970302efa41df71e70ac2e2c2c8e9374/new-tag.png)
 
-Paste the copied commit hash in the *Commit from* field and then follow the steps for [creating a release](#new-tag). You might want to also copy the message from the [existing tag](#find-existing-tag).
+Paste the copied commit hash in the *Commit from* field and then follow the steps for [creating a release in GitLab](#create-a-release-in-gitlab). You might want to also copy the message from the existing tag.
 
-#### Delete existing tag
+### Delete existing tag
 
-Back to the [existing tag](#find-existing-tag), you can now safely delete it from GitLab:
+Back to the existing tag, you can now safely delete it from GitLab:
 
 ![Delete Tag](https://git.sitestacker.com/sitestacker/docs/uploads/0806acfd7b2278ebc028a340bfc6a51f/delete-tag.png)
-
-### Release to production
-
-After all QA User Tests have passed on the test server and the release notes include all the necessary information for the client, the release can be deployed to production.
-
-Releasing to production is done by merging the `release-test` branch into `release`, thus making the newly created tag available on production servers. This should be done by a developer.
