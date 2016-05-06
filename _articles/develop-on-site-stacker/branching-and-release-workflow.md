@@ -162,6 +162,10 @@ git push -u origin 2.5
 
 If a release branch is no longer needed, you can simply delete it. Deleting these branches won't affect the client's installation, but will end the stream of updates coming on that branch.
 
+### Information about release branches
+
+Every repository should include in their README information about each release branch. For example, a template might have 2 release branches (`1.0` and `2.0`) and `1.0` works with Site Stacker `2.0` while `2.0` works only with Site Stacker `2.5`. This needs to be specified in the README. For an example see the [Site Stacker README](https://git.sitestacker.com/sitestacker/sitestacker/blob/master/README.md).
+
 ## Releases
 
 Releases are git tags that mark a specific point in history and provide details about the release and other relevant information. The information should be suited for clients to read and understand what changed.
@@ -206,7 +210,7 @@ A default installation should receive updates from the latest release branch. Fo
 
 ```
 . = refs/remotes/origin/2.5
-packages/** = refs/remotes/origin/2.5
+packages/** = refs/remotes/origin/2.0
 ```
 
 This means that all repositories on the installation (the Site Stacker core repo `.` and any sub-repositories under `packages/`, including components, templates and themes) are using the `2.5` branch.
@@ -217,7 +221,7 @@ If using client-specific release branches, these can be configured as any other 
 
 ```
 . = refs/remotes/origin/2.5-oscorp
-packages/** = refs/remotes/origin/2.5
+packages/** = refs/remotes/origin/2.0
 ```
 
 ### Test changes without releasing
@@ -229,7 +233,7 @@ For example, to test the [fixes we've made on the `2.0-fix-contributions-bug` re
 ```
 . = refs/remotes/origin/2.0
 . = refs/remotes/origin/2.0-fix-contributions-bug
-packages/** = refs/remotes/origin/2.0
+packages/** = refs/remotes/origin/1.0
 ```
 
 > Note: As soon as you're done testing, you should remove the temporary branch from the Branch Filter.
