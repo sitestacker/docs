@@ -51,4 +51,4 @@ class SystemMessagesCronShell extends AppShell {
 
 Expressions are linux-based crontab expressions. Expressions like @daily, @monthly also work. See [Cron](http://en.wikipedia.org/wiki/Cron) for reference.
 
-![](img/cron/working_with_crons.png)
+![](https://git.sitestacker.com/sitestacker/docs/uploads/af6a8f1c6f07362822ff4331c66e0284/working_with_crons.png)
