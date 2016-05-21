@@ -1,47 +1,53 @@
 ---
 title: Branching and Release Workflow
 category: Develop on Site Stacker
-date: 2016-05-06 00:00:00
+date: 2016-05-23 00:00:00
 tags: development,model,strategy
-readtime: 12
+readtime: 10
 ---
 
-Site Stacker Branching and Release Workflow is a simple, git-based workflow that takes full advantage of git branches and tags. This guide explains how Site Stacker Workflow works and how to use it.
+Site Stacker Branching and Release Workflow is a git-based workflow that takes full advantage of branches and tags. This guide explains how Site Stacker Workflow works and how to use it.
 
 > You should be familiar with git branches and tags (see [3. Git Branching](https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell) and [2.6 Tagging](https://git-scm.com/book/en/v2/Git-Basics-Tagging) in the [Pro Git book](http://git-scm.com/book/en/v2)).
 
 There are two types of branches: **development** and **release** branches. The following diagram shows a visual representation of branches and tags in a Site Stacker repository.
 
-![Site Stacker Branching Model](https://git.sitestacker.com/sitestacker/docs/uploads/ed94ce2ecc2dd05cd64141551b8f4667/ss-branching-model.jpg)
+![Site Stacker Branching Model](https://git.sitestacker.com/sitestacker/docs/uploads/74ceaf15a8428bff873d2c5e13484845/new-branching-model.jpg)
 
 ## Development branches
 
 - `master` *(default, required)*
+- `next` *(common, optional)*
 - `cool-feature` *(optional)*
 - ...
 
-When you're working on Site Stacker, you're usually adding a new feature or functionality or fixing some bugs - some of which are ready to go, and others which are not.
+When you're working on Site Stacker, you're usually adding a new feature or functionality or fixing some bugs - some of which are ready to go, and others which are not. Branching exists to help you manage this workflow.
 
-In every case, you should work on a branch (usually based on `master`) that is called development branch. Changes you make on a branch don't affect the other branches, so you're free to experiment and commit changes, safe in the knowledge that your branch won't be merged until it's ready to be reviewed by someone you're collaborating with. You can also push any of these branches to the same named branch on the server (e.g. `master` -&gt; `origin/master`).
+When you create a branch in your project, you're creating an environment where you can try out new ideas. Changes you make on a branch don't affect the other branches, so you're free to experiment and commit changes, safe in the knowledge that your branch won't be merged until it's ready to be reviewed by someone you're collaborating with. You can also push any of these branches to the same named branch on the server (e.g. `cool-feature` -&gt; `origin/cool-feature`).
 
-> Note: Sometimes the changes are very simple and creating a development branch is overkill. In these situations you can commit directly on `master`, but make sure your changes are ready to be released at any time (see the master branch below).
+Except `master` and `next`, development branches are usually short-lived, but **are always temporary**, because they will eventually get deleted, after the changes have been merged or discarded. Keep in mind that **the longer a development branch lives without getting merged in for a release, the greater risk for merge conflicts and challenges for deployment**. Short lived branches merge and deploy cleaner.
 
-Except `master`, development branches are usually short-lived, but **are always temporary**, because eventually they will get deleted, after the changes have been merged or discarded. Keep in mind that the longer a development branch lives without getting merged in for a release, the greater risk for merge conflicts and challenges for deployment. Short lived branches merge and deploy cleaner.
-
-> Important: **Rules**
->
-> - You should never create releases (tags) on a development branch
-> - You should merge development branches (other than `master`) as soon as possible
+> Important: You should never create releases (git tags) on a development branch.
 
 ### The `master` branch
 
-`master` is the main development branch that has one very important rule: **anything in the `master` branch is always deployable**. This means, although the releases are made from [release branches](#release-branches), any code that lands in `master` should be deployable at any time, because the person who creates the release must assume this.
+`master` is the main development branch that contains the latest stable code. The only rule is that **anything in the `master` branch is always deployable**. This means that, although the releases are made from [release branches](#release-branches), any code that lands in `master` should be ready to be released at any time, because the person who creates the release must assume this.
 
-If you have changes that are not ready to be deployed, keep them in a separate development branch.
+Because of this, you should only do urgent bug fixes on the `master` branch (or any other branch created from `master`). For adding new features, see the `next` and feature branches below.
 
-> Important: Anything you put in `master` should be ready to be released at any time.
+### The `next` branch
 
-The `master` branch always contains the latest work that is ready for production, thus it gets merged often into the latest release branch.
+`next` is a special development branch that contains **all the new features that will be released at the next [release cycle](#release-cycle)**. Normally, you develop new features in feature branches, but because there is the need to test all these features together, you use the `next` branch to merge these feature branches in.
+
+During development, you'll often merge `master` into `next` to get the latest bug fixes from `master`. At the [release cycle](#release-cycle), `next` gets merged into `master`, thus making all the features available for production.
+
+> Note: If you're working on features that are not ready to be released at the next [release cycle](#release-cycle), keep them in separate branches instead of merging in `next`.
+
+### Other development branches (feature branches)
+
+Best practices are to always use feature branches when developing anything. Since a feature branch should contain an isolated feature started from stable code, you usually create feature branches from `master`.
+
+Sometimes the changes are very simple and creating an extra branch is overkill. In these situations you can commit directly on `master` or `next`, but make sure you adhere to the rules of the branch.
 
 ### Development branch naming convention
 
@@ -58,6 +64,28 @@ Commits also create a transparent history of your work that others can follow to
 > Tip: Commit messages are important, especially since Git tracks your changes and then displays them as commits once they're pushed to the server. By writing clear commit messages, you can make it easier for other people to follow along and provide feedback. See [Commit Guidelines](https://github.com/clns/node-commit-msg/blob/master/GUIDELINES.md).
 
 When working in a development branch, is also common to commit often and not necessarily following the above rules. That's perfectly fine as long as you [squash the commits](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History#Squashing-Commits) when you're merging in the branch. Also since this is a temporary branch you're free to [rewrite the history](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History) as you feel appropriate, while notifying any co-worker that may be working on the same branch.
+
+#### CHANGELOG
+
+Stacker doesn't have a [Changelog](https://en.wikipedia.org/wiki/Changelog) file in the root of the repository, instead the Changelog is generated automatically from the commit messages and showed to the client in System Manager.
+
+In order to add information to the Changelog, you need to include a `CHANGELOG` keyword in the commit message, and everything that follows will be part of the Changelog. `CHANGELOG` should be uppercase and should come after a blank line, e.g.:
+
+```
+Commit subject
+
+Optional commit body message.
+
+CHANGELOG
+
+- Everything here will be included in the Changelog
+- You can enumerate the changes as a list or any
+other way you find suited
+```
+
+> Note: Not every commit should have a `CHANGELOG`. Also if a feature is comprised of more than 1 commit, you should add the `CHANGELOG` to the last commit.
+
+> Important: The Changelog message should be written from a client point of view, and should be easily understandable by a non-technical person.
 
 ### Merging in the changes
 
@@ -83,33 +111,36 @@ You can also continue to push to your branch in light of discussion and feedback
 
 ### Deleting a development branch
 
-Usually after merging in the changes, you can delete a development branch. This is almost always the case when merging into `master`, but if you merge into a release branch, you may want to keep the development branch for longer to be merged into `master` at a later time (see the `new-processor` branch in the diagram above).
+Usually after merging in the changes, you can delete a development branch. However, you might want to keep the branch a bit longer for any bug fixes that may be needed, but make sure you eventually delete the branch.
 
-This is the case because `master` gets often merged into other release branches (e.g. at tag `2.0.2-oscorp` in the diagram above), however a release branch cannot be merged into `master`, so keeping the branch for later makes sense.
+> Note: The creator of a feature branch is responsible for deleting it when it's no longer needed.
 
 ## Release branches
 
-- `2.0`
-- `2.5` *(latest)*
-- `2.0-oscorp`
+- `2.x` *(latest stable)*
+- `2.next` *(latest dev)*
 - ...
 
-Release branches provide a stream of updates for a specific version of Site Stacker. They are used for merging in development branches and creating releases (tags) from these merges, and are never merged into other branches, thus keeping them separate.
+Release branches provide a stream of updates for a specific version of Site Stacker. They are used for merging in development branches and creating releases (tags) from these merges, and are never merged into development branches.
 
 At least one release branch needs to exist to be able to push changes to Site Stacker installations. A release branch is easily identifiable because it always starts with a version number and, optionally, is followed by letters and hyphens.
 
-There are 2 types of release branches:
+There is a direct correlation between development branches `master` and `next` and release branches. In order to make the changes in these branches available to Site Stacker installations each one needs a release branch, e.g.:
 
-1. Default release branches that include only a version number as the name (e.g. `2.0`, `2.5`).
-2. Client-specific release branches, that are usually created from a default release branch by appending the client name with a hyphen (e.g. `2.0-oscorp`).
+Development Branch | Release Branch
+--- | ---
+`master` | `2.x`
+`next` | `2.next`
 
-Normally, installations are configured to use a default release branch based on the version number they're using, but in some cases clients need specially tailored releases. In this case we create a client-specific release branch that will be used only for that client.
+This means that, whenever `master` is merged into `next` or vice versa, the corresponding release branches should also be merged (e.g. at the [release cycle](#release-cycle)).
+
+Other release branches may also exist for previous versions or even for specific clients. Client-specific release branches provide a separate release stream for that client.
 
 Release branches are usually long-lived, but it's also possible to delete a release branch if it's no longer needed.
 
-> Important: **Rules**
+> Important:
 >
-> - Release branches should never be merged into other branches
+> - Release branches should never be merged into development branches
 > - You shouldn't work directly on a release branch (although there are exceptions, see below)
 > - Fast-forward merges are not allowed when merging a development branch into a release branch (see [Git - Basic Branching and Merging](https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging))
 
@@ -117,45 +148,49 @@ Release branches are usually long-lived, but it's also possible to delete a rele
 
 While working with development branches is trivial, release branches require special attention.
 
-#### Latest release branch
+#### Current version
 
-As said before, at least one release branch needs to exist (e.g. `2.5`). This release branch represents the latest version of the system and tracks the changes developed on the `master` branch. This means that you push releases into this branch by merging in `master`, and you should **never commit directly on this branch**.
+The system current version usually has 2 release branches, one for stable releases (e.g. `2.x`) and one for testing new features that will be released soon (e.g. `2.next`). Since these branches correspond to a development branch, any work should be done on the development branches, then merge them.
+You should **never commit directly on these release branches**.
 
 #### Older release branches
 
-Older release branches can also exist (e.g. `2.0`), and these branches don't track the content in `master` since `master` has evolved and now contains much newer changes. Although new features are only added into the latest version (thus developed in `master`), a bug might arise that needs to be fixed. In this case, you have 2 options:
+Older release branches can also exist (e.g. `2.0`), and these branches don't have a corresponding development branch. Although new features are only developed for the current version, a bug might arise that needs to be fixed. In this case, you have 2 options:
 
 1. If the fix is very small you can do it directly on the release branch by checking out the branch (e.g. `git checkout 2.0`) (*not recommended*)
 2. If the fix involves more work, you can switch to a new branch created from the release branch (e.g. `git checkout -b 2.0-fix-contributions-bug 2.0`) and when you're done merge that branch in (e.g. `git checkout 2.0; git merge 2.0-fix-contributions-bug`) (*recommended method*)
 
 Method #2 is recommended, and there are some things to consider:
 
-- the new branch name should start with a version number, since it's a temporary release branch and **not** a development branch
+- the new branch name should start with the release branch name, since it's a temporary release branch and **not** a development branch
 - **the new branch should not be merged into any other branch except the one that was created from** (release branch rule)
-- after you're done with the branch don't forget to delete it
 
 > Important: Branches created from other release branches are always release branches, not development branches.
 
 ##### Getting the fixes from older release branches
 
-You often need to get the fixes made on older release branches into other branches, and since you can't merge these branches you need to use [`cherry-pick`](https://git-scm.com/docs/git-cherry-pick).
+If you need to get the fixes made on older release branches into other branches you need to use [`cherry-pick`](https://git-scm.com/docs/git-cherry-pick) since you can't merge these branches. If you used method #2 as described above, cherry-picking all commits from that new branch is very easy, e.g.:
 
-If you used method #2 as described above, cherry-picking all commits from that new branch is very easy, e.g.: `git cherry-pick 2.0..2.0-fix-contributions-bug`. If you used method #1 you'll have to cherry-pick each commit individually.
+```
+git cherry-pick 2.0..2.0-fix-contributions-bug
+```
+
+If you used method #1 you'll have to cherry-pick each commit individually.
 
 ### Release branch naming convention
 
-Default release branches are always named as a version number (e.g. `2.0`, `2.5`) and don't contain anything else.
+Release branches always start with a version number and can contain keywords like `x` or `next` (e.g. `2.x`, `2.next`).
 
-Client release branches are based on a default release branch and contain a client-specific suffix, usually the client's name or an abbreviation (e.g. `2.0-oscorp`).
+Client release branches contain a client-specific suffix, usually the client's name or an abbreviation (e.g. `2.x-oscorp`).
 
 ### Creating a release branch
 
 To make sure fast-forward merges can't happen (release branch rule), when creating a release branch you should add an empty commit, e.g.:
 
 ```sh
-git checkout -b 2.5
-git commit --allow-empty -m "Create '2.5' branch"
-git push -u origin 2.5
+git checkout -b 2.next
+git commit --allow-empty -m "Create release branch '2.next'"
+git push -u origin 2.next
 ```
 
 ### Deleting a release branch
@@ -164,11 +199,22 @@ If a release branch is no longer needed, you can simply delete it. Deleting thes
 
 ### Information about release branches
 
-Every repository should include in their README information about each release branch. For example, a template might have 2 release branches (`1.0` and `2.0`) and `1.0` works with Site Stacker `2.0` while `2.0` works only with Site Stacker `2.5`. This needs to be specified in the README. For an example see the [Site Stacker README](https://git.sitestacker.com/sitestacker/sitestacker/blob/master/README.md).
+Every repository should include in their README information about each release branch. For example, a template might have 2 release branches (`1.x` and `2.x`) and `1.x` works with Site Stacker `2.0` while `2.x` works only with Site Stacker `2.x`. This needs to be specified in the README. For an example see the [Site Stacker README](https://git.sitestacker.com/sitestacker/sitestacker/blob/master/README.md).
+
+### Release cycle
+
+Site Stacker release cycle is once every month, on the 22th.
+
+At each release cycle, the "next" branches are merged into the latest stable branches as follows:
+
+Branch to be merged | Branch to merge into
+---|---
+`next` | `master`
+`2.next` | `2.x`
 
 ## Releases
 
-Releases are git tags that mark a specific point in history and provide details about the release and other relevant information. The information should be suited for clients to read and understand what changed.
+Releases are simply git tags that mark a specific point in history. A tag can optionally include in its message details about the release and other relevant information. This information should be suited for clients to read.
 
 > Important: Tags should only be created on release branches, **never** on development branches.
 
@@ -176,13 +222,13 @@ It's important to understand that once a tag is created, it will be available fo
 
 ### Release naming convention
 
-Release names should follow [semver](http://semver.org) and should be named according to the branch they're on. The following table shows valid release names based on the branch:
+Release names follow [semver](http://semver.org) and should be named according to the branch they're on. The following table shows valid release names based on the branch:
 
 Branch | Valid release names
 ------ | -------------------
 `2.0` | `2.0.0`, `2.0.1-alpha`, `2.0.1`, `2.0.12`
-`2.5` | `2.5.0`, `2.5.1-alpha`, `2.5.1`, `2.5.12`
-`2.5-oscorp` | `2.5.0-oscorp`, `2.5.1-beta-oscorp`, `2.5.1-oscorp`
+`2.x` | `2.5.0`, `2.5.1-alpha`, `2.5.1`, `2.5.12`
+`2.x-oscorp` | `2.5.0-oscorp`, `2.5.1-beta-oscorp`, `2.5.1-oscorp`
 
 > Note: Git tags are unique, so no matter on what branch you are you cannot have two tags with the same name.
 
@@ -192,48 +238,42 @@ See [Create release](release-process#create-release) in the [Release Process](re
 
 ## System Manager
 
-You can configure System Manager to receive updates from any branch, but you should normally only use release branches, especially on client installations. Note that System Manager will not show updates that have incompatible database migrations, and will warn you if an update contains database migrations, thus preventing a rollback.
+You can configure System Manager to receive updates from any branch, but you should normally only use release branches, especially on client installations. Note that System Manager will not show updates that have incompatible database migrations.
 
 > Note: If you don't configure any branch filter, System Manager will show **all tags from all branches**. This is not normally what you want on an installation.
 
-![System Manager Settings](https://git.sitestacker.com/sitestacker/docs/uploads/e4c099dc0aa22073d183ce6fbdb73922/image.png)
+![System Manager Settings](https://git.sitestacker.com/sitestacker/docs/uploads/74e6b3ab02ef04d6bb2146d011e55fdf/image.png)
 
 ### Branch Filter
 
 To limit which tags are available for update on an installation, you need to filter the branches that the tags are accessible from. You can do this in the **Branch Filter** section of the *Settings* screen in System Manager. The page is pretty self-explanatory.
 
-> Important: Normally, an installation should be configured to **receive updates from exactly ONE release branch**, and no other branches.
-
 #### Default branch filter
 
-A default installation should receive updates from the latest release branch. For example, if the latest release branch is `2.5`, the branch filter looks like this:
+A default installation should receive updates from the latest stable release branch. For example, if the latest stable release branch is `2.x` for Site Stacker core and `1.x` for all subrepos, the branch filter looks like this:
 
 ```
-. = refs/remotes/origin/2.5
-packages/** = refs/remotes/origin/2.0
+. = refs/remotes/origin/2.x
+packages/** = refs/remotes/origin/1.x
 ```
-
-This means that all repositories on the installation (the Site Stacker core repo `.` and any sub-repositories under `packages/`, including components, templates and themes) are using the `2.5` branch.
 
 #### Client-specific branch filter
 
 If using client-specific release branches, these can be configured as any other branches in System Manager Branch Filter. Usually a client-specific branch only exists in the Site Stacker core, other sub-repositories don't need one because they are specific to that client (e.g. a client-specific template).
 
 ```
-. = refs/remotes/origin/2.5-oscorp
-packages/** = refs/remotes/origin/2.0
+. = refs/remotes/origin/2.x-oscorp
+packages/** = refs/remotes/origin/1.x
 ```
 
-### Test changes without releasing
+### Is Sandbox
 
-The **Is Sandbox** setting allows an installation to see updates as soon as they are pushed to a branch, without having to create a tag first. This option is usually used on a sandbox development installation (not a client sandbox), because it allows testing the changes and eventually creating a release (tag).
+The **Is Sandbox** setting allows an installation to see updates as soon as they are pushed to a branch, without having to create a tag. This option is usually used on a sandbox development installation (not a client sandbox), because it allows testing the changes and eventually creating a release (tag).
 
-For example, to test the [fixes we've made on the `2.0-fix-contributions-bug` release branch above](#older-release-branches), we can configure the branch filter like this:
+For example, to test the [fixes we've made on the `2.0-fix-contributions-bug` release branch above](#older-release-branches), we can add the temporary branch to the branch filter:
 
 ```
-. = refs/remotes/origin/2.0
 . = refs/remotes/origin/2.0-fix-contributions-bug
-packages/** = refs/remotes/origin/1.0
 ```
 
 > Note: As soon as you're done testing, you should remove the temporary branch from the Branch Filter.
