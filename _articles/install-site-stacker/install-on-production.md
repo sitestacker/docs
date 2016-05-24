@@ -28,7 +28,7 @@ You need to be an <a href="https://git.sitestacker.com/admin/users?filter=admins
 
 First, make sure a user for that client exists in [GitLab](https://git.sitestacker.com/admin/users). If not, you'll need to [create one](https://git.sitestacker.com/admin/users/new).
 
-Upon creation, the user needs *Reporter* access to the [sitestacker/sitestacker](https://git.sitestacker.com/sitestacker/sitestacker) repository and *Developer* access to all the [templates](https://git.sitestacker.com/groups/templates), [components](https://git.sitestacker.com/groups/components) and [themes](https://git.sitestacker.com/groups/themes) that were built specifically for that client (at least one template), in the **Projects** tab on the user's admin view. Also you'll need to give him *Guest* access to the [service/access](https://git.sitestacker.com/service/access) repository, as seen below:
+Upon creation, the user needs to be granted at least **Reporter** role to the [sitestacker/sitestacker](https://git.sitestacker.com/sitestacker/sitestacker) repository and all other sub-repositories that are required for that installation (e.g. [templates](https://git.sitestacker.com/groups/templates), [components](https://git.sitestacker.com/groups/components), [themes](https://git.sitestacker.com/groups/themes)), in the *Projects* tab on the user's admin view. Also you'll need to give him **Guest** access to the [service/access](https://git.sitestacker.com/service/access) repository, as seen below:
 
 ![user projects](https://git.sitestacker.com/sitestacker/docs/uploads/bc35c15d4091d2640edb69e12c92e842/image.png)
 
