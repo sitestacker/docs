@@ -75,6 +75,8 @@ If `dbcreator` cannot be granted, a second (empty) database called `sitestacker_
    * [wincache 1.3.5+](http://windows.php.net/downloads/pecl/releases/wincache/) (optional, recommended)
       * WinCache must be disabled in CLI (`wincache.enablecli=Off`) - default is Off
       * If WinCache 1.3.7 or newer is installed: `wincache.reroute_enabled=Off`
+      * `wincache.ucenabled=On`
+      * `wincache.ucachesize=85`
 * Settings:
    * short_open_tag=On
    * allow_url_fopen=On
