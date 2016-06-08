@@ -87,6 +87,18 @@ other way you find suited
 
 > Important: The Changelog message should be written from a client point of view, and should be easily understandable by a non-technical person.
 
+Anything that you add *after* the CHANGELOG keyword will be shown to the client, so don't add things that shouldn't be, like the task number. Here's an example of **A WRONG COMMIT MESSAGE**:
+
+```
+# THIS IS A WRONG COMMIT MESSAGE !!!
+
+CHANGELOG
+
+- Everything here will be included in the Changelog
+
+Task #15028
+```
+
 ### Merging in the changes
 
 When the changes are ready and tested, you can merge the branch back into `master` (or into a release branch), while making sure you maintain a clean history and following the commit rules from above, [rewriting history](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History) if necessary.
