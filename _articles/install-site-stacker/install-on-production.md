@@ -1,7 +1,7 @@
 ---
 title: Install on Production
 category: Install Site Stacker
-date: 2016-02-04 00:00:00
+date: 2016-06-09 00:00:00
 readtime: 5
 ---
 
@@ -22,24 +22,22 @@ The first thing to do is to install the [Site Stacker Service (daemon)](http://s
 
 ### Site Stacker GitLab user
 
-<note>
-You need to be an <a href="https://git.sitestacker.com/admin/users?filter=admins">admin on GitLab</a> to create/manage users.
-</note>
+> Note: You need to be an [admin on GitLab](https://git.sitestacker.com/admin/users?filter=admins) to create/manage users.
 
 First, make sure a user for that client exists in [GitLab](https://git.sitestacker.com/admin/users). If not, you'll need to [create one](https://git.sitestacker.com/admin/users/new).
 
-Upon creation, the user needs to be granted at least **Reporter** role to the [sitestacker/sitestacker](https://git.sitestacker.com/sitestacker/sitestacker) repository and all other sub-repositories that are required for that installation (e.g. [templates](https://git.sitestacker.com/groups/templates), [components](https://git.sitestacker.com/groups/components), [themes](https://git.sitestacker.com/groups/themes)), in the *Projects* tab on the user's admin view. Also you'll need to give him **Guest** access to the [service/access](https://git.sitestacker.com/service/access) repository, as seen below:
+Upon creation, the user needs to be granted **Reporter** role (or higher) to the [sitestacker/sitestacker](https://git.sitestacker.com/sitestacker/sitestacker) repository and all other sub-repositories required for that installation (e.g. [templates](https://git.sitestacker.com/groups/templates), [components](https://git.sitestacker.com/groups/components), [themes](https://git.sitestacker.com/groups/themes)). Also you'll need to give him **Guest** access to the [service/access](https://git.sitestacker.com/service/access) repository, as seen below:
 
 ![user projects](https://git.sitestacker.com/sitestacker/docs/uploads/bc35c15d4091d2640edb69e12c92e842/image.png)
 
-After you have the user, check the [instructions on the site](http://sitestacker.github.io/service/) to install the service.
+After you have the user set up, check the [instructions on the site](http://sitestacker.github.io/service/) to install the service.
 
 ### Check the daemon installation
 
-To check if the Site Stacker Service is successfully installed, run the following command in a cli (PowerShell, cmd.exe, Terminal, ...):
+To check if the Site Stacker Service is successfully installed, run the following command in a cli (PowerShell, Terminal, ...):
 
 ```sh
-$ sitestacker -v
+$ sitestacker version
 sitestacker version x.x.x
 ```
 
@@ -49,9 +47,7 @@ If you don't see the version printed as above, the service is not installed and 
 
 ### Clone Site Stacker and the subrepos
 
-A Site Stacker installation includes the core [sitestacker/sitestacker](https://git.sitestacker.com/sitestacker/sitestacker) repository and one or many sub-repositories like [templates](https://git.sitestacker.com/templates), [components](https://git.sitestacker.com/components) and/or [themes](https://git.sitestacker.com/themes) built specifically for a client. The `sitestacker clone` command will clone all these repositories for you.
-
-See the command help (`sitestacker clone -h`) for usage.
+A Site Stacker installation includes the core [sitestacker/sitestacker](https://git.sitestacker.com/sitestacker/sitestacker) repository and one or many sub-repositories like [templates](https://git.sitestacker.com/templates), [components](https://git.sitestacker.com/components) and/or [themes](https://git.sitestacker.com/themes) built specifically for a client. The `sitestacker clone` command will clone all these repositories for you - see the command help (`sitestacker clone -h`) for usage.
 
 You have two options to clone the sub-repositories:
 
@@ -75,9 +71,7 @@ Where:
 `<path-to-sitestacker>/webroot`); this is optional if you're already in the directory where you want to install Site Stacker
 - `<subrepo>` is any template, component or theme the user has access to, given as `<group>/<repo-name>` (e.g. `templates/Wycliffe`, `components/Wycliffe`, `themes/Contributions-LifeUnited`)
 
-<tip>
-You can use the <code>sitestacker clone</code> command at any time <i>in a Site Stacker installation</i> to clone any sub-repository(ies) you want, by running something like <code>sitestacker clone templates/Wycliffe [components/GenSend ...]</code>.
-</tip>
+> Tip: You can use the `sitestacker clone` command at any time in a Site Stacker installation to clone any sub-repository(ies) you want, by running something like `sitestacker clone templates/Wycliffe [components/GenSend ...]`.
 
 ### Configure the VirtualHost
 
@@ -90,15 +84,11 @@ The server needs to meet the following requirements, depending on the platform:
 - [Windows Server Requirements](server-requirements-windows)
 - [Linux Server Requirements](server-requirements-linux)
 
-You can check the server requirements automatically by running the following command *on the webserver where you do the install*:
+You can check the server requirements automatically by running the `sitestacker reqs` command on the webserver where you do the install. See the help for examples:
 
 ```sh
-sitestacker reqs <URL>
+sitestacker reqs -h
 ```
-
-<note>
-You need to provide a URL where the Site Stacker installation can be accessed. This requires a working vhost.
-</note>
 
 ### Checkout a different branch
 
@@ -106,10 +96,10 @@ The `sitestacker clone` command will clone and point the repositories to their d
 
 You can do this using the `sitestacker checkout` command. See the command help (`sitestacker checkout -h`) for usage.
 
-For example, to checkout sitestacker to the `release` branch do:
+For example, to checkout sitestacker to the `2.x` branch do:
 
 ```sh
-$ sitestacker checkout release
+$ sitestacker checkout origin/2.x
 sitestacker checked out at 0ecb3de41e6c031b808cda6ebd116556428fe58d
 ```
 
@@ -140,17 +130,13 @@ executing 'Console/cake schema create -p Migrations --yes --nodrop --quiet'
 executing 'Console/cake SystemManager.Update'
 ```
 
-<note>
-You need to provide a URL where the Site Stacker installation can be accessed. This requires a working vhost.
-</note>
+> Note: You need to provide the `<URL>` where the Site Stacker installation can be accessed. This requires a working vhost.
 
-<tip>
-You can run the <code>sitestacker doctor</code> command at any time on any existing Site Stacker installation, to make sure Site Stacker runs fine.
-</tip>
+> Tip: You can run the `sitestacker doctor` command at any time on any existing Site Stacker installation, to make sure Site Stacker runs fine.
 
 ### Login in admin
 
-:thumbsup: You're done! You can now access the admin interface at [http://&lt;your-domain&gt;/admin](), and login with `admin@sitestacker.com` / `admin`.
+:thumbsup: You're done! You can now access the admin interface at [http://&lt;your-domain&gt;/admin](), and login with SAML.
 
 ## Setup the Cron
 
@@ -167,7 +153,7 @@ Let's start by cloning Site Stacker and the sub-repositories:
 
 ```powershell
 # check if the daemon is installed
-$ sitestacker -v
+$ sitestacker version
 sitestacker version x.x.x
 
 # clone Site Stacker and two subrepos for the 'namb' user
@@ -216,7 +202,7 @@ executing 'Console/cake schema create -p Migrations --yes --nodrop --quiet'
 executing 'Console/cake SystemManager.Update'
 ```
 
-:thumbsup: You're done! Go to <http://localhost/admin> and login with the default user (see above).
+:thumbsup: You're done! Go to <http://localhost/admin> and login.
 
 ## Full Example on Linux (or OS X)
 
@@ -253,7 +239,7 @@ Following are all the commands for this installation (including the output):
 
 ```sh
 # check if the daemon is installed
-$ sitestacker -v
+$ sitestacker version
 sitestacker version x.x.x
 
 # clone all Site Stacker repos for the 'namb' user
@@ -282,10 +268,6 @@ database 'sitestackerdb' successfully created
 
 # finish installation
 $ sitestacker doctor 'localhost'
-Module mod_deflate is not available.
-error: server does not meet the requirements, aborting
-
-$ sitestacker doctor 'localhost'
 creating symlinks...
 setting permissions...
 checking db access...
@@ -294,7 +276,7 @@ executing 'Console/cake schema create -p Migrations --yes --nodrop --quiet'
 executing 'Console/cake SystemManager.Update'
 ```
 
-:thumbsup: You're done! Go to <http://localhost/admin> and login with the default user (see above).
+:thumbsup: You're done! Go to <http://localhost/admin> and login.
 
 ## Next Steps
 
