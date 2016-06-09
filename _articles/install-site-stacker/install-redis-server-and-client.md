@@ -32,6 +32,7 @@ To install Redis cache you need:
   Create a folder called redisheap under C:\redisheap.
   
   Edit the file located at "C:\Program Files\Redis\redis.windows-service.conf" and add the following lines:
+  
   ```ini
   bind 127.0.0.1
   maxheap 1024M
