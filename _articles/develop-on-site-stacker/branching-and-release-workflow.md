@@ -1,7 +1,7 @@
 ---
 title: Branching and Release Workflow
 category: Develop on Site Stacker
-date: 2016-05-23 00:00:00
+date: 2016-06-09 00:00:00
 tags: development,model,strategy
 readtime: 10
 ---
@@ -67,7 +67,11 @@ When working in a development branch, is also common to commit often and not nec
 
 #### CHANGELOG
 
-Stacker doesn't have a [Changelog](https://en.wikipedia.org/wiki/Changelog) file in the root of the repository, instead the Changelog is generated automatically from the commit messages and showed to the client in System Manager.
+Site Stacker doesn't have a [Changelog](https://en.wikipedia.org/wiki/Changelog) file in the root of the repository, instead the Changelog is generated automatically from the commit messages and showed to the client in System Manager, when an update is selected.
+
+Site Stacker's Changelog is similar to the GNU [NEWS](https://www.gnu.org/prep/standards/html_node/NEWS-File.html) file rather than the GNU [Change Logs](https://www.gnu.org/prep/standards/html_node/Change-Logs.html#Change-Logs), because it contains **a list of user-visible changes worth mentioning** and not all the changes. Also, if the Changelog is too complex for the client to understand, don't add it.
+
+> Note: Not every commit should have a `CHANGELOG`. If a feature is comprised of more than 1 commit, you should add the `CHANGELOG` to the last commit.
 
 In order to add information to the Changelog, you need to include a `CHANGELOG` keyword in the commit message, and everything that follows will be part of the Changelog. `CHANGELOG` should be uppercase and should come after a blank line, e.g.:
 
@@ -83,11 +87,7 @@ CHANGELOG
 other way you find suited
 ```
 
-> Note: Not every commit should have a `CHANGELOG`. Also if a feature is comprised of more than 1 commit, you should add the `CHANGELOG` to the last commit.
-
-> Important: The Changelog message should be written from a client point of view, and should be easily understandable by a non-technical person.
-
-Anything that you add *after* the CHANGELOG keyword will be shown to the client, so don't add things that shouldn't be, like the task number. Here's an example of **A WRONG COMMIT MESSAGE**:
+Anything that you add *after* the `CHANGELOG` keyword will be shown to the client, so don't add things that shouldn't be, like the task number. Here's an example of A WRONG COMMIT MESSAGE:
 
 ```
 # THIS IS A WRONG COMMIT MESSAGE !!!
