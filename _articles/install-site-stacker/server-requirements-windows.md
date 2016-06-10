@@ -37,7 +37,7 @@ date: 2016-05-17 00:00:00
 
 ### IIS Settings
 
-`Activity Timeout` and `Request Timeout` [FastCGI Settings](https://www.iis.net/configreference/system.webserver/fastcgi) need to be increased to a large enough value (e.g. `99999`) because these are controlled from PHP. You can do this from the IIS Manager UI by following [these steps](http://stackoverflow.com/a/35756128/1104534).
+The [FastCGI Settings](https://www.iis.net/configreference/system.webserver/fastcgi) `Activity Timeout`, `Idle Timeout` and `Request Timeout` need to be increased to a large enough value (e.g. `99999`) because these are controlled from PHP. You can do this from the IIS Manager UI by following [these steps](http://stackoverflow.com/a/35756128/1104534).
 
 ## 5. Database Server
 
