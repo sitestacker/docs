@@ -44,4 +44,32 @@ RewriteRule ^(.*)$ http://%1/$1 [L,R=301]
 
 ## IIS
 
-_not yet completed_
+### HTTP to HTTPS
+
+This rule should be placed inside `<rules>...</rules>` in web.config:
+
+```
+<rule name="HTTP to HTTPS redirect" stopProcessing="true">
+  <match url="(.*)" />
+  <conditions>
+    <add input="{HTTPS}" pattern="off" ignoreCase="true" />
+  </conditions>
+  <action type="Redirect" redirectType="Found" url="https://{HTTP_HOST}/{R:1}" />
+</rule>
+```
+
+### Non-www to www
+
+This rule should be placed inside `<rules>...</rules>` in web.config:
+
+```
+<rule name="CanonicalHostNameRule">
+  <match url="(.*)"/>
+  <conditions>
+    <add input="{HTTP_HOST}" pattern="^www\.example\.com$" negate="true"/>
+  </conditions>
+  <action type="Redirect" url="https://www.example.com/{R:1}"/>
+</rule>
+```
+
+:exclamation: Don't forget to replace `example.com` with your own domain.
