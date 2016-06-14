@@ -32,7 +32,7 @@ $ uname -r
 ## 3. Connection to server
 
 * SSH (username/password or SSH Keys)
-* Temporary Root permissions or user added to the sudoers list is needed.
+* Temporary Root permissions or user added to the sudoers list is required.
 * Need to assign a temporary URL to the server for the duration of the project (sub domains are fine.)
 
 
