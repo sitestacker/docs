@@ -21,7 +21,7 @@ date: 2016-05-17 00:00:00
 ## 3. Access to the server
 
 * Remote Desktop Access (username/password)
-* Temporary Admin permissions are needed.
+* Temporary Admin permissions are required.
 * Need to assign a temporary URL to the server for the duration of the project (sub domains are fine.)
 
 
