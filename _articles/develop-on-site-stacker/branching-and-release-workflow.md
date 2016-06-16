@@ -69,7 +69,7 @@ When working in a development branch, is also common to commit often and not nec
 
 Site Stacker doesn't have a [Changelog](https://en.wikipedia.org/wiki/Changelog) file in the root of the repository, instead the Changelog is generated automatically from the commit messages and showed to the client in System Manager, when an update is selected.
 
-Site Stacker's Changelog is similar to the GNU [NEWS](https://www.gnu.org/prep/standards/html_node/NEWS-File.html) file rather than the GNU [Change Logs](https://www.gnu.org/prep/standards/html_node/Change-Logs.html#Change-Logs), because it contains **a list of user-visible changes worth mentioning** and not all the changes. Also, if the Changelog is too complex for the client to understand, don't add it.
+> Important: Site Stacker's Changelog is similar to the GNU [NEWS](https://www.gnu.org/prep/standards/html_node/NEWS-File.html) file rather than the GNU [Change Logs](https://www.gnu.org/prep/standards/html_node/Change-Logs.html#Change-Logs), because it contains **a list of user-visible changes worth mentioning** and not all the changes. Also, if the Changelog is too abstract or complex for the client to understand, don't add it.
 
 > Note: Not every commit should have a `CHANGELOG`. If a feature is comprised of more than 1 commit, you should add the `CHANGELOG` to the last commit.
 
