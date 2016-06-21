@@ -39,6 +39,21 @@ date: 2016-05-17 00:00:00
 
 The [FastCGI Settings](https://www.iis.net/configreference/system.webserver/fastcgi) `Activity Timeout`, `Idle Timeout` and `Request Timeout` need to be increased to a large enough value (e.g. `99999`) because these are controlled from PHP. You can do this from the IIS Manager UI by following [these steps](http://stackoverflow.com/a/35756128/1104534).
 
+The `maxUrl` and `maxQueryString` request limits need to be increased to a larger value. This can be done from Powershell (run as administrator) with the following two commands:
+
+```sh
+Set-WebConfigurationProperty -pspath 'MACHINE/WEBROOT/APPHOST'  -filter "system.webServer/security/requestFiltering/requestLimits" -name "maxUrl" -value 10999
+```
+```sh
+Set-WebConfigurationProperty -pspath 'MACHINE/WEBROOT/APPHOST'  -filter "system.webServer/security/requestFiltering/requestLimits" -name "maxQueryString" -value 2097151
+```
+
+or from Command Prompt (run as administrator) using the following command:
+
+```sh
+appcmd.exe set config  -section:system.webServer/security/requestFiltering /requestLimits.maxUrl:"10999" /requestLimits.maxQueryString:"2097151"  /commit:apphost
+```
+
 ## 5. Database Server
 
 * Microsoft SQL Server 2012 or higher
