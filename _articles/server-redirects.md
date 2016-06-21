@@ -60,9 +60,9 @@ This rule should be placed inside `<rules>...</rules>` in web.config:
 <rule name="CanonicalHostNameRule">
   <match url="(.*)"/>
   <conditions>
-    <add input="{HTTP_HOST}" pattern="^www\.example\.com$" negate="true"/>
+    <add input="{HTTP_HOST}" pattern="^example\.com$" negate="false"/>
   </conditions>
-  <action type="Redirect" url="https://www.example.com/{R:1}"/>
+  <action type="Redirect" url="https://www.{HTTP_HOST}/{R:1}"/>
 </rule>
 ```
 
