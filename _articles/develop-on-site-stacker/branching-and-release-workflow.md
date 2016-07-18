@@ -238,11 +238,22 @@ Release names follow [semver](http://semver.org) and should be named according t
 
 Branch | Valid release names
 ------ | -------------------
-`2.0` | `2.0.0`, `2.0.1-alpha`, `2.0.1`, `2.0.12`
-`2.x` | `2.5.0`, `2.5.1-alpha`, `2.5.1`, `2.5.12`
-`2.x-oscorp` | `2.5.0-oscorp`, `2.5.1-beta-oscorp`, `2.5.1-oscorp`
+`2.x` | `2.5.1`, `2.5.2`, ... `2.5.12`
+`2.next` | `2.6.0-alpha`, `2.6.0-beta.1`, `2.6.0-beta.2`, ... `2.6.0`
+
+The same names should be used for client branches, but including the client abbreviation:
+
+Client Branch | Valid release names
+------ | -------------------
+`2.x-oscorp` | `2.5.1-oscorp`, `2.5.2-oscorp`, ...
+`2.next-oscorp` | `2.6.0-alpha-oscorp`, `2.6.0-beta.1-oscorp`, ... `2.6.0-oscorp`
 
 > Note: Git tags are unique, so no matter on what branch you are you cannot have two tags with the same name.
+
+When creating tags, generally the rules are as follows:
+
+- on the `2.x` branch the patch number should be increased from the [last release](#find-latest-tag-on-a-branch) since the changes include bug fixes (e.g. `2.5.1`)
+- on the `2.next` branch the next release is prepared, so the tag names contain the next release (e.g. `2.6.0`) followed by an alpha or beta keyword (e.g. `2.6.0-beta.3`) - the alpha or beta number (e.g. `beta.3`) can be found by increasing from the [last release](#find-latest-tag-on-a-branch) on the `2.next` branch
 
 ### Creating a release
 
@@ -291,6 +302,57 @@ For example, to test the [fixes we've made on the `2.0-fix-contributions-bug` re
 > Note: As soon as you're done testing, you should remove the temporary branch from the Branch Filter.
 
 ## Appendix
+
+### Find latest tag on a branch
+
+First, make sure you have all latest tags from the repository by running:
+
+```sh
+git fetch --all
+```
+
+Using [git-describe](https://git-scm.com/docs/git-describe), see the latest commit on `2.x` (replace `2.x` in `origin/2.x` with your own branch):
+
+```sh
+$ git describe --tags --abbrev=0 origin/2.x
+2.5.1
+```
+
+- `--tags` will search against lightweight tags too, not only annotated tags
+- `--abbrev=0` returns the tag name only, without the "number of commits on top"
+
+### List all branches that contain a certain tag
+
+First, make sure you have all latest tags from the repository by running:
+
+```sh
+git fetch --all
+```
+
+Using [git-branch](https://git-scm.com/docs/git-branch), see all branches that contain the `2.5.0` tag (replace `2.5.0` with your own tag):
+
+```sh
+$ git branch -r --contains 2.5.0
+  origin/2.next
+  origin/2.x
+```
+
+### See details of a tag
+
+```sh
+$ git show -s 2.5.0
+tag 2.5.0
+Tagger: John Doe <johndoe@example.com>
+Date:   Wed Jun 22 12:36:35 2016 +0000
+
+
+commit 24eb0fb2b16d37cc2738e2aad76d22c307b23ce3
+Merge: ca3ec6e 31da502
+Author: John Doe <johndoe@example.com>
+Date:   Wed Jun 22 15:35:00 2016 +0300
+
+    Merge next into 2.next
+```
 
 ### Helper command to merge without checkout
 
