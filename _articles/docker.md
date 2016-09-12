@@ -1,8 +1,10 @@
 ---
 title: Docker
-date: 2016-02-10 00:00:00
+date: 2016-09-12 00:00:00
 readtime: 2
 ---
+
+**DEPRECATED!** - this guide is using Docker Toolbox instead of the new native Docker for Windows/Mac so it is not actual anymore.
 
 When working on Site Stacker, or any other distributed application, it's a very good idea to use [Docker](https://www.docker.com/) to help you build and run your applications with zero configuration and in seconds.
 
