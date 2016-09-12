@@ -131,7 +131,7 @@ class DATABASE_CONFIG
 
 > Note: Don't forget to rename `$mysql` or `$mssql` to `$default`, otherwise you'll get a connection error.
 
-> Tip: Don't use a `__contruct()` to specify the `$default` database like `$this->default = $this->mssql;` because some daemon commands like `import` won't work properly.
+> Tip: Don't use a `__construct()` to specify the `$default` database like `$this->default = $this->mssql;` because some daemon commands like `import` won't work properly.
 
 ## Access Site Stacker
 
