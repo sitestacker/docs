@@ -82,19 +82,21 @@ Optional commit body message.
 
 CHANGELOG
 
-- Everything here will be included in the Changelog
-- You can enumerate the changes as a list or any
-other way you find suited
+Everything here will be included in the Changelog.
+
+Write the changes as normal sentences, separating 
+them by paragraphs, if need be. Ideally there should
+only be 1 paragraph in a changelog message.
 ```
 
 Anything that you add *after* the `CHANGELOG` keyword will be shown to the client, so don't add things that shouldn't be, like the task number. Here's an example of A WRONG COMMIT MESSAGE:
 
 ```
-# THIS IS A WRONG COMMIT MESSAGE !!!
+THIS IS A WRONG COMMIT MESSAGE !
 
 CHANGELOG
 
-- Everything here will be included in the Changelog
+Everything here will be included in the Changelog.
 
 Task #15028
 ```
