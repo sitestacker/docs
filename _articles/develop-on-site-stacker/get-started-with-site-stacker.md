@@ -5,7 +5,9 @@ date: 2016-11-29 00:00:00
 readtime: 5
 ---
 
-The easiest way to get a Site Stacker installation up and running on your local machine is by using [Docker](https://www.docker.com). This guide is intended for all three major platforms: Mac OS, Windows and Linux.
+The easiest way to get a Site Stacker installation up and running on your local machine is by using [Docker](https://www.docker.com).
+
+> Important: At this point this only works on Linux due to the fact that Docker doesn't run natively on Windows and macOS.
 
 ## Start Site Stacker
 
