@@ -1,7 +1,7 @@
 ---
 title: Install on Production
 category: Install Site Stacker
-date: 2016-06-09 00:00:00
+date: 2017-01-03 00:00:00
 readtime: 5
 ---
 
@@ -144,6 +144,10 @@ For the cron jobs defined in the **Cron** component to work, you need to configu
 
 - [Setting up Cron on Windows](setting-up-cron-on-windows)
 - [Setting up Cron on Linux](setting-up-cron-on-linux)
+
+## Setup Cluster Support
+
+If you're running Site Stacker on multiple servers (e.g. behind a load balancer), check the [Configure Cluster Support](configure-cluster-support) guide.
 
 ## Full Example on Windows
 
