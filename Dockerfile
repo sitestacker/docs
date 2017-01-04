@@ -1,4 +1,4 @@
-FROM ruby:2
+FROM ruby:2.2.2
 MAINTAINER Calin Seciu
 
 # Use libxml2, libxslt a packages from alpine for building nokogiri
