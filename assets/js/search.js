@@ -25,6 +25,9 @@
       index.add(obj);
     });
     $(document).trigger('searchready', [index, store]);
+  })
+  .fail(function(jqXHR, textStatus, e) {
+      console.error(e);
   });
 
   $(document).ready(function() {
