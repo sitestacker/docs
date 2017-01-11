@@ -1,7 +1,7 @@
 ---
 title: Get Started with Site Stacker
 category: Develop on Site Stacker
-date: 2017-01-05 00:00:00
+date: 2017-01-12 00:00:00
 readtime: 5
 ---
 
@@ -9,38 +9,54 @@ The easiest way to get a Site Stacker installation up and running on your local 
 
 > Important: Currently this works on Linux and Mac. If you're on Windows, you'll have to configure the web and database servers manually.
 
-*If you encounter any issues please report them here: <https://git.sitestacker.com/sitestacker/sitestacker/issues/68>.*
+*If you encounter any issues please report them here: <https://git.sitestacker.com/sitestacker/sitestacker/issues/68> or [leave a comment](#disqus).*
 
 ## Prerequisites
 
 - [Docker](https://www.docker.com) - Install the corresponding version of Docker based on your machine
+- A [Site Stacker GitLab](https://git.sitestacker.com) user with proper access
+- MySQL or SQL Server running locally (see [Database Server](#database-server) below to spin up a database server)
 
 ## Start Site Stacker
 
-Once Docker is installed, run the command below to start Site Stacker (see important considerations below):
+Make sure you have the latest docker image first:
+
+```sh
+docker pull sitestacker/dev
+```
+
+Before running the command below, make sure to:
+
+- **Replace `172.17.0.1` with the local IP address of your machine (e.g. `192.169.0.5`)** :exclamation:
+- Replace `<USER>` and `<PASS>` with your GitLab user
+- If your MySQL uses different credentials, change the `MYSQL_*` variables accordingly
+- If you're using SQL Server instead of MySQL, replace `MYSQL_` variables with `MSSQL_`
+- If you want to use other ports than the defaults (`80` and `443`), you can change them in the `-p <hostp>:<containerp>` option (e.g. `-p 8080:80`)
+
+Run the command below in an empty directory or, if you already cloned Site Stacker, in the Site Stacker root directory:
 
 ```sh
 docker run -d --restart unless-stopped --name ss \
     -e GITLAB_USER=<USER> -e GITLAB_PASS=<PASS> \
-    -e MYSQL_HOST=host -e MYSQL_USER=root -e MYSQL_PASSWORD="" -e MYSQL_DATABASE=sitestacker \
+    -e MYSQL_HOST=host -e MYSQL_PORT=3306 -e MYSQL_USER=root -e MYSQL_PASSWORD="" -e MYSQL_DATABASE=sitestacker \
     --add-host host:172.17.0.1 \
     -p 80:80 -p 443:443 \
     -v "$(pwd):/var/www/html" \
     sitestacker/dev
 ```
 
-After running the command, wait a few seconds before accessing Site Stacker at <http://sped.pw/admin> (sped.pw is a domain that points to `127.0.0.1`). You can login with SAML.
+After running the command, open the container logs and watch for the line `INFO exited: startup (exit status 0; expected)`, which means the setup finished and you're ready to roll. Here's an example:
 
-#### Considerations
+```sh
+$ docker logs -f ss
+2017-01-11 19:51:15,841 CRIT Supervisor running as root (no user in config file)
+2017-01-11 19:51:15,841 WARN Included extra file "/etc/supervisor/conf.d/supervisord.conf" during parsing
+...
+...
+2017-01-11 19:51:21,250 INFO exited: startup (exit status 0; expected)
+```
 
-- You need to specify your [GitLab](https://git.sitestacker.com) username and password first (replace `<USER>` and `<PASS>` accordingly)
-- The command assumes you have a running MySQL server at `localhost:3306` (default MySQL port) which uses `root` without a password for connecting.
-  - If your MySQL uses different credentials, you can specify them by changing `MYSQL_USER` and `MYSQL_PASSWORD` in the command.
-  - If your MySQL uses a different port, you can specify it by using the `MYSQL_PORT` env var in the command.
-  - If you don't have a running MySQL server, you can easily [start one with Docker](#mysql--mariadb).
-- If you don't want to access the code from the host machine, you can skip the `-v ...` option.
-- If you want to use other ports than the defaults (`80` and `443`), you can change them in the `-p <hostp>:<containerp>` option (e.g. `-p 8080:80`).
-- :exclamation: To be sure it's working (especially if you're not on Linux), you should replace `172.17.0.1` with the local IP address of your machine (e.g. `192.169.0.5`)
+You can now access Site Stacker at <http://sped.pw/admin> (sped.pw is a domain that points to `127.0.0.1` and it's recommended to be able to use SAML login).
 
 ## Running all commands inside the container
 
@@ -70,30 +86,15 @@ docker exec ss <command>
 
 ## Clone a Site Stacker installation
 
-Often times you don't want to start with a blank database, but clone an existing Site Stacker installation. To do this, run the following commands:
+Often times you don't want to start with a blank database, but clone an existing Site Stacker installation. For this, you can use the `ssimport` command inside the container, which will run all the necessary commands for you. Check the command's help (`ssimport -h`) for usage.
 
 > Note: To provide security, the ability to run these commands are based on your GitLab user ACL. If you don't have enough access, the commands may fail.
 
-
-```sh
-docker exec -ti ss bash
-export CLONE_URL="<URL>"
-sitestacker import -f --add-domain sped.pw $CLONE_URL
-sitestacker cp -u --exclude "**/FileManager/thumbnails/**" $CLONE_URL "webroot"
-sitestacker sync -f $CLONE_URL
-App/Console/cake Search.Elastic indexAll -v
-sitestacker doctor
-```
-
-- Replace `<URL>` with the domain of the Site Stacker installation you want to clone (e.g. mydomain.com).
-- The `sped.pw` domain points to `127.0.0.1` so you can use it locally to access the site.
-- Note that the `sitestacker import` command will obfuscate the database for safety reasons (e.g. ".test" will be appended to all email addresses to prevent sending accidental emails, cron jobs and system messages will be disabled). If you don't want this check the command's help.
-
-You can now access the cloned site at <http://sped.pw>.
-
 > Tip: If you have multiple sites, you can use the hosts file to add dummy domains that point to `127.0.0.1` for every site.
 
-## Database server
+## Database Server
+
+Based on your requirements, you can spin up a MySQL / MariaDB database server or a SQL Server instance, or both, using Docker.
 
 ### MySQL / MariaDB
 
@@ -106,7 +107,27 @@ docker run -d --restart unless-stopped \
   mysql:5
 ```
 
-Now you can connect to this database server as `root` with no password on the default MySQL port (3306), from the host machine or any docker container, using the `host` endpoint configured with the docker command `--add-host host:...`).
+To connect to this database you need to change the `App/Config/database.php` file to look like this:
+
+```php
+<?php
+class DATABASE_CONFIG {
+    public $default = array(
+        'datasource' => 'Database/ExtendedMysql',
+        'persistent' => false,
+        'host' => 'host',
+        'port' => 3306,
+        'login' => 'root',
+        'password' => '',
+        'database' => 'sitestacker',
+        'prefix' => '',
+        //'unix_socket' => '/tmp/mysql.sock',
+        'encoding' => 'utf8',
+        //'UNC' => "/Users/joe/Public;\\\\COMPUTER\\Joe's Public Folder",
+    );
+    // ...
+}
+```
 
 ### Microsoft SQL Server
 
@@ -122,7 +143,7 @@ docker run -d --restart unless-stopped \
   microsoft/mssql-server-linux
 ```
 
-Now to connect to this database you need to change the `database.php` to look like this:
+To connect to this database you need to change the `App/Config/database.php` file to look like this:
 
 ```php
 <?php
@@ -133,7 +154,7 @@ class DATABASE_CONFIG {
         'host' => 'host',
         'login' => 'sa',
         'password' => 'yourStrong(!)Password',
-        'database' => 'namb',
+        'database' => 'sitestacker',
         'prefix' => '',
         //'unix_socket' => '/tmp/mysql.sock',
         //'encoding' => 'utf8',
@@ -156,6 +177,10 @@ For example you may want to restart Apache to pick up some changes you did in th
 ```sh
 docker exec ss supervisorctl restart apache
 ```
+
+### Update container when image changes
+
+Your Site Stacker container should not store application data, which means you can remove and re-create it anytime. In order to update the container when its image changed, you first need to stop and remove it (`docker stop ss && docker rm ss`), then pull the new image and run the same command you used to start the container (see the `docker pull` and `docker run` commands at the begginning of this guide).
 
 ## Troubleshooting
 
