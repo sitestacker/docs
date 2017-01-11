@@ -62,7 +62,7 @@ The `/.sitestacker/users` file is very basic:
 username
 ```
 
-### Test the setup
+## Test the setup
 
 To test if the URLs are working correctly, run the `sitestacker status` command (as the user running the daemon) on each server.
 
