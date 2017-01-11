@@ -60,7 +60,7 @@ $(document).ready(function(){
 	// handle events
     $sideBar.sidebar('attach events', '.show-nav');
     $(document).on('keydown', function(e) {
-        if (e.which == 36 /* HOME */) {
+        if (e.which == 36 /* HOME */ && !e.shiftKey && !e.ctrlKey && !e.altKey) {
             window.location = '{{ site.github.url }}/';
             return;
         }
