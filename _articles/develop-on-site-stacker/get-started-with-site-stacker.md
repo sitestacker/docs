@@ -110,27 +110,40 @@ Now you can connect to this database server as `root` with no password on the de
 
 ### Microsoft SQL Server
 
-To connect to a local SQL Server, things are more complicated, since SQL Server isn't available on macOS and Linux. Thankfully you can use Vagrant to install it in a VM box almost immediately.
+Microsoft recently released [SQL Server on Linux](https://docs.microsoft.com/en-us/sql/linux/), so now it's easy to spin up a SQL Server database on a Linux or Mac machine using Docker. You can read more about the Docker image here: <https://hub.docker.com/r/microsoft/mssql-server-linux/>. Make sure you meet the requirements.
 
-> Note: On Windows, you'll have to configure SQL Server manually by following [Configure SQL Server](connect-to-sql-server-from-unix#configure-sql-server).
-
-On macOS and Linux, run the following Vagrant commands in the Site Stacker root to download and fire up the [sitestacker/win12-sql14](https://atlas.hashicorp.com/sitestacker/boxes/win12-sql14/) box with SQL Server installed and configured:
+To start a SQL Server instance run this in your Site Stacker root:
 
 ```sh
-vagrant init sitestacker/win12-sql14
-vagrant up
+docker run -d --restart unless-stopped \
+  -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=yourStrong(!)Password' \
+  -p 1433:1433 \
+  -v "$(pwd)/App/tmp:/sstmp" \
+  microsoft/mssql-server-linux
 ```
 
-To connect to it use `sitestacker` as the user and `password` as the password. The port is the default one (`1433`) but if it's already in use Vagrant will reconcile the conflict automatically and use a different port. To find out the port check the output of the command above, e.g.:
+Now to connect to this database you need to change the `database.php` to look like this:
 
-```sh
-==> default: Forwarding ports...  
-    default: 3389 (guest) => 3389 (host) (adapter 1)  
-    default: 5985 (guest) => 5985 (host) (adapter 1)  
-    default: 1433 (guest) => 2200 (host) (adapter 1) # <= 1433 was mapped to 2200 on the host
+```php
+<?php
+class DATABASE_CONFIG {
+    public $default = array(
+        'datasource' => 'Database/ExtendedSqlserver',
+        'persistent' => false,
+        'host' => 'host',
+        'login' => 'sa',
+        'password' => 'yourStrong(!)Password',
+        'database' => 'namb',
+        'prefix' => '',
+        //'unix_socket' => '/tmp/mysql.sock',
+        //'encoding' => 'utf8',
+        'UNC' => 'App/tmp;/sstmp',
+    );
+    // ...
+}
 ```
 
-To inspect the database, get into the VM using `vagrant rdp` or open it directly from **VirtualBox Manager**, where you can use **Microsoft SQL Server Management Studio**.
+It's very important to set the `UNC` as shown, otherwise you won't be able to import databases.
 
 ## Advanced usage
 
