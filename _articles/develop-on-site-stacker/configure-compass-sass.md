@@ -5,9 +5,7 @@ date: 2015-11-17 19:00:00
 tags: scss
 ---
 
-<note>
-This guide will explain how to install Ruby, Compass and Sass so ExtJS compiling will work correctly. These steps are required only if you also compiling the SiteStacker ExtJS theme. If you don't need support for ExtJS theme just install the latest versions of Ruby, SASS and Compass.
-</note>
+> Note: This guide will explain how to install Ruby, Compass and Sass so ExtJS compiling will work correctly. These steps are required only if you also compiling the SiteStacker ExtJS theme. If you don't need support for ExtJS theme just install the latest versions of Ruby, SASS and Compass.
 
 1. Install Ruby 1.9.3 (any greater version will not work) from [here](http://rubyinstaller.org/downloads/)
 

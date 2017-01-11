@@ -7,16 +7,11 @@ tags:
 readtime: 2
 ---
 
-<note>
-Tests can only run on CakePHP 2.6+, so this means you cannot run tests on <code>master</code> <a href="https://git.sitestacker.com/sitestacker/sitestacker/merge_requests/1">until `cakephp-2.6` is merged in</a>. Testing is only possible on branches that diverged from <code>cakephp-2.6</code>.
-</note>
+Tests are run automatically by [GitLab](https://git.sitestacker.com/sitestacker/sitestacker/pipelines).
 
-## Prerequisites
+To run the tests locally, you need:
 
-To be able to run tests locally, you need to:
-
-- [Install PHPUnit 3.7.x](http://book.cakephp.org/2.0/en/development/testing.html#install-via-phar-package) via .phar
-    - place `phpunit.phar` in `vendors/`
+- [PHPUnit 3.7.x](http://book.cakephp.org/2.0/en/development/testing.html#install-via-phar-package) (place `phpunit.phar` in `vendors/`)
 - [Create the test database](http://book.cakephp.org/2.0/en/development/testing.html#test-database-setup)
 
 ## Running Tests
@@ -51,8 +46,7 @@ SiteStacker is now set up and ready to run unit testing.
 
 ### Run unit tests from PhpStorm
 
-From the project tree you either run tests for a single component by right clicking a component (eg. Contributions), or you can run the tests for all components by right clicking the `components` folder.
-You have 3 options when running tests:
+From the project tree you either run tests for a single component by right clicking a component (eg. Contributions), or you can run the tests for all components by right clicking the `components` folder. You have 3 options when running tests:
 
 - Run
 - Debug (it enables XDebug and you'll be able to debug your code while testing)
@@ -122,4 +116,4 @@ TODO
 
 ### Skipping builds
 
-If your commit message contains `[ci skip]`, the builds will be skipped (<http://doc.gitlab.com/ce/ci/yaml/README.html#skipping-builds>).
+If your commit message contains `[ci skip]` or `[skip ci]`, the builds will be skipped (<http://doc.gitlab.com/ce/ci/yaml/README.html#skipping-builds>).

@@ -1,7 +1,7 @@
 ---
 title: Markdown Elements
 category: Contributing to Site Stacker Docs
-date: 2016-02-02 00:00:00
+date: 2017-01-11 00:00:00
 ---
 
 Articles are written in [Markdown](http://daringfireball.net/projects/markdown/) and this site uses [kramdown](http://kramdown.gettalong.org/syntax.html) to parse the code. This page shows all elements that can be used in a page.
@@ -223,9 +223,7 @@ You can include images with the following syntax:
 
 Code blocks can be taken a step further by adding syntax highlighting. In your fenced block, add an optional [language identifier](https://github.com/jneen/rouge/wiki/List-of-supported-languages-and-lexers) and we'll run it through syntax highlighting.
 
-<important>
-Don't use <code>```apache</code> even though it is listed as a supported language identifier because it will break GitHub Pages page build, without any other information. Use <code>```conf</code> instead.
-</important>
+> Important: Don't use <code>```apache</code> even though it is listed as a supported language identifier because it will break GitHub Pages page build, without any other information. Use <code>```conf</code> instead.
 
 ### PHP
 
@@ -342,93 +340,47 @@ For a full list of available emoji check out :point_right: [emoji-cheat-sheet.co
 
 ## Hints
 
-You can use `<note>`, `<tip>` and `<important>` tags to indicate useful hints. Note that the `<title>` tag is optional.
-
-Note that inside the tags you **cannot** use other Markdown elements, so you should specify links, bolds, italics, etc. using HTML tags.
+You can use `> Note:`, `> Tip:` and `> Important:` blockquote prefixes to indicate useful hints.
 
 ```
-<note>
-    <title>Title is optional</title>
-    Note body goes <i>here</i>.
-</note>
+> Note: **Title is optional**  
+> Note body goes *here*.
 ```
 
-<note>
-    <title>Title is optional</title>
-    Note body goes <i>here</i>.
-</note>
+> Note: **Title is optional**  
+> Note body goes *here*.
 
 ```
-<note>
-    This is a note without a title.
-</note>
+> Note: This is a note without a title.
 ```
 
-<note>
-    This is a note without a title.
-</note>
+> Note: This is a note without a title.
 
 ```
-<tip>
-    <title>ProTip: Use a search engine</title>
-    Use <a href="http://google.com">Google</a> or <a href="http://bing.com">Bing</a>.
-</tip>
+> Tip: **Use a search engine**  
+> Use [Google](http://google.com) or [Bing](http://bing.com).
 ```
 
-<tip>
-    <title>ProTip: Use a search engine</title>
-    Use <a href="http://google.com">Google</a> or <a href="http://bing.com">Bing</a>.
-</tip>
+> Tip: **Use a search engine**  
+> Use [Google](http://google.com) or [Bing](http://bing.com).
 
 ```
-<important>
-    <title>Be careful!</title>
-    Some <b>paragraph</b> here.<br>
-    <br>
-    Some paragraph here.<br>
-    One more line in this paragraph.
-</important>
+> Important: **Be careful!**  
+> Some **paragraph** here.
+>
+> Some paragraph here.  
+> One more line in this paragraph.
 ```
 
-<important>
-    <title>Be careful!</title>
-    Some <b>paragraph</b> here.<br>
-    <br>
-    Some paragraph here.<br>
-    One more line in this paragraph.
-</important>
+> Important: **Be careful!**  
+> Some **paragraph** here.
+>
+> Some paragraph here.  
+> One more line in this paragraph.
 
 ## OS-specific blocks
 
-==Windows==
-
-This is a Windows-only block.
-
-==/Windows==
-
-==Mac==
-
-This is a Mac-only block.
-
-==/Mac==
-
-==Linux==
-
-This is a Linux-only block.
-
-==/Linux==
-
-==Block:Unix BSD==
-
-This is a custom block named **Unix BSD**.
-
-==/Block:Unix BSD==
-
-You can add OS-specific blocks in two ways:
-
-#### Method #1
-
-By using start and end syntax: `=={BlockName}==` ... `==/{BlockName}==`. Possible values:
+You can add OS-specific blocks by using start and end syntax: `=={BlockName}==` ... `==/{BlockName}==`. Possible values:
 
 - `==Windows==` ... `==/Windows==`
 - `==Mac==` ... `==/Mac==`
@@ -470,27 +422,3 @@ $ echo $PATH
 This is a custom block named **Unix BSD**.
 
 ==/Block:Unix BSD==
-
-#### Method #2
-
-**This method is not working anymore since upgrading to Jekyll 3.0. See <https://github.com/jneen/rouge/issues/379>**
-
-By simply adding consecutive code blocks with the following code syntax keywords:
-
-- <code>```powershell</code> - this will translate to **Windows**
-- <code>```bash</code> - this will translate to **Mac**
-- <code>```sh</code> - this will translate to **Unix**
-
-```powershell
-$ echo $env:PATH
-```
-
-```bash
-$ say "I'll be back!"
-```
-
-```sh
-$ echo $PATH
-```
-
----

@@ -20,9 +20,7 @@ Open PhpStorm settings window (File > Settings or Ctrl+Alt+S)
 2. In the right panel select the SiteStacker `webroot` directory
 3. Click on `Resource Root` button from the top toolbar
 
-<note>
-This will make PhpStorm know that the webroot folder is holding all the possible assets and will offer paths auto completion.
-</note>
+> Note: This will make PhpStorm know that the `webroot` folder is holding all the possible assets and will offer paths auto completion.
 
 #### Marking `lib/Cake` and `App/Lib` duplicated PHP files as Plain text  
 Each file located in `App/Lib` has a corresponding file in `lib/Cake`. In order to have correct auto completion when using CakePHP methods in your code make sure that each file found in `App/Lib` has the corresponding file in `lib/Cake` and mark all duplicated files in `lib/Cake` as plain text. You can do this by right clicking the file and choosing the `Mark as plain text` option.
