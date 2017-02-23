@@ -1,28 +1,23 @@
 ---
 title:  Server Requirements - Linux
 category: Install Site Stacker
-date: 2016-05-17 00:00:00
+date: 2017-02-23 00:00:00
 ---
 
 ## 1. Recommended Server Hardware
 
 > Note: The server hardware configuration varies widely between hosting providers and greatly depends on the amount of traffic expected. The following are server recommendations that will fit most light to moderate cases.
 
-* Processor: 2.5 GHz (4 Cores)
-* Memory: 6-8GB
+* Processor: 2.7 GHz (8 Cores)
+* Memory: 16GB
 * Storage: 80GB
 
 
 ## 2. Operating System
 
-We recommend Ubuntu 14.04 or later, but any distribution of CentOS, Redhat,
-Debian, Ubuntu or Fedora should work.
+We recommend the latest Ubuntu LTS (e.g. Ubuntu 16.04 at the time of this writing), but other distributions like CentOS, Redhat, Debian, Fedora will also work, just make sure you're using the latest version.
 
-Note that the **Linux kernel must be 3.10 at minimum** (e.g. Ubuntu 14.04+,
-CentOS 7+, RHEL 7+, etc.).
-
-To check your current kernel version, open a terminal and use `uname -r`
-to display your kernel version:
+Whichever Linux distribution you choose, **make sure the Linux kernel is at least 3.10 or later**. You can check the kernel version by running:
 
 ```sh
 $ uname -r
@@ -47,21 +42,15 @@ $ uname -r
       * mod_deflate
 
 
-
 ## 5. Database
 
-Either:
+Either MySQL 5.x (latest 5.x is recommended) with InnoDB engine enabled or latest compatible MariaDB (e.g. MariaDB 10.1). MariaDB is a drop-in replacement for MySQL.
 
-* MySQL 5.6 or later
-  * InnoDB engine
-  * Optional, but recommended:
-     * PhpMyAdmin
-* MariaDB 10.1 or later
-  * MariaDB is a drop-in replacement for MySQL
 
 ## 6. PHP
 
-* PHP 5.6 or later
+* Latest PHP 5.x (minimum is PHP 5.6)
+   * Same PHP must be available in CLI as well
 * Extensions:
    * curl
    * gd2
@@ -82,15 +71,18 @@ Either:
 
 ## 7. Java
 
-* Optional, if Search component is used:
-    * Java 8 update 45 or later. Only Oracle’s Java and the OpenJDK are supported. The same JVM version should be used on all Elasticsearch nodes and clients.
+Java 8 update 45 or later. Only Oracle’s Java and the OpenJDK are supported. The same JVM version should be used on all Elasticsearch nodes and clients.
 
 
 ## 8. ElasticSearch
 
-* Follow [this guide](https://github.com/sitestacker/sitestacker-wiki/wiki/Install-elasticsearch)
-* The official guide can be found [here](https://www.google.com/url?q=https%3A%2F%2Fwww.elastic.co%2Fguide%2Fen%2Felasticsearch%2Freference%2Fcurrent%2Fsetup.html&sa=D&sntz=1&usg=AFQjCNG1Wa040IUIoTIfd3GoEbFqbH_o9Q)
-* Is it very important to install ElasticSearch so it will restart automatically after server reboots.
+Latest Elasticsearch 1.7.x (Elasticsearch 1.7.6 at the time of this writing).
+
+1. Installation: check out the official guide at <https://www.elastic.co/guide/en/elasticsearch/reference/1.7/_installation.html>.
+2. Run as a Service: check out <https://www.elastic.co/guide/en/elasticsearch/reference/1.7/setup-service.html>.
+3. Index data: Once Elasticsearch is running, you can index the data from the cli (recommended) by running `App/Console/cake Search.Elastic indexAll -v`. Alternatively, you can index the data in Site Planner by right clicking a site in Content Explorer (left side).
+
+> Note: Is it very important to configure Run as a Service so ElasticSearch will restart automatically after a server restart.
 
 
 ## 9. Mail Server

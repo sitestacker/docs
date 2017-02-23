@@ -1,15 +1,15 @@
 ---
 title:  Server Requirements - Windows
 category: Install Site Stacker
-date: 2016-05-17 00:00:00
+date: 2017-02-23 00:00:00
 ---
 
 ## 1. Recommended Server Hardware
 
 > Note: The server hardware configuration varies widely between hosting providers and greatly depends on the amount of traffic expected. The following are server recommendations that will fit most light to moderate cases.
 
-* Processor: 2.5 GHz (4 Cores)
-* Memory: 8GB
+* Processor: 2.7 GHz (8 Cores)
+* Memory: 16GB
 * Storage: 80GB
 
 
@@ -27,7 +27,7 @@ date: 2016-05-17 00:00:00
 
 ## 4. Web Server
 
-* Internet Information Services (IIS) 7.5 or newer
+* Internet Information Services (IIS) 8.0 or newer
 * Modules:
    * [URL Rewrite](http://www.google.com/url?q=http%3A%2F%2Fwww.iis.net%2Fdownloads%2Fmicrosoft%2Furl-rewrite&sa=D&sntz=1&usg=AFQjCNHslW_84Io3PnG3NyHM07RQ0Jzy8Q)
 * IIS must have permission to:
@@ -56,7 +56,7 @@ appcmd.exe set config  -section:system.webServer/security/requestFiltering /requ
 
 ## 5. Database Server
 
-* Microsoft SQL Server 2012 or higher
+* Microsoft SQL Server 2014 or higher (latest is recommended)
   * The connection to the database server can be made with either SQL Authentication or Windows Authentication
      * If Windows Authentication will be used the user under which IIS process is running must map to a valid SQL Server login in order to establish a connection.
   * Optional, but highly recommended:
@@ -75,9 +75,9 @@ If `dbcreator` cannot be granted, a second (empty) database called `sitestacker_
 
 ## 6. PHP
 
-* PHP 5.6.x or latest stable version
+* Latest PHP 5.x (minimum is PHP 5.6)
    * Download PHP [here](http://php.iis.net/)
-   * PHP must also be available as a command in CLI
+   * Same PHP must be available in CLI as well
 * Extensions:
    * curl
    * gd2
@@ -106,15 +106,18 @@ If `dbcreator` cannot be granted, a second (empty) database called `sitestacker_
 
 ## 7. Java
 
-* Optional, if Search component is used:
-   * We recommend installing the **Java 8 update 45 or later**, or **Java 7 update 79 or later**. Previous versions of Java 7 are known to have bugs that can cause index corruption and data loss. Only Oracle’s Java and the OpenJDK are supported. The same JVM version should be used on all Elasticsearch nodes and clients.
+Java 8 update 45 or later. Only Oracle’s Java and the OpenJDK are supported. The same JVM version should be used on all Elasticsearch nodes and clients.
 
 
 ## 8. ElasticSearch
 
-* Install from here [Elasticsearch](https://github.com/sitestacker/sitestacker-wiki/wiki/Install-elasticsearch)
-* The official guide can be found [Here](https://www.google.com/url?q=https%3A%2F%2Fwww.elastic.co%2Fguide%2Fen%2Felasticsearch%2Freference%2Fcurrent%2Fsetup.html&sa=D&sntz=1&usg=AFQjCNG1Wa040IUIoTIfd3GoEbFqbH_o9Q)
-* Is it very important that ElasticSearch be setup to run always as a service and will restart automatically after server reboots. To do this you can run `bin/service.bat install` and then in **Services** selected the `Restart the service` policy on failure.
+Latest Elasticsearch 1.7.x (Elasticsearch 1.7.6 at the time of this writing).
+
+1. Installation: check out the official guide at <https://www.elastic.co/guide/en/elasticsearch/reference/1.7/_installation.html>.
+2. Run as a Service: check out <https://www.elastic.co/guide/en/elasticsearch/reference/1.7/setup-service-win.html>.
+3. Index data: Once Elasticsearch is running, you can index the data from the cli (recommended) by running `App/Console/cake Search.Elastic indexAll -v`. Alternatively, you can index the data in Site Planner by right clicking a site in Content Explorer (left side).
+
+> Note: Is it very important to configure Run as a Service so ElasticSearch will restart automatically after a server restart.
 
 
 ## 9. Mail Server
