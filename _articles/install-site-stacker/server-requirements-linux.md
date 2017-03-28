@@ -60,6 +60,7 @@ Either MySQL 5.x (latest 5.x is recommended) with InnoDB engine enabled or lates
    * pdo_sqlsrv
    * soap
    * sockets
+   * mcrypt (required if using the Payeezy payment processor)
 * Settings:
    * short_open_tag=On
    * allow_url_fopen=On
