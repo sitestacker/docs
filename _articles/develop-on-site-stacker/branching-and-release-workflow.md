@@ -356,6 +356,28 @@ Date:   Wed Jun 22 15:35:00 2016 +0300
     Merge next into 2.next
 ```
 
+### View details for a tag/commit
+
+This is usefull when you want to check when a specific tag or commit was installed on a server
+
+```sh
+$ git log -p refs/notes/update
+
+commit c936ae5aec65ec0241623ea46c7353ecbb794fc0
+Author: John Doe <johndoe@example.com>
+Date:   Mon Mar 27 07:27:26 2017 -0400
+
+    Notes added by 'git_note_create' from libgit2
+
+diff --git a/0b1fb50d7c21d64b9f3a6dffee5e4669d3ad3d9e b/0b1fb50d7c21d64b9f3a6dffee5e4669d3ad3d9e
+new file mode 100644
+index 0000000..323d4f3
+--- /dev/null
++++ b/0b1fb50d7c21d64b9f3a6dffee5e4669d3ad3d9e
+@@ -0,0 +1 @@
++Update 1.2.5-0-gf1902ed to 1.2.6-0-g0b1fb50 by John Doe <johndoe@example.com> on 2017-03-27 07:27:26.3751 - 0400 EDT
+```
+
 ### Helper command to merge without checkout
 
 To merge a development branch into a release branch, you normally need to switch (checkout) to the release branch and merge the development branch in. This can become a drag, especially when having uncommitted changes.
