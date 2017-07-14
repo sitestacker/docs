@@ -49,7 +49,7 @@ Either MySQL 5.x (latest 5.x is recommended) with InnoDB engine enabled or lates
 
 ## 6. PHP
 
-* Latest PHP 5.x (minimum is PHP 5.6)
+* PHP 5.x (minimum is PHP 5.6, recommended is latest 5.x)
    * Same PHP must be available in CLI as well
 * Extensions:
    * curl
@@ -61,6 +61,7 @@ Either MySQL 5.x (latest 5.x is recommended) with InnoDB engine enabled or lates
    * soap
    * sockets
    * mcrypt (required if using the Payeezy payment processor)
+   * zip
 * Settings:
    * short_open_tag=On
    * allow_url_fopen=On
@@ -69,6 +70,7 @@ Either MySQL 5.x (latest 5.x is recommended) with InnoDB engine enabled or lates
    * date.timezone=[`the server’s timezone`]
    * memory_limit=512M
    * DOMDocument (don’t use `--disable-dom` when compiling PHP)
+       * if missing can be resolved by installing `php-xml` extension
 
 ## 7. Java
 
@@ -77,7 +79,7 @@ Java 8 update 45 or later. Only Oracle’s Java and the OpenJDK are supported. T
 
 ## 8. ElasticSearch
 
-Latest Elasticsearch 1.7.x (Elasticsearch 1.7.6 at the time of this writing).
+Elasticsearch 1.7.x (Elasticsearch 1.7.6 at the time of this writing, but latest 1.7.x is recommended).
 
 1. Installation: check out the official guide at <https://www.elastic.co/guide/en/elasticsearch/reference/1.7/_installation.html>.
 2. Run as a Service: check out <https://www.elastic.co/guide/en/elasticsearch/reference/1.7/setup-service.html>.
