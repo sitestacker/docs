@@ -75,7 +75,7 @@ If `dbcreator` cannot be granted, a second (empty) database called `sitestacker_
 
 ## 6. PHP
 
-* Latest PHP 5.x (minimum is PHP 5.6)
+* PHP 5.x (minimum is PHP 5.6, recommended is latest 5.x)
    * Download PHP [here](http://php.iis.net/)
    * Same PHP must be available in CLI as well
 * Extensions:
@@ -88,6 +88,7 @@ If `dbcreator` cannot be granted, a second (empty) database called `sitestacker_
    * soap
    * sockets
    * mcrypt (required if using the Payeezy payment processor)
+   * zip
    * [wincache 1.3.5+](http://windows.php.net/downloads/pecl/releases/wincache/) (optional, recommended)
       * WinCache must be disabled in CLI (`wincache.enablecli=Off`) - default is Off
       * If WinCache 1.3.7 or newer is installed: `wincache.reroute_enabled=Off`
@@ -103,6 +104,7 @@ If `dbcreator` cannot be granted, a second (empty) database called `sitestacker_
    * soap.wsdl_cache_enabled=On
    * soap.wsdl_cache_dir=C:\Windows\Temp
    * DOMDocument (don’t use `--disable-dom` when compiling PHP)
+       * if missing can be resolved by installing php-xml extension
 
 
 ## 7. Java
@@ -112,7 +114,7 @@ Java 8 update 45 or later. Only Oracle’s Java and the OpenJDK are supported. T
 
 ## 8. ElasticSearch
 
-Latest Elasticsearch 1.7.x (Elasticsearch 1.7.6 at the time of this writing).
+Elasticsearch 1.7.x (Elasticsearch 1.7.6 at the time of this writing, but latest 1.7.x is recommended).
 
 1. Installation: check out the official guide at <https://www.elastic.co/guide/en/elasticsearch/reference/1.7/_installation.html>.
 2. Run as a Service: check out <https://www.elastic.co/guide/en/elasticsearch/reference/1.7/setup-service-win.html>.
