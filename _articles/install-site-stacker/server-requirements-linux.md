@@ -55,6 +55,7 @@ Either MySQL 5.x (latest 5.x is recommended) with InnoDB engine enabled or lates
    * curl
    * gd2
    * [iconv](http://php.net/manual/en/iconv.installation.php) (enabled by default, but can be disabled with `--without-iconv`)
+   * intl
    * mbstring (needed by CakePdf)
    * openssl (with TLS v1.2)
    * pdo_sqlsrv
