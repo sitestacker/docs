@@ -82,6 +82,7 @@ If `dbcreator` cannot be granted, a second (empty) database called `sitestacker_
    * curl
    * gd2
    * [iconv](http://php.net/manual/en/iconv.installation.php) (enabled by default, but can be disabled with `--without-iconv`)
+   * intl
    * mbstring (needed by CakePdf)
    * openssl (with TLS v1.2)
    * pdo_sqlsrv
