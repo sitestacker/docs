@@ -1,7 +1,7 @@
 ---
 title: API
 category: API
-date: 2017-03-23 00:00:00
+date: 2017-06-13 00:00:00
 ---
 
 ## Overview
@@ -206,6 +206,124 @@ Status | Description
 500 Internal Server Error	| Error occurred, we are notified, but contact support if the issue persists
 503 Service Unavailable	| API is unavailable, check response body or contact support
 
+## Campaigns
+
+A campaign represents a contribution designation. It's a content item and can be tied to a certain person record.
+
+### List campaigns
+
+```
+GET /campaigns
+```
+
+**Curl Example**
+
+```bash
+$ curl -n https://<domain>/api/campaigns \
+    -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+```
+HTTP/1.1 200 OK
+Accept-Ranges: id
+Content-Range: id 0..; max=100, total=11, order=asc
+RateLimit-Limit: 5000
+RateLimit-Remaining: 4999
+RateLimit-Reset: 1372700873
+```
+
+The data returned is similar to the [get a single campaign](#get-a-single-campaign) endpoint, but contains an array of records instead of a single record.
+
+### Get a single campaign
+
+```
+GET /campaigns/:id
+```
+
+**Curl Example**
+
+```bash
+$ curl -n https://<domain>/api/campaigns/1 \
+    -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+```
+HTTP/1.1 200 OK
+RateLimit-Limit: 5000
+RateLimit-Remaining: 4999
+RateLimit-Reset: 1372700873
+```
+
+```json
+{
+    "id": "3",
+    "goal_amount": "5000.00",
+    "min_amount": "5.00",
+    "max_amount": "1000.00",
+    "start": null,
+    "end": null,
+    "item": {
+        "id": "3",
+        "alias": "project-with-min-max-amounts",
+        "name": "Project With Min Max Amounts",
+        "publish_datetime": "2015-05-05 05:05:05",
+        "unpublish_datetime": null,
+        "external_id": "P3",
+        "created": "2015-05-05 05:05:05",
+        "modified": "2015-05-05 05:05:05",
+        "owner": null
+    },
+    "category": {
+        "id": "1",
+        "name": "Project",
+        "campaign_label": null
+    },
+    "site": {
+        "id": "1",
+        "name": "Site 1",
+        "require_authentication": false
+    },
+    "goals": [
+        {
+            "id": "2",
+            "goal_amount": "50000.00",
+            "interval": "1",
+            "period": "month"
+        },
+        {
+            "id": "1",
+            "goal_amount": "7500.00",
+            "interval": "3",
+            "period": "week"
+        }
+    ],
+    "fixed_amounts": [
+        {
+            "id": "1",
+            "label": "$5.00",
+            "amount": "5.00",
+            "is_default": false
+        },
+        {
+            "id": "2",
+            "label": "$10.00",
+            "amount": "10.00",
+            "is_default": true
+        },
+        {
+            "id": "3",
+            "label": "$20.00",
+            "amount": "20.00",
+            "is_default": false
+        }
+    ]
+}
+```
+
 ## Contribution Batches
 
 A contribution batch represents a payment action containing a donor, a payment method, at least one contribution and the payment processor transactions (e.g. authorize, capture).
@@ -309,12 +427,60 @@ RateLimit-Reset: 1372700873
         "suffix": "Jr.",
         "gender": "m",
         "birthday": "1987-05-05",
-        "email": "john@test.com",
+        "email": {
+            "id": "1",
+            "email": "john@test.com",
+            "created": "2015-05-05 05:05:05",
+            "modified": "2015-05-05 05:05:05"
+        },
         "description": "Description",
         "is_group": false,
         "external_id": "P1",
         "created": "2015-04-04 12:12:12",
-        "modified": "2015-04-05 13:13:13"
+        "modified": "2015-04-05 13:13:13",
+        "household": {
+            "id": "1",
+            "name": "John Doe's Family",
+            "external_id": "H1",
+            "head_person_id": "1"
+        },
+        "address": {
+            "id": "1",
+            "address1": "2429A Broadway",
+            "address2": "",
+            "city": "New York",
+            "zip": "10024",
+            "latitude": "40.790526",
+            "longitude": "-73.974953",
+            "external_id": "A1",
+            "created": "2015-05-05 05:05:05",
+            "modified": "2015-05-05 05:05:05",
+            "state": {
+                "id": "1",
+                "name": "New York",
+                "code": "NY"
+            },
+            "country": {
+                "id": "1",
+                "name": "United States",
+                "title": "The United States",
+                "code": "US",
+                "iso3": "USA",
+                "iso_number": "840",
+                "internet": "US",
+                "nationality": "American",
+                "currency": "US Dollar",
+                "currency_code": "USD",
+                "population": "278058881"
+            }
+        },
+        "phone": {
+            "id": "1",
+            "number": "(123) 456-7890",
+            "is_outside_us": false,
+            "created": "2016-04-14 20:00:00",
+            "modified": "2016-04-14 20:00:00"
+        }
     },
     "affiliated_donor": null,
     "payment_method": {
@@ -367,7 +533,7 @@ RateLimit-Reset: 1372700873
             "is_anonymous": false,
             "paid_transaction_fee": false,
             "error": null,
-            "notes": "",
+            "notes": "First test contribution",
             "success": "1",
             "external_id": null,
             "extra_data": null,
@@ -375,6 +541,58 @@ RateLimit-Reset: 1372700873
             "pending": false,
             "created": "2015-01-01 00:00:00",
             "modified": "2015-01-01 00:00:00",
+            "campaign": {
+                "id": "1",
+                "goal_amount": null,
+                "min_amount": null,
+                "max_amount": null,
+                "start": null,
+                "end": null,
+                "item": {
+                    "id": "1",
+                    "alias": "default-project",
+                    "name": "Default Project",
+                    "publish_datetime": "2015-05-05 05:05:05",
+                    "unpublish_datetime": null,
+                    "external_id": "P1",
+                    "created": "2015-05-05 05:05:05",
+                    "modified": "2015-05-05 05:05:05",
+                    "owner": {
+                        "id": "1",
+                        "title": "Mr.",
+                        "firstname": "John",
+                        "middlename": "S",
+                        "lastname": "Doe",
+                        "fullname": "John Doe",
+                        "suffix": "Jr.",
+                        "gender": "m",
+                        "birthday": "1987-05-05",
+                        "email": "john@test.com",
+                        "description": "Description",
+                        "is_group": false,
+                        "external_id": "P1",
+                        "created": "2015-04-04 12:12:12",
+                        "modified": "2015-04-05 13:13:13"
+                    }
+                }
+            }
+        },
+        {
+            "id": "3",
+            "amount": "3.00",
+            "is_recurring": false,
+            "is_online": true,
+            "is_anonymous": false,
+            "paid_transaction_fee": false,
+            "error": null,
+            "notes": "Second contribution in the batch",
+            "success": "1",
+            "external_id": null,
+            "extra_data": null,
+            "source_codes": null,
+            "pending": false,
+            "created": "2015-01-01 01:00:00",
+            "modified": "2015-01-01 01:00:00",
             "campaign": {
                 "id": "1",
                 "goal_amount": null,
@@ -432,6 +650,270 @@ RateLimit-Reset: 1372700873
             "modified": "2015-05-05 05:05:05"
         }
     ]
+}
+```
+
+## Contributions
+
+A contribution represents a single transaction inside a contribution batch.
+
+### List contributions
+
+```
+GET /contributions
+```
+
+**Curl Example**
+
+```bash
+$ curl -n https://<domain>/api/contributions \
+    -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+```
+HTTP/1.1 200 OK
+Accept-Ranges: id
+Content-Range: id 0..; max=100, total=1, order=asc
+RateLimit-Limit: 5000
+RateLimit-Remaining: 4999
+RateLimit-Reset: 1372700873
+```
+
+The data returned is similar to the [get a single contribution](#get-a-single-contribution) endpoint, but contains an array of records instead of a single record.
+
+### Get a single contribution
+
+```
+GET /contributions/:id
+```
+
+**Curl Example**
+
+```bash
+$ curl -n https://<domain>/api/contributions/1 \
+    -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+```
+HTTP/1.1 200 OK
+RateLimit-Limit: 5000
+RateLimit-Remaining: 4999
+RateLimit-Reset: 1372700873
+```
+
+```json
+{
+    "id": "1",
+    "amount": "5.00",
+    "is_recurring": false,
+    "is_online": true,
+    "is_anonymous": false,
+    "paid_transaction_fee": false,
+    "error": null,
+    "notes": "First test contribution",
+    "success": "1",
+    "external_id": null,
+    "extra_data": null,
+    "source_codes": null,
+    "pending": false,
+    "created": "2015-01-01 00:00:00",
+    "modified": "2015-01-01 00:00:00",
+    "batch": {
+        "id": "1",
+        "amount": "5.00",
+        "is_recurring": false,
+        "is_online": true,
+        "external_id": null,
+        "success": "1",
+        "transaction_code": "dummy",
+        "is_testing": false,
+        "offline_type": null,
+        "offline_check_number": null,
+        "received": "2015-01-01 00:00:00",
+        "processed": null,
+        "created": "2015-01-01 00:00:00",
+        "modified": "2015-01-01 00:00:00",
+        "site": {
+            "id": "1",
+            "name": "Site 1",
+            "require_authentication": false
+        },
+        "site_channel": {
+            "id": "1",
+            "name": "Site Channel 1",
+            "title": "Site Channel 1",
+            "status": "0",
+            "date_format": "m\/d\/Y",
+            "time_format": "g:i A",
+            "timezone": "",
+            "force_primary_domain": false,
+            "is_mobile": false,
+            "session_timeout": "100",
+            "session_timeout_browser_close": false,
+            "captcha_after_logins": null,
+            "permission_access": false,
+            "robots": "",
+            "is_offline": false,
+            "offline_message": null,
+            "force_https": false,
+            "template_theme": "sitestacker"
+        },
+        "payment_method": {
+            "id": "1",
+            "archived": false,
+            "deleted": null,
+            "test_mode": false,
+            "last_four": "1111",
+            "expiration_date": "2020-01-31",
+            "gateway": "Dummy",
+            "currency": "USD",
+            "external_id": "M1",
+            "person_profile_code_override": null,
+            "created": "2015-05-05 05:05:05",
+            "modified": "2015-05-05 05:05:05",
+            "card": {
+                "id": "1",
+                "gateway": "Dummy",
+                "test_mode": false,
+                "name_on_card": "John Doe",
+                "card_type": "Visa",
+                "card_number_last_four": "1111",
+                "expiration_month": "1",
+                "expiration_year": "2020",
+                "profile_code": "dummy",
+                "created": "2015-05-05 05:05:05",
+                "modified": "2015-05-05 05:05:05"
+            },
+            "check": null,
+            "paypal": null
+        },
+        "recurring": null,
+        "transactions": [
+            {
+                "id": "1",
+                "gateway": "Dummy",
+                "transaction_code": "1234",
+                "auth_code": "XXXX",
+                "error_code": null,
+                "error_message": null,
+                "amount": "5.00",
+                "success": true,
+                "type": "authorizeAndCapture",
+                "settled": "2015-05-05 05:05:05",
+                "test_mode": false,
+                "external_id": "",
+                "currency": "USD",
+                "pending": false,
+                "created": "2015-05-05 05:05:05",
+                "modified": "2015-05-05 05:05:05"
+            }
+        ]
+    },
+    "campaign": {
+        "id": "1",
+        "goal_amount": null,
+        "min_amount": null,
+        "max_amount": null,
+        "start": null,
+        "end": null,
+        "item": {
+            "id": "1",
+            "alias": "default-project",
+            "name": "Default Project",
+            "publish_datetime": "2015-05-05 05:05:05",
+            "unpublish_datetime": null,
+            "external_id": "P1",
+            "created": "2015-05-05 05:05:05",
+            "modified": "2015-05-05 05:05:05",
+            "owner": {
+                "id": "1",
+                "title": "Mr.",
+                "firstname": "John",
+                "middlename": "S",
+                "lastname": "Doe",
+                "fullname": "John Doe",
+                "suffix": "Jr.",
+                "gender": "m",
+                "birthday": "1987-05-05",
+                "email": "john@test.com",
+                "description": "Description",
+                "is_group": false,
+                "external_id": "P1",
+                "created": "2015-04-04 12:12:12",
+                "modified": "2015-04-05 13:13:13"
+            }
+        }
+    },
+    "donor": {
+        "id": "1",
+        "title": "Mr.",
+        "firstname": "John",
+        "middlename": "S",
+        "lastname": "Doe",
+        "fullname": "John Doe",
+        "suffix": "Jr.",
+        "gender": "m",
+        "birthday": "1987-05-05",
+        "email": {
+            "id": "1",
+            "email": "john@test.com",
+            "created": "2015-05-05 05:05:05",
+            "modified": "2015-05-05 05:05:05"
+        },
+        "description": "Description",
+        "is_group": false,
+        "external_id": "P1",
+        "created": "2015-04-04 12:12:12",
+        "modified": "2015-04-05 13:13:13",
+        "household": {
+            "id": "1",
+            "name": "John Doe's Family",
+            "external_id": "H1",
+            "head_person_id": "1"
+        },
+        "address": {
+            "id": "1",
+            "address1": "2429A Broadway",
+            "address2": "",
+            "city": "New York",
+            "zip": "10024",
+            "latitude": "40.790526",
+            "longitude": "-73.974953",
+            "external_id": "A1",
+            "created": "2015-05-05 05:05:05",
+            "modified": "2015-05-05 05:05:05",
+            "state": {
+                "id": "1",
+                "name": "New York",
+                "code": "NY"
+            },
+            "country": {
+                "id": "1",
+                "name": "United States",
+                "title": "The United States",
+                "code": "US",
+                "iso3": "USA",
+                "iso_number": "840",
+                "internet": "US",
+                "nationality": "American",
+                "currency": "US Dollar",
+                "currency_code": "USD",
+                "population": "278058881"
+            }
+        },
+        "phone": {
+            "id": "1",
+            "number": "(123) 456-7890",
+            "is_outside_us": false,
+            "created": "2016-04-14 20:00:00",
+            "modified": "2016-04-14 20:00:00"
+        }
+    },
+    "affiliated_donor": null
 }
 ```
 
@@ -574,14 +1056,15 @@ POST /historic-gifts
 
 Name | Type | Description
 --- | --- | ---
-`receiver.id` or `person_id` | *int* | **Required** if `fund_id` is not set and you want the gift to be associated with a person. The receiving person id (Site Stacker id).
+`receiver.id` | *int* | **Required** if `fund_id` is not set and you want the gift to be associated with a person. The receiving person id (Site Stacker id).
 `fund_id` | *int* | **Required** if `receiver.id` is not set and you want the gift to be associated with a person. The fund id (or campaign external id). This field is mapped according to the Historic Giving component settings, set in admin.
 `fund_name` | *string* | The fund name (or campaign name).
-`donor.id` or `donor_person_id` | *int* | **Required** if `donor.external_id` is not set. The donor person id (Site Stacker id).
-`donor.external_id` or `donor_person_external_id` | *int* | **Required** if `donor.id` is not set. The donor external id.
+`donor.id` | *int* | **Required** if `donor.external_id` is not set. The donor person id (Site Stacker id).
+`donor_person_external_id` | *int* | **Required** if `donor.id` is not set. The donor external id.
 `amount` | *decimal* | **Required**. Two decimal number without currency sign.
 `currency` | *string* | **Required**. The currency type. Supported values: `USD` or `CAD`.
 `received` | *date* | **Required**. The gift received date (ISO 8601).
+`notes` | *string* | Gift notes.
 `contribution_type` | *string* | The donation type (e.g. "Recurring").
 `firstname` | *string* | Donor first name. This will be populated if not set from `donor.id`.
 `lastname` | *string* | Donor last name. This will be populated if not set from `donor.id`.
@@ -597,16 +1080,16 @@ Name | Type | Description
 `is_native` | *bool* | True if the gift originated on Site Stacker.
 `is_imported` | *bool* | True if the gift was imported. Usually for internal purposes.
 `is_anonymous` | *bool* | True if the gift is anonymous.
-`contribution.id` or `contribution_id` | *int* | The Site Stacker contribution id. If the gift originated on Site Stacker.
-`campaign.id` or `campaign_id` | *int* | The Site Stacker campaign id. If the gift originated on Site Stacker.
-`affiliated_donor.id` or `affiliated_person_id` | *int* | The affiliated donor id (Site Stacker id), if the donor is an organization. Set either this or `affiliated_donor.external_id`.
-`affiliated_donor.external_id` or `affiliated_person_external_id` | *int* | The affiliated donor external id, if the donor is an organization. Set either this or `affiliated_donor.id`.
-`affiliated_donor.firstname` or `affiliated_person_firstname` | *int* | The affiliated donor first name, if the donor is an organization. This will be populated if not set from `affiliated_donor.id`.
-`affiliated_donor.lastname` or `affiliated_person_lastname` | *int* | The affiliated donor last name, if the donor is an organization. This will be populated if not set from `affiliated_donor.id`.
-`affiliated_donor.fullname` or `affiliated_person_fullname` | *int* | The affiliated donor full name, if the donor is an organization. This will be populated if not set from `affiliated_donor.id`.
-`affiliated_donor.email` or `affiliated_person_email` | *int* | The affiliated donor email, if the donor is an organization. This will be populated if not set from `affiliated_donor.id`.
-`site.id` or `site_id` | *int* | The Site Stacker site id. If the contribution was made on a Site Stacker site.
-`site_channel.id` or `site_channel_id` | *int* | The Site Stacker site channel id. If the contribution was made on a Site Stacker site channel.
+`contribution.id` | *int* | The Site Stacker contribution id. If the gift originated on Site Stacker.
+`campaign.id` | *int* | The Site Stacker campaign id. If the gift originated on Site Stacker.
+`affiliated_donor.id` | *int* | The affiliated donor id (Site Stacker id), if the donor is an organization. Set either this or `affiliated_person_external_id`.
+`affiliated_person_external_id` | *int* | The affiliated donor external id, if the donor is an organization. Set either this or `affiliated_donor.id`.
+`affiliated_person_firstname` | *int* | The affiliated donor first name, if the donor is an organization. This will be populated if not set from `affiliated_donor.id`.
+`affiliated_person_lastname` | *int* | The affiliated donor last name, if the donor is an organization. This will be populated if not set from `affiliated_donor.id`.
+`affiliated_person_fullname` | *int* | The affiliated donor full name, if the donor is an organization. This will be populated if not set from `affiliated_donor.id`.
+`affiliated_person_email` | *int* | The affiliated donor email, if the donor is an organization. This will be populated if not set from `affiliated_donor.id`.
+`site.id` | *int* | The Site Stacker site id. If the contribution was made on a Site Stacker site.
+`site_channel.id` | *int* | The Site Stacker site channel id. If the contribution was made on a Site Stacker site channel.
 
 **Curl Example**
 
@@ -960,22 +1443,20 @@ RateLimit-Reset: 1372700873
 ]
 ```
 
-### List people of a certain type
+### List person types for a person
 
 ```
-GET /person-types/:type_id_or_alias/people
+GET /people/:id/person-types
 ```
 
 **Curl Example**
 
 ```bash
-$ curl -n https://<domain>/api/person-types/Donor/people \
+$ curl -n https://<domain>/api/people/1/person-types \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
-**Response Example**
-
-This endpoint returns people records, the same as the [list people](#list-people) endpoint.
+The response is the same as above.
 
 ## People (Contacts)
 
@@ -1006,6 +1487,23 @@ RateLimit-Reset: 1372700873
 ```
 
 The data returned is similar to the [get a single person](#get-a-single-person) endpoint, but contains an array of records instead of a single record.
+
+### List people of a certain type
+
+```
+GET /person-types/:type_id_or_alias/people
+```
+
+**Curl Example**
+
+```bash
+$ curl -n https://<domain>/api/person-types/Donor/people \
+    -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+This endpoint returns people records, the same as the [list people](#list-people) endpoint.
 
 ### Get a single person
 
@@ -1056,6 +1554,12 @@ RateLimit-Reset: 1372700873
     "external_id": "P3",
     "created": "2015-04-04 12:12:12",
     "modified": "2015-04-05 13:13:13",
+    "household": {
+        "id": "3",
+        "name": "Full Person",
+        "external_id": null,
+        "head_person_id": "3"
+    },
     "photo": {
         "id": "2",
         "path": "\/some\/path\/to\/other\/image.jpg",
@@ -1098,9 +1602,9 @@ RateLimit-Reset: 1372700873
         }
     },
     "phone": {
-        "id": "1",
-        "number": "(848) 123-4567",
-        "area_code": "848",
+        "id": "2",
+        "number": "() 123-4567",
+        "is_outside_us": false,
         "created": "2016-04-14 20:00:00",
         "modified": "2016-04-14 20:00:00",
         "type": {
@@ -1110,10 +1614,10 @@ RateLimit-Reset: 1372700873
         }
     },
     "user": {
-        "id": "1",
+        "id": "7",
         "active": true,
         "verified": true,
-        "api_id": "1qxji41u",
+        "api_id": "",
         "created": "2016-04-08 00:00:00",
         "modified": "2016-04-08 00:00:00"
     }
@@ -1162,6 +1666,45 @@ $ curl -n -XPOST https://<domain>/api/people \
 **Response Example**
 
 On successful create, this endpoint will return the full item data, as in [get a single person](#get-a-single-person), but the HTTP status code is `201`.
+
+### Update a person
+
+```
+PATCH /people/:id
+```
+
+**Input data**
+
+Name | Type | Description
+--- | --- | ---
+`external_id` | *string* | The id of the integrated external service resource
+`household[external_id]` | *string* | The id of the integrated external service resource
+`address[external_id]` | *string* | The id of the integrated external service resource
+
+**Curl Example**
+
+```bash
+$ curl -n -XPATCH https://<domain>/api/people/1 \
+  -d '{
+  "external_id": "R2D2",
+  "household": {
+      "external_id": "FRODO"
+  }
+  }' \
+  -H "Content-Type: application/json" \
+  -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+```
+HTTP/1.1 200 OK
+RateLimit-Limit: 5000
+RateLimit-Remaining: 4999
+RateLimit-Reset: 1372700873
+```
+
+On successful update, this endpoint will return the full item data, as in [get a single person](#get-a-single-person).
 
 ## Types
 

@@ -1,7 +1,7 @@
 ---
 title: Webhooks
 category: API
-date: 2017-03-24 00:00:00
+date: 2017-07-06 00:00:00
 ---
 
 Webhooks allow you to build or set up integrations which subscribe to certain events on a Site Stacker installation. When one of those events is triggered, we'll send a HTTP POST payload to the webhook's configured URL.
@@ -17,7 +17,15 @@ The available events are:
 Name | Description
 --- | ---
 [*](#wildcard-event) | Any time any event is triggered ([Wildcard Event](#wildcard-event)).
+[campaign_create](#campaign-create) | Any time a campaign is created.
+[campaign_update](#campaign-update) | Any time a campaign is updated.
+[campaign_delete](#campaign-delete) | Any time a campaign is deleted.
+[contribution_batch_create](#contribution-batch-create) | Any time a contribution batch is created.
 [contribution_create](#contribution-create) | Any time a contribution is created.
+[contribution_update](#contribution-update) | Any time a contribution is updated.
+[person_create](#person-create) | Any time a person is created.
+[person_update](#person-update) | Any time a person is updated.
+[person_delete](#person-delete) | Any time a person is deleted.
 [person_type_assignment](#person-type-assignment) | Any time a person type is assigned to a person.
 
 ## Payloads
@@ -58,25 +66,85 @@ Key | Value
 --- | ---
 `hook` | The [webhook configuration](api#get-a-single-webhook)
 
+## Campaign create
+
+When a contribution campaign is created in Site Stacker, we'll send a `campaign_create` event.
+
+### `campaign_create` Payload
+
+The payload is the same as what you get when retrieving a campaign using the [`GET /campaigns/:id`](api#get-a-single-campaign) endpoint.
+
+## Campaign update
+
+When a contribution campaign is updated in Site Stacker, we'll send a `campaign_update` event.
+
+### `campaign_update` Payload
+
+The payload is the same as what you get when retrieving a campaign using the [`GET /campaigns/:id`](api#get-a-single-campaign) endpoint.
+
+## Campaign delete
+
+When a contribution campaign is deleted in Site Stacker, we'll send a `campaign_delete` event.
+
+### `campaign_delete` Payload
+
+The payload is the same as what you get when retrieving a campaign using the [`GET /campaigns/:id`](api#get-a-single-campaign) endpoint.
+
+## Contribution batch create
+
+When a contribution batch is created in Site Stacker, we'll send a `contribution_batch_create` event.
+
+### `contribution_batch_create` Payload
+
+The payload is the same as what you get when retrieving a contribution batch using the [`GET /contribution-batches/:id`](api#get-a-single-contribution-batch) endpoint.
+
 ## Contribution create
 
-When a contribution is created in Site Stacker, we'll send a `contribution_create` event.
+When a contribution is created in Site Stacker, we'll send a `contribution_create` event. Usually, you'll want to use the [`contribution_batch_create`](#contribution-batch-create) event instead of this one, since a contribution is always created along with a contribution batch.
 
-### Contribution create Payload
+### `contribution_create` Payload
 
-```json
-{
-    "contribution_batch_id": "9"
-}
-```
+The payload is the same as what you get when retrieving a contribution using the [`GET /contributions/:id`](api#get-a-single-contribution) endpoint.
 
-The payload contains the id of the contribution batch. To retrieve its data use the [Contribution batches API endpoint](api#get-a-single-contribution-batch).
+## Contribution update
 
-## Person type assignment
+When a contribution is updated in Site Stacker, we'll send a `contribution_update` event.
 
-When a person type is assigned to a person record, we'll send a `person_type_assignment` event. This event is useful if, for example, you want to be notified when a (new) donor is created.
+### `contribution_update` Payload
 
-### Person type assignment Payload
+The payload is the same as what you get when retrieving a contribution using the [`GET /contributions/:id`](api#get-a-single-contribution) endpoint.
+
+## Person create
+
+When a person is created in Site Stacker, we'll send a `person_create` event.
+
+### `person_create` Payload
+
+The payload is the same as what you get when retrieving a person using the [`GET /people/:id`](api#get-a-single-person) endpoint.
+
+## Person update
+
+When a person is updated in Site Stacker, we'll send a `person_update` event.
+
+### `person_update` Payload
+
+The payload is the same as what you get when retrieving a person using the [`GET /people/:id`](api#get-a-single-person) endpoint.
+
+## Person delete
+
+When a person is deleted in Site Stacker, we'll send a `person_delete` event.
+
+### `person_delete` Payload
+
+The payload is the same as what you get when retrieving a person using the [`GET /people/:id`](api#get-a-single-person) endpoint.
+
+## Person type assign
+
+When a person type is assigned to a person record, we'll send a `person_type_assign` event. This event is useful if, for example, you want to be notified when a person becomes a donor.
+
+### `person_type_assign` Payload
+
+The payload contains the `person_type` record and the `person` record, which contains all the data sent by the [`GET /people/:id`](api#get-a-single-person) endpoint.
 
 ```json
 {
@@ -84,8 +152,8 @@ When a person type is assigned to a person record, we'll send a `person_type_ass
         "id": "18",
         "name": "Donor"
     },
-    "person_id": "4609"
+    "person": {
+        "...": "[ all the data of the GET /people/:id endpoint ]"
+    }
 }
 ```
-
-If you're interested in the person type and you need the person record, use the [People endpoint](api#get-a-single-person) with the received `person_id`.
