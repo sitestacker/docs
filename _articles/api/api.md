@@ -1,7 +1,7 @@
 ---
 title: API
 category: API
-date: 2017-06-13 00:00:00
+date: 2017-08-10 00:00:00
 ---
 
 ## Overview
@@ -848,6 +848,7 @@ RateLimit-Reset: 1372700873
             }
         }
     },
+    "recurring": null,
     "donor": {
         "id": "1",
         "title": "Mr.",
@@ -1705,6 +1706,251 @@ RateLimit-Reset: 1372700873
 ```
 
 On successful update, this endpoint will return the full item data, as in [get a single person](#get-a-single-person).
+
+## Recurring Contributions
+
+A recurring contribution represents a contribution that will be automatically processed at the set interval.
+
+### List recurring contributions
+
+```
+GET /recurrings
+```
+
+**Curl Example**
+
+```bash
+$ curl -n https://<domain>/api/recurrings \
+    -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+```
+HTTP/1.1 200 OK
+Accept-Ranges: id
+Content-Range: id 0..; max=100, total=1, order=asc
+RateLimit-Limit: 5000
+RateLimit-Remaining: 4999
+RateLimit-Reset: 1372700873
+```
+
+The data returned is similar to the [get a single recurring contribution](#get-a-single-recurring-contribution) endpoint, but contains an array of records instead of a single record.
+
+### Get a single recurring contribution
+
+```
+GET /recurrings/:id
+```
+
+**Curl Example**
+
+```bash
+$ curl -n https://<domain>/api/recurrings/1 \
+    -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+```
+HTTP/1.1 200 OK
+RateLimit-Limit: 5000
+RateLimit-Remaining: 4999
+RateLimit-Reset: 1372700873
+```
+
+```json
+{
+    "id": "1",
+    "amount": "100.00",
+    "notes": null,
+    "is_anonymous": false,
+    "extra_data": null,
+    "external_id": null,
+    "source_codes": null,
+    "created": "2016-03-31 13:00:00",
+    "modified": "2016-03-31 13:00:00",
+    "recurring_batch": {
+        "id": "1",
+        "recurring_start_date": "2030-05-31",
+        "recurring_end_date": null,
+        "recurring_period": "month",
+        "recurring_interval": "1",
+        "recurring_day_of_month": "31",
+        "external_id": null,
+        "currency": "USD",
+        "created": "2016-03-31 13:00:00",
+        "modified": "2016-03-31 13:00:00"
+    },
+    "campaign": {
+        "id": "1",
+        "goal_amount": null,
+        "min_amount": null,
+        "max_amount": null,
+        "start": null,
+        "end": null,
+        "external_id": "P1",
+        "item": {
+            "id": "1",
+            "alias": "default-project",
+            "name": "Default Project",
+            "publish_datetime": "2015-05-05 05:05:05",
+            "unpublish_datetime": null,
+            "external_id": "P1",
+            "created": "2015-05-05 05:05:05",
+            "modified": "2015-05-05 05:05:05",
+            "owner": {
+                "id": "1",
+                "title": "Mr.",
+                "firstname": "John",
+                "middlename": "S",
+                "lastname": "Doe",
+                "fullname": "John Doe",
+                "suffix": "Jr.",
+                "gender": "m",
+                "birthday": "1987-05-05",
+                "email": "john@test.com",
+                "description": "Description",
+                "is_group": false,
+                "external_id": "P1",
+                "created": "2015-04-04 12:12:12",
+                "modified": "2015-04-05 13:13:13"
+            }
+        }
+    },
+    "person": {
+        "id": "1",
+        "title": "Mr.",
+        "firstname": "John",
+        "middlename": "S",
+        "lastname": "Doe",
+        "fullname": "John Doe",
+        "suffix": "Jr.",
+        "gender": "m",
+        "birthday": "1987-05-05",
+        "email": {
+            "id": "1",
+            "email": "john@test.com",
+            "created": "2015-05-05 05:05:05",
+            "modified": "2015-05-05 05:05:05"
+        },
+        "description": "Description",
+        "is_group": false,
+        "external_id": "P1",
+        "created": "2015-04-04 12:12:12",
+        "modified": "2015-04-05 13:13:13",
+        "household": {
+            "id": "1",
+            "name": "John Doe's Family",
+            "external_id": "H1",
+            "head_person_id": "1"
+        },
+        "address": {
+            "id": "1",
+            "address1": "2429A Broadway",
+            "address2": "",
+            "city": "New York",
+            "zip": "10024",
+            "latitude": "40.790526",
+            "longitude": "-73.974953",
+            "external_id": "A1",
+            "created": "2015-05-05 05:05:05",
+            "modified": "2015-05-05 05:05:05",
+            "state": {
+                "id": "1",
+                "name": "New York",
+                "code": "NY"
+            },
+            "country": {
+                "id": "1",
+                "name": "United States",
+                "title": "The United States",
+                "code": "US",
+                "iso3": "USA",
+                "iso_number": "840",
+                "internet": "US",
+                "nationality": "American",
+                "currency": "US Dollar",
+                "currency_code": "USD",
+                "population": "278058881"
+            }
+        },
+        "phone": {
+            "id": "1",
+            "number": "(123) 456-7890",
+            "is_outside_us": false,
+            "created": "2016-04-14 20:00:00",
+            "modified": "2016-04-14 20:00:00"
+        }
+    },
+    "affiliated_person": {
+        "id": "1",
+        "title": "Mr.",
+        "firstname": "John",
+        "middlename": "S",
+        "lastname": "Doe",
+        "fullname": "John Doe",
+        "suffix": "Jr.",
+        "gender": "m",
+        "birthday": "1987-05-05",
+        "email": {
+            "id": "1",
+            "email": "john@test.com",
+            "created": "2015-05-05 05:05:05",
+            "modified": "2015-05-05 05:05:05"
+        },
+        "description": "Description",
+        "is_group": false,
+        "external_id": "P1",
+        "created": "2015-04-04 12:12:12",
+        "modified": "2015-04-05 13:13:13",
+        "household": {
+            "id": "1",
+            "name": "John Doe's Family",
+            "external_id": "H1",
+            "head_person_id": "1"
+        },
+        "address": {
+            "id": "1",
+            "address1": "2429A Broadway",
+            "address2": "",
+            "city": "New York",
+            "zip": "10024",
+            "latitude": "40.790526",
+            "longitude": "-73.974953",
+            "external_id": "A1",
+            "created": "2015-05-05 05:05:05",
+            "modified": "2015-05-05 05:05:05",
+            "state": {
+                "id": "1",
+                "name": "New York",
+                "code": "NY"
+            },
+            "country": {
+                "id": "1",
+                "name": "United States",
+                "title": "The United States",
+                "code": "US",
+                "iso3": "USA",
+                "iso_number": "840",
+                "internet": "US",
+                "nationality": "American",
+                "currency": "US Dollar",
+                "currency_code": "USD",
+                "population": "278058881"
+            }
+        },
+        "phone": {
+            "id": "1",
+            "number": "(123) 456-7890",
+            "is_outside_us": false,
+            "area_code": "123",
+            "created": "2016-04-14 20:00:00",
+            "modified": "2016-04-14 20:00:00"
+        }
+    }
+}
+```
 
 ## Types
 
