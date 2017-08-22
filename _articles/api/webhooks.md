@@ -1,7 +1,7 @@
 ---
 title: Webhooks
 category: API
-date: 2017-07-06 00:00:00
+date: 2017-08-16 00:00:00
 ---
 
 Webhooks allow you to build or set up integrations which subscribe to certain events on a Site Stacker installation. When one of those events is triggered, we'll send a HTTP POST payload to the webhook's configured URL.
@@ -21,6 +21,7 @@ Name | Description
 [campaign_update](#campaign-update) | Any time a campaign is updated.
 [campaign_delete](#campaign-delete) | Any time a campaign is deleted.
 [contribution_batch_create](#contribution-batch-create) | Any time a contribution batch is created.
+[contribution_batch_update](#contribution-batch-update) | Any time a contribution batch is updated.
 [contribution_create](#contribution-create) | Any time a contribution is created.
 [contribution_update](#contribution-update) | Any time a contribution is updated.
 [person_create](#person-create) | Any time a person is created.
@@ -97,6 +98,12 @@ When a contribution batch is created in Site Stacker, we'll send a `contribution
 ### `contribution_batch_create` Payload
 
 The payload is the same as what you get when retrieving a contribution batch using the [`GET /contribution-batches/:id`](api#get-a-single-contribution-batch) endpoint.
+
+## Contribution batch update
+
+When a contribution batch is updated in Site Stacker, we'll send a `contribution_batch_update` event.
+
+The payload is the same as the [contribution_batch_create](#contribution-batch-create).
 
 ## Contribution create
 

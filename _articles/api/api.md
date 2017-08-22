@@ -1,7 +1,7 @@
 ---
 title: API
 category: API
-date: 2017-08-10 00:00:00
+date: 2017-08-21 00:00:00
 ---
 
 ## Overview
@@ -514,13 +514,19 @@ RateLimit-Reset: 1372700873
     },
     "recurring": {
         "id": "3",
+        "active": "1",
+        "archived": null,
         "recurring_start_date": "2015-05-12",
         "recurring_end_date": null,
         "recurring_period": "month",
         "recurring_interval": "1",
         "recurring_day_of_month": "12",
+        "prev_run_date": "2015-05-12",
+        "next_run_date": "2015-06-12",
         "external_id": null,
         "currency": "USD",
+        "source_codes": null,
+        "processed_counter": "1",
         "created": "2015-05-12 10:42:00",
         "modified": "2015-06-12 23:58:00"
     },
@@ -1772,13 +1778,19 @@ RateLimit-Reset: 1372700873
     "modified": "2016-03-31 13:00:00",
     "recurring_batch": {
         "id": "1",
+        "active": "1",
+        "archived": null,
         "recurring_start_date": "2030-05-31",
         "recurring_end_date": null,
         "recurring_period": "month",
         "recurring_interval": "1",
         "recurring_day_of_month": "31",
+        "prev_run_date": null,
+        "next_run_date": "2030-05-31",
         "external_id": null,
         "currency": "USD",
+        "source_codes": null,
+        "processed_counter": "1",
         "created": "2016-03-31 13:00:00",
         "modified": "2016-03-31 13:00:00"
     },
