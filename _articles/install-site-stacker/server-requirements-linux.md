@@ -11,6 +11,7 @@ date: 2017-02-23 00:00:00
 * Processor: 2.7 GHz (8 Cores)
 * Memory: 16GB
 * Storage: 80GB
+* SSD - **highly recommended** this is the most important
 
 
 ## 2. Operating System
