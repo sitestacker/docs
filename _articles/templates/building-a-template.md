@@ -4,19 +4,20 @@ category: Templates
 date: 2015-05-30 00:00:00
 ---
 
-#### Summary
-- [Things you know before you start](#things-to-know-before-you-start)
-- [Directory structure](#directory-structure)
-- [The Config File](#the-config-file)
-- [The Index File - Available Smarty Variables](#available-smarty-variables)
-- [The Index File - Head Section](#head-section)
-- [The Index File - Body Section](#body-section)
-- [Template Views](#template-views)
-- [CSS Class Naming Conventions](#css-class-naming-conventions)
+### Summary
+- [Things to know before you start](#things-to-know-before-you-start)
+- [Directory Structure](#directory-structure)
+- [Positions](#positions)
+- [Views](#views)
+- [View Inheritance](#view-inheritance)
+- [View Classes](#view-classes)
+- [Index File (index.tpl)](#index-file)
+- [SASS and CSS](#sass-and-css)
 
 ***
 
-#### Things to know before you start
+
+### Things to know before you start
 
 - Strings formatting conventions used in this document
 
@@ -29,144 +30,304 @@ FullCamelCase | `SomeText` or `SomeOtherText`
 dashedAlias | `some-text` or `some-other-text`
 underscoredAlias | `some_text` or `some_other_text`
 
-> ![](https://github.com/sitestacker/sitestacker-wiki/blob/wiki-resources/images/icons/important.png) Except the `normal` formatting there are no spaces allowed.
+> Except the `normal` formatting there are no spaces allowed.
 
 - All templates are located in `/packages/templates/{TemplateAlias}`. The `{TemplateAlias}` can be any name you want but it needs to be FullCamelCase formatted.
 
-> ![](https://github.com/sitestacker/sitestacker-wiki/blob/wiki-resources/images/icons/example.png) For a client called WMtek Global the `{TemplateAlias}` should be **WmtekGlobal**
+> For a client called WMtek Global the `{TemplateAlias}` should be **WmtekGlobal**
 
-- All templates are build using Smarty 3. For the Smarty documentation you can visit [this link](http://www.smarty.net/docs/en/).
+- All templates are built using Smarty 3. For the Smarty documentation you can visit [this link](http://www.smarty.net/docs/en/).
 
 - Any new template should be created manually file by file. Copying and then modifying an existing template is not a desired technique because there are a lot of unnecessary files that can remain in the new template. They will never be used and they will just slow down the template rendering time.
 
-[Back to top](#summary)
-
-#### Directory Structure
-
-![](https://github.com/sitestacker/sitestacker-wiki/blob/wiki-resources/images/templates/directory-structure.png)
-
-Folder/File | Name Format | Allowed content | Description
------------ | ----------- | ------------------ | -----------
-/elements | alias | `.tpl` | Optional folder that you can use for creating elements that will be later included in the main template index file.
-/views | alias | `DIR` | This is the main views folder.
-/views/{Component} | FullCamelCase | `DIR` | This folder is keeping the views rendered by a specific component.
-/views/{Component}/{ContentTypeAlias} | FullCamelCase | `.tpl` | This is keeping the actual view files
-/webroot | alias | `DIR` | This is where all the `css`, `fonts`, `images` and `js` files should be placed.
-/webroot/css | alias | `DIR`/`.css` | All the template `css` files.
-/webroot/css/{Component} | FullCamelCase | `DIR` | All the template `css` files related to a specific component.
-/webroot/css/{Component}/{ContentTypeAlias} | FullCamelCase | `.css` | All the template `css` files related to a specific content type. All the `css` files in this folders should be named by the view name. So if we want to create a `css` file for the `Summary` view from the `Article` content type the file path should be `/webroot/css/Architect/Article/Summary.css`.
-/webroot/img | alias | `.jpg`,`.png`,`.gif` etc | All the template image files.
-/webroot/js | alias | `.js` | All the template `js` files.
-/confix.xml | - | - | This is the template configuration files where all the positions, content types and views are declared.
-/index.tpl | - | - | This is the main index template file. This file will contain the doctype, any includes, special smarty variables, positions etc.
-/system-repository.xml | - | - | Special file used by System Repository. Here you can declare the template name, description, special dependencies, encode exceptions etc.
-
-> ![](https://github.com/sitestacker/sitestacker-wiki/blob/wiki-resources/images/icons/important.png) It is very important that you follow this rules otherwise the template might not work as expected, Smarty errors and exceptions might be generated etc.
+- In order to view all Smarty variables available in a view you can write `{debug}` inside the view and after refreshing it will open a popup containing the variables.  
 
 [Back to top](#summary)
 
 ***
 
-### The Config File
 
-The template config file, called `config.xml` is a very simple XML file where we can declare our available positions and views for each content type.  
-There are 3 possible nodes with a few properties that you can use in the config file:
-- `position` - Used for declaring positions
-   - `alias` property - Needs to be an underscoredAlias string. Site Planner will render content into a variable with this `alias`.
-   - `name` property - The position name. Used in Site Planner when publishing items.
-- `contentType` - Used for declaring content types.
-   - `plugin` property - The FullCamelCased component name.
-   - `alias` property - The FullCamelCased content type name.
-   - `inherit` property - Optional property to inherit views from a different content type.
-- `view` - Used for declaring content type views. This needs to be a child of a `contentType` node.
-   - `alias` property - Needs to be an underscoredAlias string. Site Planner will render content into a variable with this `alias`.
-   - `name` property - The view name. Used in Site Planner when publishing items.
+### Directory Structure
 
-> ![](https://github.com/sitestacker/sitestacker-wiki/blob/wiki-resources/images/icons/important.png) There is a special situation when you want to declare content type that will inherit all the views from another content type. In this case the `contentType` node doesn't need to have any children but it need to have the `inherit` extra property declared.
+Main template folders and files:
+```
+> elements  
+> views  
+> webroot  
+- .gitignore  
+- config.xml  
+- index.tpl  
+```
 
-Bellow there is a simple config file example:
-````XML
+The `config.xml` and `index.tpl` files are required and must exist in all templates. We'll go deeper into the directory structure as we continue in the following sections.
+
+[Back to top](#summary)
+
+***
+
+
+### Positions
+
+The purpose of positions is to divide the page into multiple smaller sections and they designate the places where the content will be rendered. Positions are defined inside the `config.xml` file and are implemented in the `index.tpl` file.  
+
+Example declaration in `config.xml`:
+```xml
 <?xml version="1.0"?>
 <template>
-
-    <!-- POSITIONS -->
-    <position alias="header_menu" name="Header Menu" />
-    <position alias="body_full_blue" name="Full Width Blue" />
-    <position alias="footer" name="Footer" />
-
-    <!-- CONTENT TYPE VIEWS - Architect -->
-    <!-- declaring the views for the Shared content type. -->
-    <contentType plugin="Architect" alias="Shared">
-        <view alias="title_only" name="Title Only" />
-        <view alias="body_only" name="Body Only" />
-    </contentType>
-
-    <!-- declaring the views for the Article content type. -->
-    <contentType plugin="Architect" alias="Article">
-        <view alias="full" name="Full" />
-    </contentType>
-
-    <!-- declaring the views for the PrimaryArticle content type and also inherit all the Shared views. -->
-    <contentType plugin="Architect" alias="PrimaryArticle" inherit="Shared">
-        <view alias="full" name="Full" />
-    </contentType>
-
-    <!-- inheriting the views for the CustomArticle content from the Shared content type. -->
-    <contentType plugin="Architect" alias="CustomArticle" inherit="Article"/>
-
-    <!-- CONTENT TYPE VIEWS - Components -->
-    <contentType plugin="Components" alias="Page">
-        <view alias="default" name="Default" />
-    </contentType>
-
-    <!-- CONTENT TYPE VIEWS - Modules -->
-    <contentType plugin="Modules" alias="Module">
-        <view alias="default" name="Default" />
-    </contentType>
-
-    <!-- CONTENT TYPE VIEWS - Menus -->
-    <contentType plugin="Menus" alias="Menu">
-        <view alias="auto_rendered" name="Auto Rendered" />
-        <view alias="unordered_list" name="Unordered List" />
-    </contentType>
-
+    <position alias="header" name="Header"/>
+    <position alias="content" name="Content"/>
+    <position alias="footer" name="Footer"/>
 </template>
-````
+```
+
+> The `alias` will become the variable name, the `name` is what will be visible in admin.
+
+Example implementation in `index.tpl`:
+```smarty
+<html>
+<head></head>
+<body>
+    {if !empty($header)}
+        <header class="tpl-position-header">
+            {$header}
+        </header>
+    {/if}
+    {if !empty($content)}
+        <div class="tpl-position-content">
+            {$content}
+        </div>
+    {/if}
+    {if !empty($footer)}
+        <footer class="tpl-position-footer">
+            {$footer}
+        </footer>
+    {/if}
+</body>
+</html>
+``` 
+
+In the examples above we defined three positions: `header`, `content` and `footer`. Then we implemented them in the `index.tpl` file by using the `alias` value as the Smarty variable name (it's good practice to check if the variable is not empty before using it, in order to avoid notices).  
+
+There can be as many positions as needed and they can vary from template to template; one template may require two positions for the header, let's say Header Left and Header Right, while another template only needs one Header position.
 
 [Back to top](#summary)
 
 ***
+
+
+### Views
+
+A View is a template that displays data in a specific way and is rendered inside of a position. Like positions, views are also defined in the `config.xml` file but they are implemented as a standalone `.tpl` file inside the `views` folder:
+```
+> views  
+  > Architect
+    > Missionary
+      - summary.tpl
+    > Project
+      - full_view.tpl
+    > Static
+      - title_only.tpl
+    > Wrapper
+      - basic.tpl
+  > Components
+    > Page
+      - basic.tpl
+  > Menus
+    > Menu
+      - main_menu.tpl
+  > Modules
+    > Module
+      - default.tpl
+```
+ 
+Views generally belong to one content type (except [shared views](#view-inheritance)) and all the content type fields are available as variables inside of them.
+
+There are a few rules that views must follow:
+
+- The `alias` chosen must match the name of the view file, without the `.tpl` extension
+- All CSS classes must be prefixed with `tpl-`. Example: `tpl-body`, `tpl-image`
+- The first element in each view should be a wrapper `<div>` and should contain a class like `tpl-{component}-{content-type-alias}-{view-name}`. Example: `tpl-architect-missionary-summary` or `tpl-menus-menu-header-menu`
+  - There is an exception for the Components and Module views where there is no need for a wrapper div.
+- If a view requires CSS styling then it should have a corresponding SCSS file following this directory structure:
+  - For content types: `sass/Architect/{ContentTypeAlias}/{view_name}.scss`  
+  - For menus: `sass/Menus/{view_name}.scss`  
+  - For components and modules: `sass/Components|Modules/{Component}/{view_name}.scss`  
+
+
+**Bellow you can find a few views examples:**
+
+Definition in `config.xml` file:
+```xml
+<contentType plugin="Architect" alias="Static">
+    <view alias="title_only" name="Title Only" />
+</contentType>
+
+<contentType plugin="Architect" alias="Missionary">
+    <view alias="summary" name="Summary"/>
+</contentType>
+
+<contentType plugin="Menus" alias="Menu">
+    <view alias="unordered_list" name="List"/>
+</contentType>
+
+<contentType plugin="Components" alias="Page">
+    <view alias="basic" name="Basic"/>
+</contentType>
+
+<contentType plugin="Modules" alias="Module">
+    <view alias="default" name="Default"/>
+</contentType>
+```
+
+> The `name` value is what will show up in admin
+   
+- `title_only.tpl` view for Static content type:
+```smarty
+<div class="tpl-architect-static-title-only {$viewClass}">
+    {$title}
+</div>
+```
+
+- `basic.tpl` Component view or `default.tpl` Module view:
+```smarty
+{$body}
+```
+
+- `unordered_list.tpl` Menu view:
+```smarty
+<div class="tpl-menus-menu-unordered-list {$viewClass}">
+    <ul class="tpl-menu">
+        {foreach $items AS $item}
+            <li class="tpl-menu-item {$item|menu_item_active}">
+                <a href="{$item.url}" target="{$item.target}">{$item.text}</a>
+                {if $item.children|@count > 0}
+                    <ul>
+                        {foreach name=subitems from=$item.children item=subitem}
+                            <li class="tpl-menu-subitem {if $smarty.foreach.subitems.first}first{/if} {if $smarty.foreach.subitems.last}last{/if} {$subitem|menu_item_active}">
+                                <a href="{$subitem.url}" target="{$subitem.target}">{$subitem.text}</a>
+                            </li>
+                        {/foreach}
+                    </ul>
+                {/if}
+            </li>
+        {/foreach}
+    </ul>
+</div>
+```
+
+- `summary.tpl` Missionary view:
+```smarty
+<div class="tpl-architect-missionary-summary {$viewClass}">
+    
+    <img src="{$image[0]|resize:100:100}" alt="{$fullname}">
+    
+    {if !empty($first_name)}
+        <p>Missionary First Name: {$first_name}</p> 
+    {/if}
+    
+    {if !empty($last_name)}
+        <p>Missionary Last Name: {$last_name}</p>
+    {/if}
+    
+    <div class="tpl-summary">
+        {$summary|strip_tags|truncate:100:"...":false}
+    </div>
+</div>
+```
+
+[Back to top](#summary)
+
+***
+
+
+### View Inheritance
+
+View inheritance is useful for sharing common views between multiple content types. Instead of creating identical files for each content type you can create it just once in a shared or common content type. This will be helpful in the long run when doing maintenance on these views.
+
+Shared views are defined as normal views but in a "made-up" content type (ie: Shared), and then they are linked to an existing content type using the `inherit` property: 
+```xml
+<contentType plugin="Architect" alias="Shared">
+    <view alias="summary" name="Summary" />
+    <view alias="full_view" name="Full View" />
+    <view alias="generic_giving" name="Generic Giving" />
+</contentType>
+<contentType plugin="Architect" alias="Missionary" inherit="Shared">
+    ....
+</contentType>
+<contentType plugin="Architect" alias="Project" inherit="Shared">
+    ....
+</contentType>
+```
+
+In the example above all three views `Summary`, `Full View` and `Generic Giving` will become available for Missionary and Project content types. The `.tpl` files for these views must reside in `views/Architect/Shared/` directory.
+
+[Back to top](#summary)
+
+***
+
+
+### View Classes
+
+View classes allow for further customization of a view without the need to create multiple similar views. Each view can have as many view classes as needed and they are also defined in the `config.xml` file, inside of the `<view>` element:
+```xml
+<contentType plugin="Architect" alias="Static">
+    <view alias="summary" name="Summary">
+        <class alias="tpl-hide-title" name="Hide Title" />
+    </view>
+    <view alias="full_view" name="Full View" />
+</contentType>
+```
+
+> Is recommended to prefix view classes with `tpl-` but is not mandatory
+
+In the example above the Summary view has one view class called `Hide Title`. As the name suggest adding this view class from the admin side should make the title hidden. The implementation of this behavior is up to the developer and is usually done with CSS.
+
+For a view to make use of view classes it must implement the `$viewClass` variable. Example:
+```smarty
+<div class="tpl-architect-static-summary {$viewClass}">
+    <h1 class="tpl-title">{$title}</h1>
+    ...
+</div>
+``` 
+
+Using the examples above, if the `Hide Title` view class would be added, then the `$viewClass` variable will render: `tpl-hide-title`. Multiple view classes are separated by space.
+
+The SCSS implementation for the `Hide Title` view class could be:
+```scss
+.tpl-architect-static-summary {
+    &.tpl-hide-title {
+        .tpl-title {
+            display: none;
+        }
+    }
+}
+```
+
+[Back to top](#summary)
+
+***
+
 
 ### The Index File
 
+The `index.tpl` is the main template file where everything is strapped together and all required resources are included.
+
 #### Available Smarty Variables
 
-Variabel | Description
+Variable | Description
 -------- | -----------
-{$meta} | Various meta tags coming from Site, SiteChannel and SitePage settings like `descriptions`, `keywords` etc.
-{SiteChannel.title} | The global site channel title.
-{SitePage.title} | The current site page title.
+{$meta} | Various meta tags coming from the `Metadata` tab of the Site Channel and Site Page (description, keywords, open graph tags, etc.).
+{$SiteChannel.title} | The global site channel title.
+{$SitePage.title} | The current site page title.
+{$fullViewItemTitle} | The title of the content item currently displayed in full view.
 {$css} | All the required `css` files from component pages and modules.
-{$templateCss} | All the template `css` files. Depending on the CSS debug value this variable can include each file individually or a single unified file.
+{$templateCss&#124;asset_version} | The `template.css` file. Depending on the CSS debug value this variable can include each file individually or a single unified file. The `asset_version` modifier is required.
 {$script} | All the required `js` files from component pages and modules.
-{$position_alias} | The rendered content of a position. Any position declared in config.xml will generate it's own variable in the index.tpl file based on the position alias [see config file](#the-config-file).
-
-> ![](https://github.com/sitestacker/sitestacker-wiki/blob/wiki-resources/images/icons/important.png) Because the meta title is so important for web search engines it is a good practice to declare the meta-title tag as follows:
-````Smarty
-<title>
-    {if !empty($SitePage.title)} // we check if the site page title is not empty
-        {$SitePage.title} // print site page title if not empty
-    {else}
-        {$SiteChannel.title} // else print global site channel title
-    {/if}
-</title>
-````
-
-[Back to top](#summary)
+{$position_alias} | The rendered content of a position. Any position declared in config.xml will generate it's own variable in the index.tpl file based on the position alias [see Positions section](#positions).
 
 #### \<HEAD\> Section
 
-- The 3 template variables `$meta`, `$css` and `$script` are absolutely required. They can't be omitted.
+- The three template variables `$meta`, `$css` and `$script` are absolutely required. They can't be omitted.
 - Any files you include should be from the template `webroot` directory or from `external` links.
 - All the `script` and `style` tags should be included in the `<head>` section. Do not place script and style blocks anywhere else in the index file.
 - The included files order should be as follows:
@@ -179,178 +340,133 @@ Variabel | Description
    - {include file='elements/jQuery.tpl'} (optional)
    - any other custom JS files you want to include
 
-> ![](https://github.com/sitestacker/sitestacker-wiki/blob/wiki-resources/images/icons/important.png) All the CSS files should be included before any `<script>` tag.
+> All the CSS files should be included before any `<script>` tag.
 
-[Back to top](#summary)
+Because the `<title>` is so important for search engines it is a good practice to declare it as follows:
+```smarty
+<title>
+    {if !empty($fullViewItemTitle)}
+        {$fullViewItemTitle} -
+    {elseif !empty($SitePage.title)}
+        {$SitePage.title} -
+    {/if}
+    {$SiteChannel.title}
+</title>
+```
+
+The inclusion of the main `template.css` file should be done as follows:
+
+```smarty
+<link rel="stylesheet" type="text/css" href="{$templateCss|asset_version}" />
+```
+
+All CSS and Javascript files that are included from the `webroot` directory must use the `get_asset_url` Smarty modifier:
+
+```smarty
+<link rel="stylesheet" type="text/css" href="{'/css/ext-js-theme.css'|get_asset_url}" />
+<script type="text/javascript" src="{'/js/template.js'|get_asset_url}"></script>
+``` 
 
 #### \<BODY\> Section
 
-- The `<body>` section should only contain `section` and `position` div's.
-- All the classes used in the index file should be underscored and separated by dashes.
-- Do not use ID's on any DIV's in the index file.
-- The sections are defining big areas in the template like "dark section" or "light section". The sections have no publishing management in Site Planner.
-- Any section in the index file should have a class respecting the following pattern: `tpl-section-{section-name}`.  
-![](https://github.com/sitestacker/sitestacker-wiki/blob/wiki-resources/images/icons/example.png) `<div class="tpl-section-dark-gray">` or `<div class="tpl-section-light-gray">`
-- The positions are used to render content defined in Site Planner. Any position declared in the `config.xml` file should have it's own div placed in the `index.tpl` file.  
-![](https://github.com/sitestacker/sitestacker-wiki/blob/wiki-resources/images/icons/example.png) `<div class="tpl-position-header-menu">` or `<div class="tpl-position-body-full">`
-- Any position div should be wrapped in a section div.  
-![](https://github.com/sitestacker/sitestacker-wiki/blob/wiki-resources/images/icons/important.png) Add any position div in a Smarty if statement to make sure the position is not rendered if the position variable is empty.
-- To keep a clean structure all the positions styling should be declared in a separate CSS file called `positions.css`.
+- It's recommended to wrap all positions in a `<div>` with class in the format `tpl-position-{position_name}`: `<div class="tpl-position-header-menu">` or `<div class="tpl-position-content">`
+- Because positions can be empty, add a Smarty if statement to make sure the position is not rendered if the position variable is empty.
+- To keep a clean structure all the positions styling should be declared in a separate SCSS file called `positions.scss`.
 - After adding/deleting positions in the `index.ctp` file don't forget to also add them in the `config.xml` file.
-- It is a good practice to wrap the sections and position variables in a double div to give more flexibility when building the CSS.
 
-![](https://github.com/sitestacker/sitestacker-wiki/blob/wiki-resources/images/icons/example.png) Assuming we have a dark gray section in witch we want to print 2 positions header and body full we could have the following code. Notice the IF statements and the double div's for section and positions.
-````PHP
-{if !empty($header) || !empty($full_body)} //global section IF statement
-    <div class="tpl-section-dark-gray">
-        <div class="tpl-section-dark-gray-inner"> //double section div
-            {if !empty($header)} //header position IF statement
-                <div class="tpl-position-header">
-                    <div class="tpl-position-header-inner"> // double position div
-                        {$header}
-                    </div>
-                </div>
-            {/if}
-            {if !empty($full_body)} //full body position IF statement
-                <div class="tpl-position-full-body">
-                    <div class="tpl-position-full-body-inner"> // double position div
-                        {$full_body}
-                    </div>
-                </div>
-            {/if}
+Assuming we have a dark section in which we want to print two positions `header` and `content` we could have the following code (notice the IF statements):
+```smarty
+<div class="tpl-section-dark">
+    {if !empty($header)} //header position IF statement
+        <div class="tpl-position-header">
+            <div class="tpl-position-header-inner">
+                {$header}
+            </div>
         </div>
-    </div>
-{/if}
-````
-
-[Back to top](#summary)
-
-***
-
-#### Template Views
-
-- All the views are included in the `views` folder, in a `/views/{Component}/{ContentTypeAlias}/{view_name}.tpl`.   
-![](https://github.com/sitestacker/sitestacker-wiki/blob/wiki-resources/images/icons/example.png) `/views/Architect/Article/full_view.tpl` or `/views/Modules/Module/default.tpl`
-- The first element in each view should be a wrapper div and should contain a class like `tpl-{component-alias}-{content-type-alias}-{view-name}`.      
-![](https://github.com/sitestacker/sitestacker-wiki/blob/wiki-resources/images/icons/example.png) `tpl-architect-giving-project-summary-with-giving-form` or `tpl-menus-menu-header-menu`   
-![](https://github.com/sitestacker/sitestacker-wiki/blob/wiki-resources/images/icons/important.png) No matter how long this class will be just stick to this convention.
-- Each view should have a corresponding CSS file following this directory structure: `/css/{Component}/{ContentTypeAlias}/{view_name}.css`.   
-![](https://github.com/sitestacker/sitestacker-wiki/blob/wiki-resources/images/icons/example.png) `/css/Architect/Article/full_view.tpl` or `/css/Modules/Module/default.tpl`   
-
-![](https://github.com/sitestacker/sitestacker-wiki/blob/wiki-resources/images/icons/note.png) There is an exception for the `component-page` and `module` views where there is no need for a wrapper div.
-
-**Bellow you can find a few views examples:**   
-- Title only view for Article:
-````PHP
-<div class="tpl-architect-article-title-only">
-    {$title}
+    {/if}
+    {if !empty($content)}
+        <div class="tpl-position-content">
+            <div class="tpl-position-content-inner">
+                {$content}
+            </div>
+        </div>
+    {/if}
 </div>
-````
-
-- Default Component view or deafult Module view:
-````PHP
-{$body}
-````
-
-- Unordered list Menu view:
-````PHP
-<ul class="tpl-menus-menu-unordered-list">
-    {foreach $items AS $item}
-        <li>
-            <a href="{$item.url}" target="{$item.target}">{$item.text}</a>
-            {if $item.children|@count > 0}
-                <ul>
-                    {foreach name=subitems from=$item.children item=subitem}
-                        <li class="subitem {if $smarty.foreach.subitems.first}first{/if} {if $smarty.foreach.subitems.last}last{/if}">
-                            <a href="{$subitem.url}" target="{$subitem.target}">{$subitem.text}</a>
-                        </li>
-                    {/foreach}
-                </ul>
-            {/if}
-        </li>
-    {/foreach}
-</ul>
-````
+```
 
 [Back to top](#summary)
 
 ***
 
-#### Template View Inheritance
 
-* **For development**  
-One of the cases inherited views are useful is for template development on a local SiteStacker installation. As an example, most template will have an Article content type, however the configuration of the content type will be slightly different. Because you can only have one content type with the alias Article on your installation you wouldn't be able to create multiple configurations and still test the templates locally.  
-So, by using inherited views you would create the ClientOneArticle and ClientTwoArticle content types and you would add these lines in the config.xml files of the template:
+### SASS and CSS
 
-````XML
-<contentType plugin="Architect" alias="ClientOneArticle" inherit="Article"/>
-````
+Site Stacker templates generally use SASS as the CSS extension, but it's not absolutely required. We will use SASS as example going forward.
 
-````XML
-<contentType plugin="Architect" alias="ClientTwoArticle" inherit="Article"/>
-````
+All `.scss` files are residing in the `webroot/sass` directory. The compiled `.css` files should be placed in the `webroot/css` directory. The images should be placed in the `webroot/img` directory.
 
-* **For view sharing**  
-View inheritance is useful for sharing common views between multiple content types. Instead of creating identical files for each content type you can create it just once in a Shared content type. This will be helpful in the long run when doing maintenance on these views.
-````XML
-<contentType plugin="Architect" alias="SharedContent">
-    <view alias="my_shared_view_1" name="MySharedView1" />
-    <view alias="my_shared_view_2" name="MySharedView2" />
-</contentType>
-<contentType plugin="Architect" alias="Article" inherit="SharedContent">
-    ....
-</contentType>
-<contentType plugin="Architect" alias="Project" inherit="SharedContent">
-    ....
-</contentType>
-````
+The `webroot` directory structure:
 
-[Back to top](#summary)
+```
+> webroot  
+  > css
+    > Architect
+      > Static
+        - TitleOnly.css
+      > Missionary
+    > Components
+      > Contributions
+        - Checkout.scss
+    > Menus
+      - HeaderMenu.scss
+    > Modules
+      > Contributions
+        - ShoppingCart.scss
+    - global.css
+    - positions.css
+    - template.css
+  > img
+  > sass
+    > Architect
+      > Static
+        - TitleOnly.scss
+      > Missionary
+    > Components
+      > Contributions
+        - Checkout.scss
+    > Menus
+      - HeaderMenu.scss
+    > Modules
+      > Contributions
+        - ShoppingCart.scss
+    - _variables.scss
+    - config.rb
+    - global.scss
+    - positions.scss
+```
 
-***
+The `_variables.scss` file is used the define global variables that will be used throughout the template (text color, link color, headers size, etc.). This file should be included at the top of the other files. Assuming we want to include it in the `webroot/sass/Architect/Static/TitleOnly.scss` file:
+```scss
+@import "../../variables";
+```
 
-#### CSS Guidelines
+The `global.scss` file is where the global styles should be defined, and `positions.scss` should contain styling for the elements in the `index.tpl` file.
 
-- On a live site, all template CSS files will be automatically merged to increase performance. For this to happen, you need to create a `template.css`, where the only allowed content are `@import` statements. No comments or CSS rule declarations are allowed in this file. Bellow you can see a `template.css` file example:
-````PHP
+Almost all Architect and Menu views will have a corresponding SCSS and CSS file. These will reside in the `Architect` directory categorised by content type, and `Menus` directory respectively.
+
+When styling component pages or modules the SCSS file should be placed in the `sass/Components/{Component}` and `sass/Modules/{Component}` respectively.
+
+All CSS files should be included in `template.css` and this file should only contain `@import` statements:
+
+```css
 @import "global.css";
-@import "fonts.css";
 @import "positions.css";
-@import "Architect/Article/TitleOnly.css";
-@import "modules/Users/Register.css";
-````
 
-> ![](https://github.com/sitestacker/sitestacker-wiki/blob/wiki-resources/images/icons/note.png) Read the [The Index File - Head Section](#head-section) for details on what Smarty variable need to be used in order for this to work.
-
-- There is also some CSS code that needs to exists in every template, so we recommend creating a `global.css` file and add the following code to the top of the file:
-    - The first block will ensure that when you give a div the width of 100% and it also has some padding for example, the padding will be subtracted from that 100%. Also when an element has some border will not add that border over the 100% width but it will subtract it from the available width. This is for making the template responsive.
-    - The second block is a css class that can be used throughout the site as seen in the index.tpl example to clear any floating elements.
-````CSS
-body * {
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-}
-.clearfix:after {
-    clear: both;
-    content: ".";
-    display: block;
-    font-size: 0;
-    height: 0;
-    visibility: hidden;
-}
-````
-
-[Back to top](#summary)
-
-***
-
-#### CSS Class Naming Conventions
-
-- All classes in a template should start with `tpl-`.
-- Positions should follow this format: `tpl-position-{position-name}`.
-- Views should follow this format: `tpl-{component-alias}-{content-type-alias}-{view-name}`.
-- For component pages, the main wrapper should contain a combined class like: `<div class="{component-alias} page-{item-name}>`. For example the Checkout page of the Contributions component should look like: `<div class="contributions page-checkout">...<div>`.
-- For modules, the main wrapper should contain a combined class like: `<div class="{component-alias} module-{item-name}">`. For example the Login module of the Users component should look like: `<div class="users module-login">...<div>`.    
+@import "Architect/Static/TitleOnly.css";
+@import "Components/Contributions/Checkout.css";
+@import "Modules/Contributions/ShoppingCart.css";
+@import "Menus/HeaderMenu.css";
+....
+```    
 
 [Back to top](#summary)
