@@ -181,7 +181,8 @@ Definition in `config.xml` file:
 
 > The `name` value is what will show up in admin
    
-- `title_only.tpl` view for Static content type:
+- `title_only.tpl` view for Static content type:  
+
 ```smarty
 <div class="tpl-architect-static-title-only {$viewClass}">
     {$title}
