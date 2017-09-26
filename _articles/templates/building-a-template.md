@@ -177,10 +177,10 @@ Definition in `config.xml` file:
 <contentType plugin="Modules" alias="Module">
     <view alias="default" name="Default"/>
 </contentType>
-```
+```  
 
-> The `name` value is what will show up in admin
-   
+> The `name` value is what will show up in admin  
+
 - `title_only.tpl` view for Static content type:  
 
 ```smarty
@@ -189,12 +189,14 @@ Definition in `config.xml` file:
 </div>
 ```
 
-- `basic.tpl` Component view or `default.tpl` Module view:
+- `basic.tpl` Component view or `default.tpl` Module view:  
+
 ```smarty
 {$body}
-```
+```  
 
-- `unordered_list.tpl` Menu view:
+- `unordered_list.tpl` Menu view:  
+
 ```smarty
 <div class="tpl-menus-menu-unordered-list {$viewClass}">
     <ul class="tpl-menu">
@@ -216,7 +218,8 @@ Definition in `config.xml` file:
 </div>
 ```
 
-- `summary.tpl` Missionary view:
+- `summary.tpl` Missionary view:  
+
 ```smarty
 <div class="tpl-architect-missionary-summary {$viewClass}">
     
