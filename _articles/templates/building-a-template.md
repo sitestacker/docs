@@ -1,7 +1,7 @@
 ---
 title: Building a Template
 category: Templates
-date: 2015-05-30 00:00:00
+date: 2017-09-28 00:00:00
 ---
 
 ### Summary
