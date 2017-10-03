@@ -1,36 +1,34 @@
 ---
 title: Install on Production
 category: Install Site Stacker
-date: 2017-01-03 00:00:00
+date: 2017-10-03 00:00:00
 readtime: 5
 ---
 
-This guide will run you trough the process of installing a fresh copy of Site Stacker on a production server.
+This guide will run you through the process of installing a fresh copy of Site Stacker on a production server.
 
 ## Prerequisites
 
-To install Site Stacker you need:
+First, make sure you have:
 
 - access to the web server (either RDP for Windows or SSH for Linux)
 - credentials for connecting to the database server
 
 ## Install the Site Stacker Service
 
-The first thing to do is to install the [Site Stacker Service (daemon)](http://sitestacker.github.io/service/) on the web server where Site Stacker will run. For this you need to connect to the server.
-
-*TODO: Figure out how to handle load balancing.*
+The first thing to do is to install the [Site Stacker Service](http://sitestacker.github.io/service/) on the **web server** where Site Stacker will run. For this you need to connect to the server.
 
 ### Site Stacker GitLab user
 
 > Note: You need to be an [admin on GitLab](https://git.sitestacker.com/admin/users?filter=admins) to create/manage users.
 
-First, make sure a user for that client exists in [GitLab](https://git.sitestacker.com/admin/users). If not, you'll need to [create one](https://git.sitestacker.com/admin/users/new).
+Make sure a user for that client exists in [GitLab](https://git.sitestacker.com/admin/users). If not, you'll need to [create one](https://git.sitestacker.com/admin/users/new).
 
-Upon creation, the user needs to be granted **Reporter** role (or higher) to the [sitestacker/sitestacker](https://git.sitestacker.com/sitestacker/sitestacker) repository and all other sub-repositories required for that installation (e.g. [templates](https://git.sitestacker.com/groups/templates), [components](https://git.sitestacker.com/groups/components), [themes](https://git.sitestacker.com/groups/themes)). Also you'll need to give him **Guest** access to the [service/access](https://git.sitestacker.com/service/access) repository, as seen below:
+Upon creation, the user needs to be granted **Reporter** role (or higher) to the [sitestacker/sitestacker](https://git.sitestacker.com/sitestacker/sitestacker) repository and all other sub-repositories required for that installation (e.g. [templates](https://git.sitestacker.com/groups/templates), [components](https://git.sitestacker.com/groups/components), [themes](https://git.sitestacker.com/groups/themes)). Also it needs **Guest** access to the [service/access](https://git.sitestacker.com/service/access) repository. An example user is seen below:
 
 ![user projects](https://git.sitestacker.com/sitestacker/docs/uploads/bc35c15d4091d2640edb69e12c92e842/image.png)
 
-After you have the user set up, check the [instructions on the site](http://sitestacker.github.io/service/) to install the service.
+After the user is correctly set up, see the [Site Stacker Service site](http://sitestacker.github.io/service/) for installation instructions.
 
 ### Check the daemon installation
 
