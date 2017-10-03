@@ -27,7 +27,7 @@ Name | Description
 [person_create](#person-create) | Any time a person is created.
 [person_update](#person-update) | Any time a person is updated.
 [person_delete](#person-delete) | Any time a person is deleted.
-[person_type_assignment](#person-type-assignment) | Any time a person type is assigned to a person.
+[person_type_assign](#person-type-assign) | Any time a person type is assigned to a person.
 
 ## Payloads
 
