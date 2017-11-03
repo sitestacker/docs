@@ -453,6 +453,7 @@ RateLimit-Reset: 1372700873
             "latitude": "40.790526",
             "longitude": "-73.974953",
             "external_id": "A1",
+            "default": true,
             "created": "2015-05-05 05:05:05",
             "modified": "2015-05-05 05:05:05",
             "state": {
@@ -891,6 +892,7 @@ RateLimit-Reset: 1372700873
             "latitude": "40.790526",
             "longitude": "-73.974953",
             "external_id": "A1",
+            "default": true,
             "created": "2015-05-05 05:05:05",
             "modified": "2015-05-05 05:05:05",
             "state": {
@@ -1582,6 +1584,7 @@ RateLimit-Reset: 1372700873
         "latitude": "40.790526",
         "longitude": "-73.974953",
         "external_id": "A2",
+        "default": true,
         "created": "2015-05-05 05:05:05",
         "modified": "2015-05-05 05:05:05",
         "state": {
@@ -1866,6 +1869,7 @@ RateLimit-Reset: 1372700873
             "latitude": "40.790526",
             "longitude": "-73.974953",
             "external_id": "A1",
+            "default": true,
             "created": "2015-05-05 05:05:05",
             "modified": "2015-05-05 05:05:05",
             "state": {
@@ -1931,6 +1935,7 @@ RateLimit-Reset: 1372700873
             "latitude": "40.790526",
             "longitude": "-73.974953",
             "external_id": "A1",
+            "default": true,
             "created": "2015-05-05 05:05:05",
             "modified": "2015-05-05 05:05:05",
             "state": {
