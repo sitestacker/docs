@@ -4,6 +4,13 @@ category: API
 date: 2017-08-16 00:00:00
 ---
 
+<aside style="float: right; border-radius: 5px; border: 1px solid #f0f4f7; border-left-width: 2px; width: 350px; padding: 0 16px 16px 16px; margin: 0 0 0 40px; position: relative; z-index: 2;     font-size: 95%; background-color: #fff;">
+<h4>Webhook terminology</h4>
+<p>An <i>event</i> is triggered when a certain action occurs in Site Stacker, such as a gift is made or a CRM record is updated. Each occurrence has a corresponding <b><code>Event</code></b> payload.</p>
+<p><i>Webhook endpoints</i> are URLs defined by users to which Site Stacker sends events. A single event may be sent to many webhook endpoints.</p>
+<p><i>Webhooks</i> refers to the overall concept of sending notifications to webhook endpoints.</p>
+</aside>
+
 Webhooks allow you to build or set up integrations which subscribe to certain events on a Site Stacker installation. When one of those events is triggered, we'll send a HTTP POST payload to the webhook's configured URL.
 
 Webhooks can be installed in the **Webhooks** component in admin. Once installed, they will be triggered each time one or more subscribed events occur.
