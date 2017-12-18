@@ -1,7 +1,7 @@
 ---
 title: API
 category: API
-date: 2017-08-21 00:00:00
+date: 2017-12-18 00:00:00
 ---
 
 ## Overview
@@ -1065,11 +1065,11 @@ POST /historic-gifts
 
 Name | Type | Description
 --- | --- | ---
-`receiver.id` | *int* | **Required** if `fund_id` is not set and you want the gift to be associated with a person. The receiving person id (Site Stacker id).
-`fund_id` | *int* | **Required** if `receiver.id` is not set and you want the gift to be associated with a person. The fund id (or campaign external id). This field is mapped according to the Historic Giving component settings, set in admin.
+`receiver.id` | *int* | **Required if** `fund_id` is not set and you want the gift to be associated with a person. The receiving person id (Site Stacker id).
+`fund_id` | *int* | **Required if** `receiver.id` is not set and you want the gift to be associated with a person. The fund id (or campaign external id). This field is mapped according to the Historic Giving component settings, set in admin.
 `fund_name` | *string* | The fund name (or campaign name).
-`donor.id` | *int* | **Required** if `donor.external_id` is not set. The donor person id (Site Stacker id).
-`donor_person_external_id` | *int* | **Required** if `donor.id` is not set. The donor external id.
+`donor.id` | *int* | **Required if** `donor.external_id` is not set. The donor person id (Site Stacker id).
+`donor_person_external_id` | *int* | **Required if** `donor.id` is not set. The donor external id.
 `amount` | *decimal* | **Required**. Two decimal number without currency sign.
 `currency` | *string* | **Required**. The currency type. Supported values: `USD` or `CAD`.
 `received` | *date* | **Required**. The gift received date (ISO 8601).
@@ -1414,6 +1414,613 @@ RateLimit-Reset: 1372700873
     }
 }
 ```
+
+## Person Addresses
+
+### List addresses for a person
+
+```
+GET /people/:id/addresses
+```
+
+**Curl Example**
+
+```bash
+$ curl -n https://<domain>/api/people/1/addresses \
+    -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+```
+HTTP/1.1 200 OK
+Accept-Ranges: id, address1, city
+Content-Range: id 0..; max=100, total=1, order=asc
+RateLimit-Limit: 5000
+RateLimit-Remaining: 4999
+RateLimit-Reset: 1372700873
+```
+
+The data returned is similar to the [get a single address](#get-a-single-address) endpoint, but contains an array of records instead of a single record.
+
+### Get a single address
+
+```
+GET /addresses/:id
+```
+
+**Curl Example**
+
+```bash
+$ curl -n https://<domain>/api/addresses/1 \
+    -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+```
+HTTP/1.1 200 OK
+RateLimit-Limit: 5000
+RateLimit-Remaining: 4999
+RateLimit-Reset: 1372700873
+```
+
+```json
+{
+    "id": "1",
+    "address1": "2429A Broadway",
+    "address2": "",
+    "city": "New York",
+    "zip": "10024",
+    "latitude": "40.790526",
+    "longitude": "-73.974953",
+    "default": true,
+    "external_id": "A1",
+    "created": "2015-05-05 05:05:05",
+    "modified": "2015-05-05 05:05:05",
+    "external_id_virtuous": null,
+    "person": {
+        "id": "1",
+        "title": "Mr.",
+        "firstname": "John",
+        "middlename": "S",
+        "lastname": "Doe",
+        "fullname": "John Doe",
+        "suffix": "Jr.",
+        "gender": "m",
+        "birthday": "1987-05-05",
+        "email": "john@test.com",
+        "description": "Description",
+        "is_group": false,
+        "external_id": "P1",
+        "created": "2015-04-04 12:12:12",
+        "modified": "2015-04-05 13:13:13",
+        "external_id_virtuous": null
+    },
+    "state": {
+        "id": "1",
+        "name": "New York",
+        "code": "NY"
+    },
+    "country": {
+        "id": "1",
+        "name": "United States",
+        "code": "US",
+        "iso3": "USA",
+        "iso_number": "840",
+        "internet": "US",
+        "nationality": "American",
+        "currency": "US Dollar",
+        "currency_code": "USD",
+        "population": "278058881",
+        "title": "The United States"
+    },
+    "type": {
+        "id": "1",
+        "label": "Home",
+        "quantity": "multiple"
+    }
+}
+```
+
+### Create an address
+
+```
+POST /people/1/addresses
+```
+
+**Input data**
+
+Name | Type | Description
+--- | --- | ---
+`address1` | *string* | e.g. "828 Broadway"
+`address2` | *string* | 
+`city` | *string* | e.g. "New York"
+`state` | *string* | State code (e.g. "CA")
+`zip` | *string* | e.g. "10003"
+`country` | *string* | Country code (e.g. "US") 
+`default` | *bool* | True if you want to make this address the default
+`external_id` | *string* | A reference to an external resource
+
+The data needs to be sent in the body of the request, as a json object.
+
+**Curl Example**
+
+```bash
+$ curl -n -XPOST https://<domain>/api/people/1/addresses \
+  -d '{
+  "address1": "Street No. 123",
+  "city": "New York",
+  "state": "NY",
+  "zip": "91234",
+  "country": "US"
+  }' \
+  -H "Content-Type: application/json" \
+  -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+On successful create, this endpoint will return the full item data, as in [get a single address](#get-a-single-address), but the HTTP status code is `201`.
+
+### Update an address
+
+```
+PATCH /addresses/1
+```
+
+Except the HTTP method and URI, this method is the same as create. On successful update, it will return `200` HTTP status code.
+
+### Delete an address
+
+```
+DELETE /addresses/1
+```
+
+**Curl Example**
+
+```bash
+$ curl -n -XDELETE https://<domain>/api/addresses/1 \
+  -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+On successful delete, this endpoint will return the HTTP status code `200`, with an empty body.
+
+## Person Emails
+
+### List emails for a person
+
+```
+GET /people/:id/emails
+```
+
+**Curl Example**
+
+```bash
+$ curl -n https://<domain>/api/people/1/emails \
+    -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+```
+HTTP/1.1 200 OK
+Accept-Ranges: id, email
+Content-Range: id 0..; max=100, total=1, order=asc
+RateLimit-Limit: 5000
+RateLimit-Remaining: 4999
+RateLimit-Reset: 1372700873
+```
+
+The data returned is similar to the [get a single email](#get-a-single-email) endpoint, but contains an array of records instead of a single record.
+
+### Get a single email
+
+```
+GET /emails/:id
+```
+
+**Curl Example**
+
+```bash
+$ curl -n https://<domain>/api/emails/1 \
+    -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+```
+HTTP/1.1 200 OK
+RateLimit-Limit: 5000
+RateLimit-Remaining: 4999
+RateLimit-Reset: 1372700873
+```
+
+```json
+{
+    "id": "1",
+    "email": "john@test.com",
+    "created": "2015-05-05 05:05:05",
+    "modified": "2015-05-05 05:05:05",
+    "person": {
+        "id": "1",
+        "title": "Mr.",
+        "firstname": "John",
+        "middlename": "S",
+        "lastname": "Doe",
+        "fullname": "John Doe",
+        "suffix": "Jr.",
+        "gender": "m",
+        "birthday": "1987-05-05",
+        "email": "john@test.com",
+        "description": "Description",
+        "is_group": false,
+        "external_id": "P1",
+        "created": "2015-04-04 12:12:12",
+        "modified": "2015-04-05 13:13:13"
+    },
+    "type": {
+        "id": "1",
+        "label": "Home",
+        "quantity": "multiple"
+    }
+}
+```
+
+### Create an email
+
+```
+POST /people/1/emails
+```
+
+**Input data**
+
+Name | Type | Description
+--- | --- | ---
+`email` | *string* | **Required**. A valid email address (e.g. "email@example.com") 
+`default` | *bool* | True if you want to make this email the default
+
+The data needs to be sent in the body of the request, as a json object.
+
+**Curl Example**
+
+```bash
+$ curl -n -XPOST https://<domain>/api/people/1/emails \
+  -d '{
+  "email": "email@example.com",
+  "default": true
+  }' \
+  -H "Content-Type: application/json" \
+  -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+On successful create, this endpoint will return the full item data, as in [get a single email](#get-a-single-email), but the HTTP status code is `201`.
+
+### Update an email
+
+```
+PATCH /emails/1
+```
+
+Except the HTTP method and URI, this method is the same as create. On successful update, it will return `200` HTTP status code.
+
+### Delete an email
+
+```
+DELETE /emails/1
+```
+
+**Curl Example**
+
+```bash
+$ curl -n -XDELETE https://<domain>/api/emails/1 \
+  -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+On successful delete, this endpoint will return the HTTP status code `200`, with an empty body.
+
+## Person Phones
+
+### List phones for a person
+
+```
+GET /people/:id/phones
+```
+
+**Curl Example**
+
+```bash
+$ curl -n https://<domain>/api/people/1/phones \
+    -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+```
+HTTP/1.1 200 OK
+Accept-Ranges: id, area_code, number
+Content-Range: id 0..; max=100, total=1, order=asc
+RateLimit-Limit: 5000
+RateLimit-Remaining: 4999
+RateLimit-Reset: 1372700873
+```
+
+The data returned is similar to the [get a single phone](#get-a-single-phone) endpoint, but contains an array of records instead of a single record.
+
+### Get a single phone
+
+```
+GET /phones/:id
+```
+
+**Curl Example**
+
+```bash
+$ curl -n https://<domain>/api/phones/1 \
+    -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+```
+HTTP/1.1 200 OK
+RateLimit-Limit: 5000
+RateLimit-Remaining: 4999
+RateLimit-Reset: 1372700873
+```
+
+```json
+{
+    "id": "2",
+    "is_outside_us": false,
+    "area_code": "123",
+    "number": "(123) 456-7890",
+    "created": "2016-04-14 20:00:00",
+    "modified": "2016-04-14 20:00:00",
+    "person": {
+        "id": "1",
+        "title": "Mr.",
+        "firstname": "John",
+        "middlename": "S",
+        "lastname": "Doe",
+        "fullname": "John Doe",
+        "suffix": "Jr.",
+        "gender": "m",
+        "birthday": "1987-05-05",
+        "email": "john@test.com",
+        "description": "Description",
+        "is_group": false,
+        "external_id": "P1",
+        "created": "2015-04-04 12:12:12",
+        "modified": "2015-04-05 13:13:13"
+    },
+    "type": {
+        "id": "1",
+        "label": "Cell",
+        "quantity": "multiple"
+    }
+}
+```
+
+### Create a phone
+
+```
+POST /people/1/phones
+```
+
+**Input data**
+
+Name | Type | Description
+--- | --- | ---
+`number` | *string* | **Required**. (e.g. "(378) 400-1234") 
+`default` | *bool* | True if you want to make this phone the default
+
+The data needs to be sent in the body of the request, as a json object.
+
+**Curl Example**
+
+```bash
+$ curl -n -XPOST https://<domain>/api/people/1/phones \
+  -d '{
+  "number": "(378) 400-1234",
+  "default": true
+  }' \
+  -H "Content-Type: application/json" \
+  -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+On successful create, this endpoint will return the full item data, as in [get a single phone](#get-a-single-phone), but the HTTP status code is `201`.
+
+### Update a phone
+
+```
+PATCH /phones/1
+```
+
+Except the HTTP method and URI, this method is the same as create. On successful update, it will return `200` HTTP status code.
+
+### Delete a phone
+
+```
+DELETE /phones/1
+```
+
+**Curl Example**
+
+```bash
+$ curl -n -XDELETE https://<domain>/api/phones/1 \
+  -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+On successful delete, this endpoint will return the HTTP status code `200`, with an empty body.
+
+## Person Relationships
+
+### List relationships for a person
+
+```
+GET /people/:id/relationships
+```
+
+**Curl Example**
+
+```bash
+$ curl -n https://<domain>/api/people/1/relationships \
+    -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+```
+HTTP/1.1 200 OK
+Accept-Ranges: id
+Content-Range: id 0..; max=100, total=1, order=asc
+RateLimit-Limit: 5000
+RateLimit-Remaining: 4999
+RateLimit-Reset: 1372700873
+```
+
+The data returned is similar to the [get a single relationship](#get-a-single-relationship) endpoint, but contains an array of records instead of a single record.
+
+### Get a single relationship
+
+```
+GET /relationships/:id
+```
+
+**Curl Example**
+
+```bash
+$ curl -n https://<domain>/api/relationships/1 \
+    -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+```
+HTTP/1.1 200 OK
+RateLimit-Limit: 5000
+RateLimit-Remaining: 4999
+RateLimit-Reset: 1372700873
+```
+
+```json
+{
+    "id": "3",
+    "linked_relation_id": "4",
+    "description": "",
+    "created": "2016-03-03 03:03:03",
+    "person": {
+        "id": "4",
+        "title": "",
+        "firstname": "Dan",
+        "middlename": "",
+        "lastname": "Test",
+        "fullname": "Dan Test",
+        "suffix": "",
+        "gender": "m",
+        "birthday": null,
+        "email": "dan@test.com",
+        "description": "",
+        "is_group": false,
+        "external_id": "",
+        "created": "2016-06-15 12:12:12",
+        "modified": "2016-06-15 13:13:13"
+    },
+    "related_person": {
+        "id": "5",
+        "title": "",
+        "firstname": "Zack",
+        "middlename": "",
+        "lastname": "Test",
+        "fullname": "Zack Test",
+        "suffix": "",
+        "gender": "m",
+        "birthday": null,
+        "email": "zack@test.com",
+        "description": "",
+        "is_group": false,
+        "external_id": "",
+        "created": "2016-06-15 12:12:12",
+        "modified": "2016-06-15 13:13:13"
+    },
+    "type": {
+        "id": "2",
+        "linked_relation_type_id": "2",
+        "label": "Friend",
+        "alias": "Friend"
+    }
+}
+```
+
+### Create a relationship
+
+```
+POST /people/1/relationships
+```
+
+**Input data**
+
+Name | Type | Description
+--- | --- | ---
+`related_person.id` | *int* | **Required**. The related person id (Site Stacker id).
+`type` | *string* | **Required if** `type.id` is not set. The relationship type alias or label. Has to match an existing relationship type configured in CRM (e.g. "Member").
+`type.id` | *int* | **Required if** `type` is not set. The relationship type id.
+`description` | *string* | The relationship description.
+
+The data needs to be sent in the body of the request, as a json object.
+
+**Curl Example**
+
+```bash
+$ curl -n -XPOST https://<domain>/api/people/1/relationships \
+  -d '{
+  "related_person.id": 2,
+  "type": "Member of",
+  "description": "Created by the API"
+  }' \
+  -H "Content-Type: application/json" \
+  -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+On successful create, this endpoint will return the full item data, as in [get a single relationship](#get-a-single-relationship), but the HTTP status code is `201`.
+
+### Update a relationship
+
+```
+PATCH /relationships/1
+```
+
+Except the HTTP method and URI, this method is the same as create. On successful update, it will return `200` HTTP status code.
+
+### Delete a relationship
+
+```
+DELETE /relationships/1
+```
+
+**Curl Example**
+
+```bash
+$ curl -n -XDELETE https://<domain>/api/relationships/1 \
+  -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+On successful delete, this endpoint will return the HTTP status code `200`, with an empty body.
 
 ## Person Types
 
@@ -1968,6 +2575,250 @@ RateLimit-Reset: 1372700873
     }
 }
 ```
+
+## Tag Categories
+
+### List tag categories
+
+```
+GET /tag-categories
+```
+
+**Curl Example**
+
+```bash
+$ curl -n https://<domain>/api/tag-categories \
+    -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+```
+HTTP/1.1 200 OK
+Accept-Ranges: id
+Content-Range: id 0..; max=100, total=1, order=asc
+RateLimit-Limit: 5000
+RateLimit-Remaining: 4999
+RateLimit-Reset: 1372700873
+```
+
+The data returned is similar to the [get a single tag category](#get-a-single-tag-category) endpoint, but contains an array of records instead of a single record.
+
+### Get a single tag category
+
+```
+GET /tag-categories/:id
+```
+
+**Curl Example**
+
+```bash
+$ curl -n https://<domain>/api/tag-categories/1 \
+    -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+```
+HTTP/1.1 200 OK
+RateLimit-Limit: 5000
+RateLimit-Remaining: 4999
+RateLimit-Reset: 1372700873
+```
+
+```json
+{
+    "id": "2",
+    "name": "Region",
+    "in_content_preferences": false,
+    "order": "1",
+    "weight": "0",
+    "site": {
+        "id": "1",
+        "name": "Site 1",
+        "require_authentication": false
+    }
+}
+```
+
+### Create a tag category
+
+```
+POST /sites/1/tag-categories
+```
+
+**Input data**
+
+Name | Type | Description
+--- | --- | ---
+`name` | *string* | **Required**. The tag category name (e.g. "Region").
+
+The data needs to be sent in the body of the request, as a json object.
+
+**Curl Example**
+
+```bash
+$ curl -n -XPOST https://<domain>/api/sites/1/tag-categories \
+  -d '{
+  "name": "Region"
+  }' \
+  -H "Content-Type: application/json" \
+  -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+On successful create, this endpoint will return the full item data, as in [get a single tag category](#get-a-single-tag-category), but the HTTP status code is `201`.
+
+### Update a tag category
+
+```
+PATCH /tag-categories/1
+```
+
+Except the HTTP method and URI, this method is the same as create. On successful update, it will return `200` HTTP status code.
+
+### Delete a tag category
+
+```
+DELETE /tag-categories/1
+```
+
+**Curl Example**
+
+```bash
+$ curl -n -XDELETE https://<domain>/api/tag-categories/1 \
+  -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+On successful delete, this endpoint will return the HTTP status code `200`, with an empty body.
+
+## Tags
+
+### List tags
+
+```
+GET /tags
+```
+
+**Curl Example**
+
+```bash
+$ curl -n https://<domain>/api/tags \
+    -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+```
+HTTP/1.1 200 OK
+Accept-Ranges: id
+Content-Range: id 0..; max=100, total=1, order=asc
+RateLimit-Limit: 5000
+RateLimit-Remaining: 4999
+RateLimit-Reset: 1372700873
+```
+
+The data returned is similar to the [get a single tag](#get-a-single-tag) endpoint, but contains an array of records instead of a single record.
+
+### Get a single tag
+
+```
+GET /tags/:id
+```
+
+**Curl Example**
+
+```bash
+$ curl -n https://<domain>/api/tags/1 \
+    -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+```
+HTTP/1.1 200 OK
+RateLimit-Limit: 5000
+RateLimit-Remaining: 4999
+RateLimit-Reset: 1372700873
+```
+
+```json
+{
+    "id": "1",
+    "name": "Red",
+    "external_id": "red",
+    "external_type": "color",
+    "site": {
+        "id": "1",
+        "name": "Site 1",
+        "require_authentication": false
+    },
+    "category": {
+        "id": "1",
+        "name": "Color",
+        "in_content_preferences": false,
+        "order": "0",
+        "weight": "0"
+    }
+}
+```
+
+### Create a tag
+
+```
+POST /tag-categories/1/tags
+```
+
+**Input data**
+
+Name | Type | Description
+--- | --- | ---
+`name` | *string* | **Required**. The tag name (e.g. "Asia").
+
+The data needs to be sent in the body of the request, as a json object.
+
+**Curl Example**
+
+```bash
+$ curl -n -XPOST https://<domain>/api/sites/1/tag-categories/2/tags \
+  -d '{
+  "name": "Asia"
+  }' \
+  -H "Content-Type: application/json" \
+  -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+On successful create, this endpoint will return the full item data, as in [get a single tag](#get-a-single-tag), but the HTTP status code is `201`.
+
+### Update a tag
+
+```
+PATCH /tags/1
+```
+
+Except the HTTP method and URI, this method is the same as create. On successful update, it will return `200` HTTP status code.
+
+### Delete a tag
+
+```
+DELETE /tags/1
+```
+
+**Curl Example**
+
+```bash
+$ curl -n -XDELETE https://<domain>/api/tags/1 \
+  -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+On successful delete, this endpoint will return the HTTP status code `200`, with an empty body.
 
 ## Types
 
