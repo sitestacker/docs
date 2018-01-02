@@ -1,7 +1,7 @@
 ---
 title: API
 category: API
-date: 2017-12-18 00:00:00
+date: 2017-12-28 00:00:00
 ---
 
 ## Overview
@@ -1718,6 +1718,122 @@ DELETE /emails/1
 
 ```bash
 $ curl -n -XDELETE https://<domain>/api/emails/1 \
+  -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+On successful delete, this endpoint will return the HTTP status code `200`, with an empty body.
+
+## Person Entity Data
+
+A person entity represents custom data associated with a person record. Entities and their structure are configured in CRM &gt; Configuration &gt; Entities Tab.
+
+These endpoints expose the entity data for a certain person record. To use them, you first need to have the entities configured in admin.
+
+### List entity data for a person
+
+```
+GET /people/:id/entities/:id/data
+GET /people/:id/entities/:alias/data
+```
+
+> Note: All entity data endpoints accept either the **entity id** or the **entity alias**.
+
+**Curl Example**
+
+```bash
+$ curl -n https://<domain>/api/people/1/entities/PersonalInformation/data \
+    -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+```
+HTTP/1.1 200 OK
+Accept-Ranges: id
+Content-Range: id 0..; max=100, total=1, order=asc
+RateLimit-Limit: 5000
+RateLimit-Remaining: 4999
+RateLimit-Reset: 1372700873
+```
+
+The data returned is similar to the [get a single entity data](#get-a-single-entity-data) endpoint, but contains an array of records instead of a single record.
+
+### Get a single entity data
+
+```
+GET /people/:id/entities/:id/data/:id
+GET /people/:id/entities/:alias/data/:id
+```
+
+**Curl Example**
+
+```bash
+$ curl -n https://<domain>/api/people/1/entities/1/data/1 \
+    -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+```
+HTTP/1.1 200 OK
+RateLimit-Limit: 5000
+RateLimit-Remaining: 4999
+RateLimit-Reset: 1372700873
+```
+
+The body returns a json object with all the custom entity fields and their values.
+
+### Create an entity data
+
+```
+POST /people/:id/entities/:id/data
+POST /people/:id/entities/:alias/data
+```
+
+**Input data**
+
+The data represents the csutom entity fields configured for the entity you're adding data for.
+
+The data needs to be sent in the body of the request, as a json object.
+
+**Curl Example**
+
+```bash
+$ curl -n -XPOST https://<domain>/api/people/1/emails \
+  -d '{
+  "custom_field_1": "value_1",
+  "custom_field_2": [23, 24]
+  }' \
+  -H "Content-Type: application/json" \
+  -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+On successful create, this endpoint will return the full item data, as in [get a single entity data](#get-a-single-entity-data), but the HTTP status code is `201`.
+
+### Update an entity data
+
+```
+PATCH /people/:id/entities/:id/data/:id
+PATCH /people/:id/entities/:alias/data/:id
+```
+
+Except the HTTP method and URI, this method is the same as create. On successful update, it will return `200` HTTP status code.
+
+### Delete an entity data
+
+```
+DELETE /people/:id/entities/:id/data/:id
+DELETE /people/:id/entities/:alias/data/:id
+```
+
+**Curl Example**
+
+```bash
+$ curl -n -XDELETE https://<domain>/api/people/1/entities/PersonalInformation/data/1 \
   -H "Authorization: HMAC <id>:<signature>"
 ```
 
