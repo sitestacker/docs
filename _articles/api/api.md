@@ -1,7 +1,7 @@
 ---
 title: API
 category: API
-date: 2017-12-28 00:00:00
+date: 2018-01-25 00:00:00
 ---
 
 ## Overview
@@ -1176,6 +1176,9 @@ RateLimit-Reset: 1372700873
     "id": "1",
     "alias": "default-project",
     "name": "Default Project",
+    "views": "0",
+    "visibility": "0",
+    "is_searchable": true,
     "publish_datetime": "2015-05-05 05:05:05",
     "unpublish_datetime": null,
     "external_id": "P1",
@@ -1222,24 +1225,39 @@ RateLimit-Reset: 1372700873
 }
 ```
 
-### Update item
+### Create item
 
 ```
-PATCH /types/:type_id_or_alias/items/:id
+POST /types/:type_id_or_alias/items
 ```
 
 **Input data**
 
 Name | Type | Description
 --- | --- | ---
-`external_id` | *string* | The id of the integrated external service resource. This associates the item and the campaign with an external resource
+`name` | *string* | **Required**. The item's name (e.g. "Default Project")
+`visibility` | *int* | What users can view this item. Possible values: 0 = all, 1 = unregistered users only, 2 = registered users only. Default is 0.
+`is_searchable` | *bool* | True if you want this item to be searchable. Default is false.
+`publish_datetime` | *date* | Publish date, in the format `Y-m-d H:i:s`. Default is null.
+`unpublish_datetime` | *date* | Unpublish date, in the format `Y-m-d H:i:s`. Default is null. 
+`external_id` | *string* | A reference to an external resource.
+`folder.id` | *int* | **Required**. The folder id to add the item into.
+`type.id` | *int* | **Required**. The [content type](#types) id.
+`owner.id` | *int* | The [person](#people-contacts) id that is the owner of the item.
+
+The data needs to be sent in the body of the request, as a json object.
 
 **Curl Example**
 
 ```bash
-$ curl -n -XPATCH https://<domain>/api/types/Project/items/1 \
+$ curl -n -XPOST https://<domain>/api/types/Project/items \
   -d '{
-  "external_id": "R2D2"
+  "name": "Default Project",
+  "is_searchable": true,
+  "publish_datetime": "2018-01-25 14:29:00",
+  "folder.id": 1,
+  "type.id": 2,
+  "owner.id": 1
   }' \
   -H "Content-Type: application/json" \
   -H "Authorization: HMAC <id>:<signature>"
@@ -1247,14 +1265,32 @@ $ curl -n -XPATCH https://<domain>/api/types/Project/items/1 \
 
 **Response Example**
 
+On successful create, this endpoint will return the full item data, as in [get a single item](#get-a-single-item), but the HTTP status code is `201`.
+
+### Update item
+
 ```
-HTTP/1.1 200 OK
-RateLimit-Limit: 5000
-RateLimit-Remaining: 4999
-RateLimit-Reset: 1372700873
+PATCH /types/:type_id_or_alias/items/:id
 ```
 
-On successful update, this endpoint will return the full item data, as in [get a single item](#get-a-single-item).
+Except the HTTP method and URI, this method is the same as create. On successful update, it will return 200 HTTP status code.
+
+### Delete item
+
+```
+DELETE /types/:type_id_or_alias/items/:id
+```
+
+**Curl Example**
+
+```bash
+$ curl -n -XDELETE https://<domain>/api/types/Project/items/2 \
+  -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+On successful delete, this endpoint will return the HTTP status code `200`, with an empty body.
 
 ## Item Versions
 
@@ -1360,6 +1396,9 @@ RateLimit-Reset: 1372700873
         "id": "1",
         "alias": "default-project",
         "name": "Default Project",
+        "views": "0",
+        "visibility": "0",
+        "is_searchable": true,
         "publish_datetime": "2015-05-05 05:05:05",
         "unpublish_datetime": null,
         "external_id": "P1",
@@ -1410,10 +1449,65 @@ RateLimit-Reset: 1372700873
     },
     "stage": {
         "id": "1",
-        "name": "Default"
+        "name": "Default",
+        "is_new": true,
+        "is_live": true,
+        "color": null,
+        "notify": false,
+        "order": 0
     }
 }
 ```
+
+### Create item version
+
+```
+POST /types/:type_id_or_alias/items/:id/versions
+POST /types/:type_id_or_alias/items/:id/versions/live
+```
+
+Note that you can use the `/live` keyword in the URL. This will save the version in the live stage of the workflow configured for the site where the item was created. If the `/live` keyword is omitted, the version will be saved in the stage marked as `is_new` in the same workflow.
+
+**Input data**
+
+The input data is custom, based on the fields configured in the content type.
+
+The data needs to be sent in the body of the request, as a json object.
+
+**Curl Example**
+
+```bash
+$ curl -n -XPOST https://<domain>/api/types/Project/items \
+  -d '{
+  "title": "New Project From Test",
+  "country": 1,
+  "image": [
+      "/files/UnitTestProject.png",
+  ],
+  "status": [
+      1,
+      2,
+  ],
+  "yes_no": [
+      "option": true,
+      "explanation": "Option selected",
+  ]
+  }' \
+  -H "Content-Type: application/json" \
+  -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+On successful create, this endpoint will return the full item data, as in [get a single item](#get-a-single-item), but the HTTP status code is `201`.
+
+### Update item version
+
+```
+PATCH /types/:type_id_or_alias/items/:id
+```
+
+Except the HTTP method and URI, this method is the same as create. On successful update, it will return 200 HTTP status code.
 
 ## Person Addresses
 
