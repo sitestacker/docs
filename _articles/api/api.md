@@ -1,7 +1,7 @@
 ---
 title: API
 category: API
-date: 2018-01-25 00:00:00
+date: 2018-02-06 00:00:00
 ---
 
 ## Overview
@@ -164,6 +164,7 @@ Retrieve records with `external_id` equal to "R2D2" (un-encoded: `?search={"exte
 
 ```bash
 $ curl -n https://<domain>/api/people?search=%7B%22external_id%22%3A%20%22R2D2%22%7D \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
@@ -220,6 +221,7 @@ GET /campaigns
 
 ```bash
 $ curl -n https://<domain>/api/campaigns \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
@@ -239,13 +241,14 @@ The data returned is similar to the [get a single campaign](#get-a-single-campai
 ### Get a single campaign
 
 ```
-GET /campaigns/:id
+GET /campaigns/{id}
 ```
 
 **Curl Example**
 
 ```bash
 $ curl -n https://<domain>/api/campaigns/1 \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
@@ -338,6 +341,7 @@ GET /contribution-batches
 
 ```bash
 $ curl -n https://<domain>/api/contribution-batches \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
@@ -357,13 +361,14 @@ The data returned is similar to the [get a single contribution batch](#get-a-sin
 ### Get a single contribution batch
 
 ```
-GET /contribution-batches/:id
+GET /contribution-batches/{id}
 ```
 
 **Curl Example**
 
 ```bash
 $ curl -n https://<domain>/api/contribution-batches/1 \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
@@ -674,6 +679,7 @@ GET /contributions
 
 ```bash
 $ curl -n https://<domain>/api/contributions \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
@@ -693,13 +699,14 @@ The data returned is similar to the [get a single contribution](#get-a-single-co
 ### Get a single contribution
 
 ```
-GET /contributions/:id
+GET /contributions/{id}
 ```
 
 **Curl Example**
 
 ```bash
 $ curl -n https://<domain>/api/contributions/1 \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
@@ -940,6 +947,7 @@ GET /historic-gifts
 
 ```bash
 $ curl -n https://<domain>/api/historic-gifts \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
@@ -959,13 +967,14 @@ The data returned is similar to the [get a single historic gift](#get-a-single-h
 ### Get a single historic gift
 
 ```
-GET /historic-gifts/:id
+GET /historic-gifts/{id}
 ```
 
 **Curl Example**
 
 ```bash
 $ curl -n https://<domain>/api/historic-gifts/1 \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
@@ -1104,15 +1113,16 @@ Name | Type | Description
 
 ```bash
 $ curl -n -XPOST https://<domain>/api/historic-gifts \
-  -d '{
-  "donor": {"id": 1},
-  "receiver": {"id": 2},
-  "received": "2004-02-12T15:19:21+00:00",
-  "amount": 11.00,
-  "currency": "USD"
-  }' \
-  -H "Content-Type: application/json" \
-  -H "Authorization: HMAC <id>:<signature>"
+    -d '{
+    "donor": {"id": 1},
+    "receiver": {"id": 2},
+    "received": "2004-02-12T15:19:21+00:00",
+    "amount": 11.00,
+    "currency": "USD"
+    }' \
+    -H "Content-Type: application/json" \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
+    -H "Authorization: HMAC <id>:<signature>"
 ```
 
 **Response Example**
@@ -1126,13 +1136,14 @@ An item represents a content item of a certain [type](#types), with custom data,
 ### List Items
 
 ```
-GET /types/:type_id_or_alias/items
+GET /types/{type_alias}/items
 ```
 
 **Curl Example**
 
 ```bash
 $ curl -n https://<domain>/api/types/Project/items \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
@@ -1152,13 +1163,14 @@ The data returned is similar to the [get a single item](#get-a-single-item) endp
 ### Get a single item
 
 ```
-GET /types/:type_id_or_alias/items/:id
+GET /types/{type_alias}/items/{id}
 ```
 
 **Curl Example**
 
 ```bash
 $ curl -n https://<domain>/api/types/Project/items/1 \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
@@ -1228,7 +1240,7 @@ RateLimit-Reset: 1372700873
 ### Create item
 
 ```
-POST /types/:type_id_or_alias/items
+POST /types/{type_alias}/items
 ```
 
 **Input data**
@@ -1251,16 +1263,17 @@ The data needs to be sent in the body of the request, as a json object.
 
 ```bash
 $ curl -n -XPOST https://<domain>/api/types/Project/items \
-  -d '{
-  "name": "Default Project",
-  "is_searchable": true,
-  "publish_datetime": "2018-01-25 14:29:00",
-  "folder.id": 1,
-  "type.id": 2,
-  "owner.id": 1
-  }' \
-  -H "Content-Type: application/json" \
-  -H "Authorization: HMAC <id>:<signature>"
+    -d '{
+    "name": "Default Project",
+    "is_searchable": true,
+    "publish_datetime": "2018-01-25 14:29:00",
+    "folder.id": 1,
+    "type.id": 2,
+    "owner.id": 1
+    }' \
+    -H "Content-Type: application/json" \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
+    -H "Authorization: HMAC <id>:<signature>"
 ```
 
 **Response Example**
@@ -1270,7 +1283,7 @@ On successful create, this endpoint will return the full item data, as in [get a
 ### Update item
 
 ```
-PATCH /types/:type_id_or_alias/items/:id
+PATCH /types/{type_alias}/items/{id}
 ```
 
 Except the HTTP method and URI, this method is the same as create. On successful update, it will return 200 HTTP status code.
@@ -1278,14 +1291,15 @@ Except the HTTP method and URI, this method is the same as create. On successful
 ### Delete item
 
 ```
-DELETE /types/:type_id_or_alias/items/:id
+DELETE /types/{type_alias}/items/{id}
 ```
 
 **Curl Example**
 
 ```bash
 $ curl -n -XDELETE https://<domain>/api/types/Project/items/2 \
-  -H "Authorization: HMAC <id>:<signature>"
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
+    -H "Authorization: HMAC <id>:<signature>"
 ```
 
 **Response Example**
@@ -1299,13 +1313,14 @@ An item version represents an item's custom data, associated to a language and v
 ### List item versions
 
 ```
-GET /types/:type_id_or_alias/items/:id/languages/:language/versions
+GET /types/{type_alias}/items/{id}/languages/{language}/versions
 ```
 
 **Curl Example**
 
 ```bash
 $ curl -n https://<domain>/api/types/Project/items/1/languages/en/versions \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
@@ -1325,9 +1340,9 @@ The data returned is similar to the [get a single item version](#get-a-single-it
 ### Get a single item version
 
 ```
-GET /types/:type_id_or_alias/items/:id/languages/:language/versions/live
-GET /types/:type_id_or_alias/items/:id/languages/:language/versions/last
-GET /types/:type_id_or_alias/items/:id/languages/:language/versions/:version
+GET /types/{type_alias}/items/{id}/languages/{language}/versions/live
+GET /types/{type_alias}/items/{id}/languages/{language}/versions/last
+GET /types/{type_alias}/items/{id}/languages/{language}/versions/{version}
 ```
 
 Note that the `:version` parameter is the version number, not the id.
@@ -1338,6 +1353,7 @@ Note that the `:version` parameter is the version number, not the id.
 
 ```bash
 $ curl -n https://<domain>/api/types/Project/items/1/languages/en/versions/live \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
@@ -1455,15 +1471,29 @@ RateLimit-Reset: 1372700873
         "color": null,
         "notify": false,
         "order": 0
-    }
+    },
+    "tags": [
+        {
+            "id": "1",
+            "name": "Red",
+            "external_id": "red",
+            "external_type": "color"
+        },
+        {
+            "id": "2",
+            "name": "Green",
+            "external_id": "green",
+            "external_type": "color"
+        }
+    ]
 }
 ```
 
-### Create item version
+### Create an item version
 
 ```
-POST /types/:type_id_or_alias/items/:id/versions
-POST /types/:type_id_or_alias/items/:id/versions/live
+POST /types/{type_alias}/items/{id}/languages/{language}/versions
+POST /types/{type_alias}/items/{id}/languages/{language}/versions/live
 ```
 
 Note that you can use the `/live` keyword in the URL. This will save the version in the live stage of the workflow configured for the site where the item was created. If the `/live` keyword is omitted, the version will be saved in the stage marked as `is_new` in the same workflow.
@@ -1478,49 +1508,87 @@ The data needs to be sent in the body of the request, as a json object.
 
 ```bash
 $ curl -n -XPOST https://<domain>/api/types/Project/items \
-  -d '{
-  "title": "New Project From Test",
-  "country": 1,
-  "image": [
-      "/files/UnitTestProject.png",
-  ],
-  "status": [
-      1,
-      2,
-  ],
-  "yes_no": [
-      "option": true,
-      "explanation": "Option selected",
-  ]
-  }' \
-  -H "Content-Type: application/json" \
-  -H "Authorization: HMAC <id>:<signature>"
+    -d '{
+    "title": "New Project From Test",
+    "country": 1,
+    "image": [
+        "/files/UnitTestProject.png",
+    ],
+    "status": [
+        1,
+        2,
+    ],
+    "yes_no": [
+        "option": true,
+        "explanation": "Option selected",
+    ]
+    }' \
+    -H "Content-Type: application/json" \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
+    -H "Authorization: HMAC <id>:<signature>"
 ```
 
 **Response Example**
 
 On successful create, this endpoint will return the full item data, as in [get a single item](#get-a-single-item), but the HTTP status code is `201`.
 
-### Update item version
+### Update an item version
 
 ```
-PATCH /types/:type_id_or_alias/items/:id
+PATCH /types/{type_alias}/items/{id}/languages/{language}/versions/live
+PATCH /types/{type_alias}/items/{id}/languages/{language}/versions/last
+PATCH /types/{type_alias}/items/{id}/languages/{language}/versions/{version}
 ```
 
 Except the HTTP method and URI, this method is the same as create. On successful update, it will return 200 HTTP status code.
+
+### Update tags for an item version
+
+```
+PUT /types/{type_alias}/items/{id}/languages/{language}/versions/live/tags
+PUT /types/{type_alias}/items/{id}/languages/{language}/versions/last/tags
+PUT /types/{type_alias}/items/{id}/languages/{language}/versions/{version}/tags
+```
+
+Note that using this endpoint will remove any other tags associated with the item version.
+
+**Input data**
+
+Name | Type | Description
+--- | --- | ---
+`tags` | *int[]* | **Required**. An array of tag ids (e.g. `tags = [1, 2, 3]`)
+
+The data needs to be sent in the body of the request, as a json object.
+
+**Curl Example**
+
+```bash
+$ curl -n -XPUT https://<domain>/api/types/Project/items/1/languages/en/versions/live/tags \
+    -d '{
+    "tags": [1, 2, 3]
+    }' \
+    -H "Content-Type: application/json" \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
+    -H "Authorization: HMAC <id>:<signature>"
+```
+
+**Response Example**
+
+On successful update, this endpoint will return the full item data, as in [get a single item](#get-a-single-item), but the HTTP status code is `201`.
 
 ## Person Addresses
 
 ### List addresses for a person
 
 ```
-GET /people/:id/addresses
+GET /people/{id}/addresses
 ```
 
 **Curl Example**
 
 ```bash
 $ curl -n https://<domain>/api/people/1/addresses \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
@@ -1540,13 +1608,14 @@ The data returned is similar to the [get a single address](#get-a-single-address
 ### Get a single address
 
 ```
-GET /addresses/:id
+GET /addresses/{id}
 ```
 
 **Curl Example**
 
 ```bash
 $ curl -n https://<domain>/api/addresses/1 \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
@@ -1642,15 +1711,16 @@ The data needs to be sent in the body of the request, as a json object.
 
 ```bash
 $ curl -n -XPOST https://<domain>/api/people/1/addresses \
-  -d '{
-  "address1": "Street No. 123",
-  "city": "New York",
-  "state": "NY",
-  "zip": "91234",
-  "country": "US"
-  }' \
-  -H "Content-Type: application/json" \
-  -H "Authorization: HMAC <id>:<signature>"
+    -d '{
+    "address1": "Street No. 123",
+    "city": "New York",
+    "state": "NY",
+    "zip": "91234",
+    "country": "US"
+    }' \
+    -H "Content-Type: application/json" \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
+    -H "Authorization: HMAC <id>:<signature>"
 ```
 
 **Response Example**
@@ -1675,7 +1745,8 @@ DELETE /addresses/1
 
 ```bash
 $ curl -n -XDELETE https://<domain>/api/addresses/1 \
-  -H "Authorization: HMAC <id>:<signature>"
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
+    -H "Authorization: HMAC <id>:<signature>"
 ```
 
 **Response Example**
@@ -1687,13 +1758,14 @@ On successful delete, this endpoint will return the HTTP status code `200`, with
 ### List emails for a person
 
 ```
-GET /people/:id/emails
+GET /people/{id}/emails
 ```
 
 **Curl Example**
 
 ```bash
 $ curl -n https://<domain>/api/people/1/emails \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
@@ -1713,13 +1785,14 @@ The data returned is similar to the [get a single email](#get-a-single-email) en
 ### Get a single email
 
 ```
-GET /emails/:id
+GET /emails/{id}
 ```
 
 **Curl Example**
 
 ```bash
 $ curl -n https://<domain>/api/emails/1 \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
@@ -1782,12 +1855,13 @@ The data needs to be sent in the body of the request, as a json object.
 
 ```bash
 $ curl -n -XPOST https://<domain>/api/people/1/emails \
-  -d '{
-  "email": "email@example.com",
-  "default": true
-  }' \
-  -H "Content-Type: application/json" \
-  -H "Authorization: HMAC <id>:<signature>"
+    -d '{
+    "email": "email@example.com",
+    "default": true
+    }' \
+    -H "Content-Type: application/json" \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
+    -H "Authorization: HMAC <id>:<signature>"
 ```
 
 **Response Example**
@@ -1812,7 +1886,8 @@ DELETE /emails/1
 
 ```bash
 $ curl -n -XDELETE https://<domain>/api/emails/1 \
-  -H "Authorization: HMAC <id>:<signature>"
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
+    -H "Authorization: HMAC <id>:<signature>"
 ```
 
 **Response Example**
@@ -1828,8 +1903,8 @@ These endpoints expose the entity data for a certain person record. To use them,
 ### List entity data for a person
 
 ```
-GET /people/:id/entities/:id/data
-GET /people/:id/entities/:alias/data
+GET /people/{id}/entities/{id}/data
+GET /people/{id}/entities/{alias}/data
 ```
 
 > Note: All entity data endpoints accept either the **entity id** or the **entity alias**.
@@ -1838,6 +1913,7 @@ GET /people/:id/entities/:alias/data
 
 ```bash
 $ curl -n https://<domain>/api/people/1/entities/PersonalInformation/data \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
@@ -1857,14 +1933,15 @@ The data returned is similar to the [get a single entity data](#get-a-single-ent
 ### Get a single entity data
 
 ```
-GET /people/:id/entities/:id/data/:id
-GET /people/:id/entities/:alias/data/:id
+GET /people/{id}/entities/{id}/data/{id}
+GET /people/{id}/entities/{alias}/data/{id}
 ```
 
 **Curl Example**
 
 ```bash
 $ curl -n https://<domain>/api/people/1/entities/1/data/1 \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
@@ -1882,8 +1959,8 @@ The body returns a json object with all the custom entity fields and their value
 ### Create an entity data
 
 ```
-POST /people/:id/entities/:id/data
-POST /people/:id/entities/:alias/data
+POST /people/{id}/entities/{id}/data
+POST /people/{id}/entities/{alias}/data
 ```
 
 **Input data**
@@ -1896,12 +1973,13 @@ The data needs to be sent in the body of the request, as a json object.
 
 ```bash
 $ curl -n -XPOST https://<domain>/api/people/1/emails \
-  -d '{
-  "custom_field_1": "value_1",
-  "custom_field_2": [23, 24]
-  }' \
-  -H "Content-Type: application/json" \
-  -H "Authorization: HMAC <id>:<signature>"
+    -d '{
+    "custom_field_1": "value_1",
+    "custom_field_2": [23, 24]
+    }' \
+    -H "Content-Type: application/json" \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
+    -H "Authorization: HMAC <id>:<signature>"
 ```
 
 **Response Example**
@@ -1911,8 +1989,8 @@ On successful create, this endpoint will return the full item data, as in [get a
 ### Update an entity data
 
 ```
-PATCH /people/:id/entities/:id/data/:id
-PATCH /people/:id/entities/:alias/data/:id
+PATCH /people/{id}/entities/{id}/data/{id}
+PATCH /people/{id}/entities/{alias}/data/{id}
 ```
 
 Except the HTTP method and URI, this method is the same as create. On successful update, it will return `200` HTTP status code.
@@ -1920,15 +1998,16 @@ Except the HTTP method and URI, this method is the same as create. On successful
 ### Delete an entity data
 
 ```
-DELETE /people/:id/entities/:id/data/:id
-DELETE /people/:id/entities/:alias/data/:id
+DELETE /people/{id}/entities/{id}/data/{id}
+DELETE /people/{id}/entities/{alias}/data/{id}
 ```
 
 **Curl Example**
 
 ```bash
 $ curl -n -XDELETE https://<domain>/api/people/1/entities/PersonalInformation/data/1 \
-  -H "Authorization: HMAC <id>:<signature>"
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
+    -H "Authorization: HMAC <id>:<signature>"
 ```
 
 **Response Example**
@@ -1940,13 +2019,14 @@ On successful delete, this endpoint will return the HTTP status code `200`, with
 ### List phones for a person
 
 ```
-GET /people/:id/phones
+GET /people/{id}/phones
 ```
 
 **Curl Example**
 
 ```bash
 $ curl -n https://<domain>/api/people/1/phones \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
@@ -1966,13 +2046,14 @@ The data returned is similar to the [get a single phone](#get-a-single-phone) en
 ### Get a single phone
 
 ```
-GET /phones/:id
+GET /phones/{id}
 ```
 
 **Curl Example**
 
 ```bash
 $ curl -n https://<domain>/api/phones/1 \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
@@ -2037,12 +2118,13 @@ The data needs to be sent in the body of the request, as a json object.
 
 ```bash
 $ curl -n -XPOST https://<domain>/api/people/1/phones \
-  -d '{
-  "number": "(378) 400-1234",
-  "default": true
-  }' \
-  -H "Content-Type: application/json" \
-  -H "Authorization: HMAC <id>:<signature>"
+    -d '{
+    "number": "(378) 400-1234",
+    "default": true
+    }' \
+    -H "Content-Type: application/json" \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
+    -H "Authorization: HMAC <id>:<signature>"
 ```
 
 **Response Example**
@@ -2067,7 +2149,8 @@ DELETE /phones/1
 
 ```bash
 $ curl -n -XDELETE https://<domain>/api/phones/1 \
-  -H "Authorization: HMAC <id>:<signature>"
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
+    -H "Authorization: HMAC <id>:<signature>"
 ```
 
 **Response Example**
@@ -2079,13 +2162,14 @@ On successful delete, this endpoint will return the HTTP status code `200`, with
 ### List relationships for a person
 
 ```
-GET /people/:id/relationships
+GET /people/{id}/relationships
 ```
 
 **Curl Example**
 
 ```bash
 $ curl -n https://<domain>/api/people/1/relationships \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
@@ -2105,13 +2189,14 @@ The data returned is similar to the [get a single relationship](#get-a-single-re
 ### Get a single relationship
 
 ```
-GET /relationships/:id
+GET /relationships/{id}
 ```
 
 **Curl Example**
 
 ```bash
 $ curl -n https://<domain>/api/relationships/1 \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
@@ -2194,13 +2279,14 @@ The data needs to be sent in the body of the request, as a json object.
 
 ```bash
 $ curl -n -XPOST https://<domain>/api/people/1/relationships \
-  -d '{
-  "related_person.id": 2,
-  "type": "Member of",
-  "description": "Created by the API"
-  }' \
-  -H "Content-Type: application/json" \
-  -H "Authorization: HMAC <id>:<signature>"
+    -d '{
+    "related_person.id": 2,
+    "type": "Member of",
+    "description": "Created by the API"
+    }' \
+    -H "Content-Type: application/json" \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
+    -H "Authorization: HMAC <id>:<signature>"
 ```
 
 **Response Example**
@@ -2225,7 +2311,8 @@ DELETE /relationships/1
 
 ```bash
 $ curl -n -XDELETE https://<domain>/api/relationships/1 \
-  -H "Authorization: HMAC <id>:<signature>"
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
+    -H "Authorization: HMAC <id>:<signature>"
 ```
 
 **Response Example**
@@ -2246,6 +2333,7 @@ GET /person-types
 
 ```bash
 $ curl -n https://<domain>/api/person-types \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
@@ -2272,13 +2360,14 @@ RateLimit-Reset: 1372700873
 ### List person types for a person
 
 ```
-GET /people/:id/person-types
+GET /people/{id}/person-types
 ```
 
 **Curl Example**
 
 ```bash
 $ curl -n https://<domain>/api/people/1/person-types \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
@@ -2298,6 +2387,7 @@ GET /people
 
 ```bash
 $ curl -n https://<domain>/api/people \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
@@ -2317,13 +2407,14 @@ The data returned is similar to the [get a single person](#get-a-single-person) 
 ### List people of a certain type
 
 ```
-GET /person-types/:type_id_or_alias/people
+GET /person-types/{type_alias}/people
 ```
 
 **Curl Example**
 
 ```bash
 $ curl -n https://<domain>/api/person-types/Donor/people \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
@@ -2334,13 +2425,14 @@ This endpoint returns people records, the same as the [list people](#list-people
 ### Get a single person
 
 ```
-GET /people/:id
+GET /people/{id}
 ```
 
 **Curl Example**
 
 ```bash
 $ curl -n https://<domain>/api/people/1 \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
@@ -2480,14 +2572,15 @@ The data needs to be sent in the body of the request, as a json object.
 
 ```bash
 $ curl -n -XPOST https://<domain>/api/people \
-  -d '{
-  "title": "Mr.",
-  "firstname": "John",
-  "lastname": "Doe",
-  "email": "johndoe@example.com"
-  }' \
-  -H "Content-Type: application/json" \
-  -H "Authorization: HMAC <id>:<signature>"
+    -d '{
+    "title": "Mr.",
+    "firstname": "John",
+    "lastname": "Doe",
+    "email": "johndoe@example.com"
+    }' \
+    -H "Content-Type: application/json" \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
+    -H "Authorization: HMAC <id>:<signature>"
 ```
 
 **Response Example**
@@ -2497,7 +2590,7 @@ On successful create, this endpoint will return the full item data, as in [get a
 ### Update a person
 
 ```
-PATCH /people/:id
+PATCH /people/{id}
 ```
 
 **Input data**
@@ -2512,14 +2605,15 @@ Name | Type | Description
 
 ```bash
 $ curl -n -XPATCH https://<domain>/api/people/1 \
-  -d '{
-  "external_id": "R2D2",
-  "household": {
-      "external_id": "FRODO"
-  }
-  }' \
-  -H "Content-Type: application/json" \
-  -H "Authorization: HMAC <id>:<signature>"
+    -d '{
+    "external_id": "R2D2",
+    "household": {
+        "external_id": "FRODO"
+    }
+    }' \
+    -H "Content-Type: application/json" \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
+    -H "Authorization: HMAC <id>:<signature>"
 ```
 
 **Response Example**
@@ -2547,6 +2641,7 @@ GET /recurrings
 
 ```bash
 $ curl -n https://<domain>/api/recurrings \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
@@ -2566,13 +2661,14 @@ The data returned is similar to the [get a single recurring contribution](#get-a
 ### Get a single recurring contribution
 
 ```
-GET /recurrings/:id
+GET /recurrings/{id}
 ```
 
 **Curl Example**
 
 ```bash
 $ curl -n https://<domain>/api/recurrings/1 \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
@@ -2798,6 +2894,7 @@ GET /tag-categories
 
 ```bash
 $ curl -n https://<domain>/api/tag-categories \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
@@ -2817,13 +2914,14 @@ The data returned is similar to the [get a single tag category](#get-a-single-ta
 ### Get a single tag category
 
 ```
-GET /tag-categories/:id
+GET /tag-categories/{id}
 ```
 
 **Curl Example**
 
 ```bash
 $ curl -n https://<domain>/api/tag-categories/1 \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
@@ -2869,11 +2967,12 @@ The data needs to be sent in the body of the request, as a json object.
 
 ```bash
 $ curl -n -XPOST https://<domain>/api/sites/1/tag-categories \
-  -d '{
-  "name": "Region"
-  }' \
-  -H "Content-Type: application/json" \
-  -H "Authorization: HMAC <id>:<signature>"
+    -d '{
+    "name": "Region"
+    }' \
+    -H "Content-Type: application/json" \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
+    -H "Authorization: HMAC <id>:<signature>"
 ```
 
 **Response Example**
@@ -2898,7 +2997,8 @@ DELETE /tag-categories/1
 
 ```bash
 $ curl -n -XDELETE https://<domain>/api/tag-categories/1 \
-  -H "Authorization: HMAC <id>:<signature>"
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
+    -H "Authorization: HMAC <id>:<signature>"
 ```
 
 **Response Example**
@@ -2917,6 +3017,7 @@ GET /tags
 
 ```bash
 $ curl -n https://<domain>/api/tags \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
@@ -2936,13 +3037,14 @@ The data returned is similar to the [get a single tag](#get-a-single-tag) endpoi
 ### Get a single tag
 
 ```
-GET /tags/:id
+GET /tags/{id}
 ```
 
 **Curl Example**
 
 ```bash
 $ curl -n https://<domain>/api/tags/1 \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
@@ -2994,11 +3096,12 @@ The data needs to be sent in the body of the request, as a json object.
 
 ```bash
 $ curl -n -XPOST https://<domain>/api/sites/1/tag-categories/2/tags \
-  -d '{
-  "name": "Asia"
-  }' \
-  -H "Content-Type: application/json" \
-  -H "Authorization: HMAC <id>:<signature>"
+    -d '{
+    "name": "Asia"
+    }' \
+    -H "Content-Type: application/json" \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
+    -H "Authorization: HMAC <id>:<signature>"
 ```
 
 **Response Example**
@@ -3023,7 +3126,8 @@ DELETE /tags/1
 
 ```bash
 $ curl -n -XDELETE https://<domain>/api/tags/1 \
-  -H "Authorization: HMAC <id>:<signature>"
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
+    -H "Authorization: HMAC <id>:<signature>"
 ```
 
 **Response Example**
@@ -3044,6 +3148,7 @@ GET /types
 
 ```bash
 $ curl -n https://<domain>/api/types \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
@@ -3083,6 +3188,7 @@ GET /webhooks
 
 ```bash
 $ curl -n https://<domain>/api/webhooks \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
@@ -3102,13 +3208,14 @@ The data returned is similar to the [get a single webhook](#get-a-single-webhook
 ### Get a single webhook
 
 ```
-GET /webhooks/:id
+GET /webhooks/{id}
 ```
 
 **Curl Example**
 
 ```bash
 $ curl -n https://<domain>/api/webhooks/1 \
+    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
