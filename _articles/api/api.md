@@ -1,7 +1,7 @@
 ---
 title: API
 category: API
-date: 2018-02-06 00:00:00
+date: 2018-02-07 00:00:00
 ---
 
 ## Overview
@@ -1131,18 +1131,26 @@ On successful create, this endpoint will return the full item data, as in [get a
 
 ## Items
 
-An item represents a content item of a certain [type](#types), with custom data, translations and versions.
+An item represents a content item of a certain [type](#types), with translations and versions with dynamic fields.
 
 ### List Items
 
 ```
-GET /types/{type_alias}/items
+GET /types/{type_alias}/languages/{language}/versions/{version}/items
 ```
+
+**Parameters**
+
+Name | Description
+--- | ---
+`type_alias` | The [type](#types) alias. This can also be found in Architect.
+`language` | The language abbreviation (e.g. `en`). This can be found in Languages.
+`version` | The version you want to retrieve for every item. Possible values: `live` (the live version), `last` (the last version saved), `{version_number}` a specific version number. It's recommended to only use `live` or `last`.
 
 **Curl Example**
 
 ```bash
-$ curl -n https://<domain>/api/types/Project/items \
+$ curl -n https://<domain>/api/types/Project/languages/en/versions/live/items \
     -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
@@ -1163,13 +1171,22 @@ The data returned is similar to the [get a single item](#get-a-single-item) endp
 ### Get a single item
 
 ```
-GET /types/{type_alias}/items/{id}
+GET /types/{type_alias}/languages/{language}/versions/{version}/items/{id}
 ```
+
+**Parameters**
+
+Name | Description
+--- | ---
+`type_alias` | The [type](#types) alias. This can also be found in Architect.
+`language` | The language abbreviation (e.g. `en`). This can be found in Languages.
+`version` | The version you want to retrieve for the item. Possible values: `live` (the live version), `last` (the last version saved), `{version_number}` a specific version number. It's recommended to only use `live` or `last`.
+`id` | The [item](#items) id.
 
 **Curl Example**
 
 ```bash
-$ curl -n https://<domain>/api/types/Project/items/1 \
+$ curl -n https://<domain>/api/types/Project/languages/en/versions/last/items/1 \
     -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
@@ -1186,189 +1203,16 @@ RateLimit-Reset: 1372700873
 ```json
 {
     "id": "1",
-    "alias": "default-project",
     "name": "Default Project",
+    "alias": "default-project",
     "views": "0",
-    "visibility": "0",
-    "is_searchable": true,
     "publish_datetime": "2015-05-05 05:05:05",
     "unpublish_datetime": null,
+    "visibility": "0",
     "external_id": "P1",
+    "is_searchable": true,
     "created": "2015-05-05 05:05:05",
     "modified": "2015-05-05 05:05:05",
-    "campaign": {
-        "id": "3",
-        "goal_amount": null,
-        "min_amount": "5.00",
-        "max_amount": "1000.00",
-        "start": null,
-        "end": null
-    },
-    "folder": {
-        "id": "1",
-        "name": "Projects",
-        "external_id": null
-    },
-    "languages": [
-        "en"
-    ],
-    "type": {
-        "id": "1",
-        "alias": "Project",
-        "name": "Project"
-    },
-    "owner": {
-        "id": "1",
-        "title": "Mr.",
-        "firstname": "John",
-        "middlename": "S",
-        "lastname": "Doe",
-        "fullname": "John Doe",
-        "suffix": "Jr.",
-        "gender": "m",
-        "birthday": "1987-05-05",
-        "email": "john@test.com",
-        "description": "Description",
-        "is_group": false,
-        "external_id": "P1",
-        "created": "2015-04-04 12:12:12",
-        "modified": "2015-04-05 13:13:13"
-    }
-}
-```
-
-### Create item
-
-```
-POST /types/{type_alias}/items
-```
-
-**Input data**
-
-Name | Type | Description
---- | --- | ---
-`name` | *string* | **Required**. The item's name (e.g. "Default Project")
-`visibility` | *int* | What users can view this item. Possible values: 0 = all, 1 = unregistered users only, 2 = registered users only. Default is 0.
-`is_searchable` | *bool* | True if you want this item to be searchable. Default is false.
-`publish_datetime` | *date* | Publish date, in the format `Y-m-d H:i:s`. Default is null.
-`unpublish_datetime` | *date* | Unpublish date, in the format `Y-m-d H:i:s`. Default is null. 
-`external_id` | *string* | A reference to an external resource.
-`folder.id` | *int* | **Required**. The folder id to add the item into.
-`type.id` | *int* | **Required**. The [content type](#types) id.
-`owner.id` | *int* | The [person](#people-contacts) id that is the owner of the item.
-
-The data needs to be sent in the body of the request, as a json object.
-
-**Curl Example**
-
-```bash
-$ curl -n -XPOST https://<domain>/api/types/Project/items \
-    -d '{
-    "name": "Default Project",
-    "is_searchable": true,
-    "publish_datetime": "2018-01-25 14:29:00",
-    "folder.id": 1,
-    "type.id": 2,
-    "owner.id": 1
-    }' \
-    -H "Content-Type: application/json" \
-    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
-    -H "Authorization: HMAC <id>:<signature>"
-```
-
-**Response Example**
-
-On successful create, this endpoint will return the full item data, as in [get a single item](#get-a-single-item), but the HTTP status code is `201`.
-
-### Update item
-
-```
-PATCH /types/{type_alias}/items/{id}
-```
-
-Except the HTTP method and URI, this method is the same as create. On successful update, it will return 200 HTTP status code.
-
-### Delete item
-
-```
-DELETE /types/{type_alias}/items/{id}
-```
-
-**Curl Example**
-
-```bash
-$ curl -n -XDELETE https://<domain>/api/types/Project/items/2 \
-    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
-    -H "Authorization: HMAC <id>:<signature>"
-```
-
-**Response Example**
-
-On successful delete, this endpoint will return the HTTP status code `200`, with an empty body.
-
-## Item Versions
-
-An item version represents an item's custom data, associated to a language and version.
-
-### List item versions
-
-```
-GET /types/{type_alias}/items/{id}/languages/{language}/versions
-```
-
-**Curl Example**
-
-```bash
-$ curl -n https://<domain>/api/types/Project/items/1/languages/en/versions \
-    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
-    -H "Authorization: HMAC <id>:<signature>"
-```
-
-**Response Example**
-
-```
-HTTP/1.1 200 OK
-Accept-Ranges: id
-Content-Range: id 0..; max=100, total=1, order=asc
-RateLimit-Limit: 5000
-RateLimit-Remaining: 4999
-RateLimit-Reset: 1372700873
-```
-
-The data returned is similar to the [get a single item version](#get-a-single-item-version) endpoint, but contains an array of records instead of a single record.
-
-### Get a single item version
-
-```
-GET /types/{type_alias}/items/{id}/languages/{language}/versions/live
-GET /types/{type_alias}/items/{id}/languages/{language}/versions/last
-GET /types/{type_alias}/items/{id}/languages/{language}/versions/{version}
-```
-
-Note that the `:version` parameter is the version number, not the id.
-
-> Important: It's recommended to use only `live` and `last`, since the version_number is only for advanced usages.
-
-**Curl Example**
-
-```bash
-$ curl -n https://<domain>/api/types/Project/items/1/languages/en/versions/live \
-    -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
-    -H "Authorization: HMAC <id>:<signature>"
-```
-
-**Response Example**
-
-```
-HTTP/1.1 200 OK
-RateLimit-Limit: 5000
-RateLimit-Remaining: 4999
-RateLimit-Reset: 1372700873
-```
-
-```json
-{
-    "id": "1",
     "data": {
         "title": "Default Project",
         "country": {
@@ -1404,51 +1248,15 @@ RateLimit-Reset: 1372700873
         "yes_no": {
             "id": "1",
             "foreign_key": "1",
-            "option": true,
+            "option": 1,
             "explanation": "Second option selected"
         }
     },
-    "item": {
+    "language": {
         "id": "1",
-        "alias": "default-project",
-        "name": "Default Project",
-        "views": "0",
-        "visibility": "0",
-        "is_searchable": true,
-        "publish_datetime": "2015-05-05 05:05:05",
-        "unpublish_datetime": null,
-        "external_id": "P1",
-        "created": "2015-05-05 05:05:05",
-        "modified": "2015-05-05 05:05:05",
-        "folder": {
-            "id": "1",
-            "name": "Projects",
-            "external_id": null
-        },
-        "type": {
-            "id": "1",
-            "alias": "Project",
-            "name": "Project"
-        },
-        "owner": {
-            "id": "1",
-            "title": "Mr.",
-            "firstname": "John",
-            "middlename": "S",
-            "lastname": "Doe",
-            "fullname": "John Doe",
-            "suffix": "Jr.",
-            "gender": "m",
-            "birthday": "1987-05-05",
-            "email": "john@test.com",
-            "description": "Description",
-            "is_group": false,
-            "external_id": "P1",
-            "created": "2015-04-04 12:12:12",
-            "modified": "2015-04-05 13:13:13"
-        }
+        "abbreviation": "en",
+        "name": "English"
     },
-    "language": "en",
     "version": {
         "id": "1",
         "version_number": "1",
@@ -1461,7 +1269,11 @@ RateLimit-Reset: 1372700873
         "min_amount": null,
         "max_amount": null,
         "start": null,
-        "end": null
+        "end": null,
+        "external_id": "P1",
+        "accounting_code": "General Fund",
+        "inventory_status": "Unspecified",
+        "virtuous_id": "VPROJ1"
     },
     "stage": {
         "id": "1",
@@ -1470,7 +1282,35 @@ RateLimit-Reset: 1372700873
         "is_live": true,
         "color": null,
         "notify": false,
-        "order": 0
+        "order": "0"
+    },
+    "folder": {
+        "id": "1",
+        "name": "Projects",
+        "external_id": null
+    },
+    "type": {
+        "id": "1",
+        "alias": "Project",
+        "name": "Project"
+    },
+    "owner": {
+        "id": "1",
+        "title": "Mr.",
+        "firstname": "John",
+        "middlename": "S",
+        "lastname": "Doe",
+        "fullname": "John Doe",
+        "suffix": "Jr.",
+        "gender": "m",
+        "birthday": "1987-05-05",
+        "email": "john@test.com",
+        "description": "Description",
+        "is_group": false,
+        "external_id": "P1",
+        "created": "2015-04-04 12:12:12",
+        "modified": "2015-04-05 13:13:13",
+        "virtuous_id": "VP1"
     },
     "tags": [
         {
@@ -1489,39 +1329,55 @@ RateLimit-Reset: 1372700873
 }
 ```
 
-### Create an item version
+### Create item
 
 ```
-POST /types/{type_alias}/items/{id}/languages/{language}/versions
-POST /types/{type_alias}/items/{id}/languages/{language}/versions/live
+POST /types/{type_alias}/languages/{language}/versions/{version}/items
 ```
 
-Note that you can use the `/live` keyword in the URL. This will save the version in the live stage of the workflow configured for the site where the item was created. If the `/live` keyword is omitted, the version will be saved in the stage marked as `is_new` in the same workflow.
+**Parameters**
+
+Name | Description
+--- | ---
+`type_alias` | The [type](#types) alias. This can also be found in Architect.
+`language` | The language abbreviation (e.g. `en`). This can be found in Languages.
+`version` | The version you want to create for the item. Possible values: `live` (make this version live), `last` (create a new version, without making it live).
 
 **Input data**
 
-The input data is custom, based on the fields configured in the content type.
+Name | Type | Description
+--- | --- | ---
+`name` | *string* | **Required**. The item's name (e.g. "Default Project"). The `alias` will be generated from this.
+`visibility` | *int* | What users can view this item. Possible values: 0 = all, 1 = unregistered users only, 2 = registered users only. Default is 0.
+`is_searchable` | *bool* | True if you want this item to be searchable. Default is false.
+`publish_datetime` | *date* | Publish date, in the format `Y-m-d H:i:s`. Default is null.
+`unpublish_datetime` | *date* | Unpublish date, in the format `Y-m-d H:i:s`. Default is null. 
+`external_id` | *string* | A reference to an external resource.
+`folder.id` | *int* | **Required**. The folder id to add the item into. This can be found in Site Planner.
+`owner.id` | *int* | The [person](#people-contacts) id that is the owner of the item.
+`tags` | *int[]* | Array of [tag](#tags) ids (e.g. "tag=[1, 3]") to assign to the item. If tags don't exist, you need to [create them](#create-a-tag) first.
+`data` | *object* | An object representing the custom data, as configured in Architect for the content type.
 
 The data needs to be sent in the body of the request, as a json object.
 
 **Curl Example**
 
 ```bash
-$ curl -n -XPOST https://<domain>/api/types/Project/items \
+$ curl -n -XPOST https://<domain>/api/types/Project/languages/en/versions/live/items \
     -d '{
-    "title": "New Project From Test",
-    "country": 1,
-    "image": [
-        "/files/UnitTestProject.png",
-    ],
-    "status": [
-        1,
-        2,
-    ],
-    "yes_no": [
-        "option": true,
-        "explanation": "Option selected",
-    ]
+    "name": "Default Project",
+    "is_searchable": true,
+    "folder.id": 1,
+    "owner.id": 1,
+    "tags": [1, 3],
+    "data": {
+        "title": "My new title",
+        "geo_location": {
+            "location": "Vero Beach, FL",
+            "latitude": 27.63,
+            "longitude": -80.39
+        }
+    }
     }' \
     -H "Content-Type: application/json" \
     -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
@@ -1532,49 +1388,33 @@ $ curl -n -XPOST https://<domain>/api/types/Project/items \
 
 On successful create, this endpoint will return the full item data, as in [get a single item](#get-a-single-item), but the HTTP status code is `201`.
 
-### Update an item version
+### Update item
 
 ```
-PATCH /types/{type_alias}/items/{id}/languages/{language}/versions/live
-PATCH /types/{type_alias}/items/{id}/languages/{language}/versions/last
-PATCH /types/{type_alias}/items/{id}/languages/{language}/versions/{version}
+PATCH /types/{type_alias}/languages/{language}/versions/{version}/items/{id}
 ```
 
-Except the HTTP method and URI, this method is the same as create. On successful update, it will return 200 HTTP status code.
+This method is similar to create, except the HTTP method and the id in the url. On successful update, it will return `200` HTTP status code.
 
-### Update tags for an item version
+### Delete item
 
 ```
-PUT /types/{type_alias}/items/{id}/languages/{language}/versions/live/tags
-PUT /types/{type_alias}/items/{id}/languages/{language}/versions/last/tags
-PUT /types/{type_alias}/items/{id}/languages/{language}/versions/{version}/tags
+DELETE /types/{type_alias}/items/{id}
 ```
 
-Note that using this endpoint will remove any other tags associated with the item version.
-
-**Input data**
-
-Name | Type | Description
---- | --- | ---
-`tags` | *int[]* | **Required**. An array of tag ids (e.g. `tags = [1, 2, 3]`)
-
-The data needs to be sent in the body of the request, as a json object.
+This endpoint deletes all item's languages and versions.
 
 **Curl Example**
 
 ```bash
-$ curl -n -XPUT https://<domain>/api/types/Project/items/1/languages/en/versions/live/tags \
-    -d '{
-    "tags": [1, 2, 3]
-    }' \
-    -H "Content-Type: application/json" \
+$ curl -n -XDELETE https://<domain>/api/types/Project/items/2 \
     -H "Date: Tue, 06 Feb 2017 00:02:41 +0000" \
     -H "Authorization: HMAC <id>:<signature>"
 ```
 
 **Response Example**
 
-On successful update, this endpoint will return the full item data, as in [get a single item](#get-a-single-item), but the HTTP status code is `201`.
+On successful delete, this endpoint will return the HTTP status code `204 No Content`.
 
 ## Person Addresses
 
@@ -1751,7 +1591,7 @@ $ curl -n -XDELETE https://<domain>/api/addresses/1 \
 
 **Response Example**
 
-On successful delete, this endpoint will return the HTTP status code `200`, with an empty body.
+On successful delete, this endpoint will return the HTTP status code `204 No Content`.
 
 ## Person Emails
 
@@ -1892,7 +1732,7 @@ $ curl -n -XDELETE https://<domain>/api/emails/1 \
 
 **Response Example**
 
-On successful delete, this endpoint will return the HTTP status code `200`, with an empty body.
+On successful delete, this endpoint will return the HTTP status code `204 No Content`.
 
 ## Person Entity Data
 
@@ -2012,7 +1852,7 @@ $ curl -n -XDELETE https://<domain>/api/people/1/entities/PersonalInformation/da
 
 **Response Example**
 
-On successful delete, this endpoint will return the HTTP status code `200`, with an empty body.
+On successful delete, this endpoint will return the HTTP status code `204 No Content`.
 
 ## Person Phones
 
@@ -2155,7 +1995,7 @@ $ curl -n -XDELETE https://<domain>/api/phones/1 \
 
 **Response Example**
 
-On successful delete, this endpoint will return the HTTP status code `200`, with an empty body.
+On successful delete, this endpoint will return the HTTP status code `204 No Content`.
 
 ## Person Relationships
 
@@ -2317,7 +2157,7 @@ $ curl -n -XDELETE https://<domain>/api/relationships/1 \
 
 **Response Example**
 
-On successful delete, this endpoint will return the HTTP status code `200`, with an empty body.
+On successful delete, this endpoint will return the HTTP status code `204 No Content`.
 
 ## Person Types
 
@@ -3003,7 +2843,7 @@ $ curl -n -XDELETE https://<domain>/api/tag-categories/1 \
 
 **Response Example**
 
-On successful delete, this endpoint will return the HTTP status code `200`, with an empty body.
+On successful delete, this endpoint will return the HTTP status code `204 No Content`.
 
 ## Tags
 
@@ -3132,7 +2972,7 @@ $ curl -n -XDELETE https://<domain>/api/tags/1 \
 
 **Response Example**
 
-On successful delete, this endpoint will return the HTTP status code `200`, with an empty body.
+On successful delete, this endpoint will return the HTTP status code `204 No Content`.
 
 ## Types
 
