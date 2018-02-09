@@ -1,7 +1,7 @@
 ---
 title: API Authentication
 category: API
-date: 2017-02-09 00:00:00
+date: 2018-02-09 00:00:00
 readtime: 5
 ---
 
@@ -52,15 +52,17 @@ StringToSign = HTTP-Verb + "\n" +
 
 HMAC-SHA256 is an algorithm defined by [RFC 2104 - Keyed-Hashing for Message Authentication](http://www.ietf.org/rfc/rfc2104.txt). The algorithm takes as input two byte-strings, a key and a message. For Site Stacker request authentication, use your Site Stacker secret access key (`YourSecretAccessKey`) as the key, and the UTF-8 encoding of the `StringToSign` as the message. The output of HMAC-SHA256 is also a byte string, called the digest, which is the `Signature`.
 
-#### Positional HTTP Header StringToSign Elements
+### Positional HTTP Header StringToSign Elements
 
 All elements of `StringToSign` (Content-Type, Date) are positional in nature. `StringToSign` does not include the names of these headers, only their values from the request.
 
 If a positional header called for in the definition of `StringToSign` is not present in your request (for example, `Content-Type` is optional for PUT requests and meaningless for GET requests), substitute the empty string ("") for that position.
 
-#### Time Stamp Requirement
+## Time Stamp Requirement
 
-A valid time stamp (using the HTTP `Date` header) is mandatory for authenticated requests. Furthermore, the client timestamp included with an authenticated request must be within 5 minutes of the Site Stacker system time when the request is received. If not, the request will fail with the `RequestTimeTooSkewed` error code. The intention of these restrictions is to limit the possibility that intercepted requests could be replayed by an adversary. For stronger protection against eavesdropping, use the HTTPS transport for authenticated requests.
+A valid time stamp (using the HTTP `Date` header or an `ss-date` alternative) is mandatory for authenticated requests. Furthermore, the client timestamp included with an authenticated request must be within 5 minutes of the Site Stacker system time when the request is received. If not, the request will fail with the `RequestTimeTooSkewed` error code. The intention of these restrictions is to limit the possibility that intercepted requests could be replayed by an adversary. For stronger protection against eavesdropping, use the HTTPS transport for authenticated requests.
+
+Some HTTP client libraries do not expose the ability to set the `Date` header for a request. If you have trouble including the value of the 'Date' header in the canonicalized headers, you can set the timestamp for the request by using an '`ss-date`' header instead. The value of the `ss-date` header must be in one of the RFC 2616 formats (http://www.ietf.org/rfc/rfc2616.txt). When an `ss-date` header is present in a request, the system will use this date when computing the request signature.
 
 ## Authentication Examples
 
