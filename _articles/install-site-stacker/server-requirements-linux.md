@@ -45,8 +45,11 @@ $ uname -r
 
 ## 5. Database
 
-Either MySQL 5.x (latest 5.x is recommended) with InnoDB engine enabled or latest compatible MariaDB (e.g. MariaDB 10.1). MariaDB is a drop-in replacement for MySQL.
+We strongly recommend using [MariaDB](https://mariadb.org) over [MySQL](https://www.mysql.com) due to some outstanding MySQL bugs (<https://bugs.mysql.com/bug.php?id=69721>, <https://bugs.mysql.com/bug.php?id=82133>).
 
+Site Stacker was tested and works with MariaDB 10.1.x, 10.2.x and MySQL 5.7.x.
+
+Make sure InnoDB engine is enabled.
 
 ## 6. PHP
 
