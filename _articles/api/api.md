@@ -95,7 +95,7 @@ Once you go over the rate limit you will receive a `429 Too Many Requests` error
 
 All data is sent and received as JSON.
 
-All timestamps are returned in the format `YYYY-MM-DD HH:II:SS` in the server's local timezone. (TODO: change to ISO 8601).
+All dates are returned in the ISO 8601 format, as UTC. Example: `2018-04-04T11:39:57+00:00`.
 
 ```
 2004-02-12 15:19:21
