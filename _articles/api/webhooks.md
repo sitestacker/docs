@@ -31,6 +31,9 @@ Name | Description
 `contribution_batch_update` | Any time a contribution batch is updated.
 `contribution_create` | Any time a contribution is created.
 `contribution_update` | Any time a contribution is updated.
+`historic_gift_create` | Any time a historic gift is created.
+`historic_gift_update` | Any time a historic gift is updated.
+`historic_gift_delete` | Any time a historic gift is deleted.
 `person_create` | Any time a person is created.
 `person_update` | Any time a person is updated.
 `person_delete` | Any time a person is deleted.
