@@ -42,7 +42,7 @@ See [Using ReactJS in JavaScript and TypeScript](https://www.jetbrains.com/webst
 
 In PhpStorm/WebStorm, configure a [file watcher](https://www.jetbrains.com/webstorm/help/file-watchers.html) for your `.jsx` files as below:
 
-![jsx-watcher](https://git.sitestacker.com/sitestacker/docs/uploads/464809a852443001fac624e84bb924af/image.png)
+![jsx-watcher](https://git.sitestacker.com/sitestacker/docs/uploads/88d07fbbb114b588003032c8ce0ef663/image.png)
 
 Make sure the **Program** points to the babel executable (on Windows this will be a `.exe`), replace the default **Arguments** field with the following:
 
