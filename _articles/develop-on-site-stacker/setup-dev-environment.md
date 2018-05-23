@@ -45,7 +45,7 @@ In PhpStorm/WebStorm, configure a [file watcher](https://www.jetbrains.com/webst
 Make sure the **Program** points to the babel executable (on Windows this will be a `.exe`), replace the default **Arguments** field with the following:
 
 ```
---presets react --source-maps --out-file $FileNameWithoutExtension$.js $FilePath$
+--presets react,es2015 --source-maps --out-file $FileNameWithoutExtension$.js $FilePath$
 ```
 
 and in the **Environment variables** field add `NODE_ENV=production` to prevent babel from inlining the `__source` key in the generated JS files.
