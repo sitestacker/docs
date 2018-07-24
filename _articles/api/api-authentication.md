@@ -83,7 +83,7 @@ Request:
 GET /endpoint HTTP/1.1
 Host: mysitestacker.com
 Date: Tue, 27 Mar 2007 19:36:42 +0000
-Authorization: HMAC 1qxji41u:730fe2eb31fa683fbbb2e0adf8ac15b414dd6c446e3c4f8c95a13c48896f94e0
+Authorization: HMAC 1qxji41u:03d552095b8d8b0709022c338f78da7454a0868400353a6636bcb69a5218f978
 ```
 
 StringToSign:
@@ -103,7 +103,7 @@ POST /endpoint HTTP/1.1
 Host: mysitestacker.com
 Content-Type: application/json
 Date: Tue, 27 Mar 2007 19:36:42 +0000
-Authorization: HMAC 1qxji41u:0b132438377fe000473cc78a7b249a232e060982027739070f305f1a4b5a969c
+Authorization: HMAC 1qxji41u:e150c6305cb6b64c448c9b367c245670fcd734953f90e6e382174a5b5102f431
 ```
 
 StringToSign:
