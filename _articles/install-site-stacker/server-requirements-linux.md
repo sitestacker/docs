@@ -34,7 +34,9 @@ $ uname -r
 
 ## 4. Web Server
 
-* Apache 2.4.x or latest stable version (Recommended 2.4.18 or later for HTTP/2 support)
+* Apache 2.4.x or latest stable version
+   * Recommended 2.4.18 or later for HTTP/2 support
+      * Some distros cap at 2.4.6
    * Apache must have permission to:
       * Create symlinks
       * Modify any file within the Site Stacker installation
