@@ -2,6 +2,7 @@
 title: Docker
 date: 2016-09-12 00:00:00
 readtime: 2
+published: false
 ---
 
 **DEPRECATED!** - this guide is using Docker Toolbox instead of the new native Docker for Windows/Mac so it is not actual anymore.
