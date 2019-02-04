@@ -1,7 +1,7 @@
 ---
 title: Prevent duplicate records
 category: Tips and Tricks
-date: 2014-07-24 00:00:00
+date: 2019-02-04 00:00:00
 ---
 
 Cake uses the `primaryKey` of a Model for identifying existing records. However there may be cases when you need a multiple columns unique key. For this you need to override the `Model->exists()` method in your models. This replicates the same behaviour as if you would've used a multiple unique key in the datasource.
@@ -17,17 +17,17 @@ Cake uses the `primaryKey` of a Model for identifying existing records. However 
  */
 public function exists($id = null)
 {
-    if (empty($id) && !$this->getID() && isset($this->data[$this->alias]) && is_array($this->data[$this->alias])) {
+    if (empty($id) && !$this->getID() && isset($this->data[$this->alias]['key1']) && isset($this->data[$this->alias]['key2'])) {
         // given $id and primary key are empty, try with data
-        $exists = $this->find('first', array(
-            'fields' => array($this->primaryKey),
-            'conditions' => array(
+        $exists = $this->find('first', [
+            'fields' => [$this->primaryKey],
+            'conditions' => [
                 'key1'=>$this->data[$this->alias]['key1'],
                 'key2'=>$this->data[$this->alias]['key2'],
-            ),
+            ],
             'recursive' => -1,
             'callbacks' => false,
-        ));
+        ]);
         if ($exists) {
             $this->set($this->primaryKey, $exists[$this->alias][$this->primaryKey]);
             return true;
