@@ -47,11 +47,7 @@ $ uname -r
 
 ## 5. Database
 
-We strongly recommend using [MariaDB](https://mariadb.org) over [MySQL](https://www.mysql.com) due to some outstanding MySQL bugs (<https://bugs.mysql.com/bug.php?id=69721>, <https://bugs.mysql.com/bug.php?id=82133>).
-
-Site Stacker was tested and works with MariaDB 10.1.x, 10.2.x and MySQL 5.7.x.
-
-Make sure InnoDB engine is enabled.
+MariaDB 10.3.x or higher. InnoDB engine is required.
 
 ## 6. PHP
 
