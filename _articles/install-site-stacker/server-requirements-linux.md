@@ -1,7 +1,7 @@
 ---
 title:  Server Requirements - Linux
 category: Install Site Stacker
-date: 2017-02-23 00:00:00
+date: 2019-05-31 00:00:00
 ---
 
 ## 1. Recommended Server Hardware
@@ -95,7 +95,11 @@ Elasticsearch 1.7.x (Elasticsearch 1.7.6 at the time of this writing, but latest
 
 * The server will need the default mail server setup and running.  Using the default mail server that comes with the OS should work with PHP without any tweeking.  (Changing the default mail server to something else has the potential of interrupting the interaction with PHP.) Make sure the mail server is setup and working.  
 
-## 10. Backup
+## 10 wkhtmltopdf
+
+https://wkhtmltopdf.org/
+
+## 11. Backup
 
 * It is very important to make sure daily backup is in place.  Because much of the project is labor and setup, it is critical this be in place and working.
 * We recommend that a backup audit be done a couple times to insure all is well.
