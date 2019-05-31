@@ -95,9 +95,9 @@ Elasticsearch 1.7.x (Elasticsearch 1.7.6 at the time of this writing, but latest
 
 * The server will need the default mail server setup and running.  Using the default mail server that comes with the OS should work with PHP without any tweeking.  (Changing the default mail server to something else has the potential of interrupting the interaction with PHP.) Make sure the mail server is setup and working.  
 
-## 10 wkhtmltopdf
+## 10. wkhtmltopdf
 
-https://wkhtmltopdf.org/
+[https://wkhtmltopdf.org/](https://wkhtmltopdf.org/)
 
 ## 11. Backup
 
