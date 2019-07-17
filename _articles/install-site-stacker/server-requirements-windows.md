@@ -37,7 +37,7 @@ date: 2017-02-23 00:00:00
 
 ### IIS Settings
 
-The [FastCGI Settings](https://www.iis.net/configreference/system.webserver/fastcgi) `Activity Timeout`, `Idle Timeout` and `Request Timeout` need to be increased to a large enough value (e.g. `99999`) because these are controlled from PHP. You can do this from the IIS Manager UI by following [these steps](http://stackoverflow.com/a/35756128/1104534).
+The [FastCGI Settings](https://www.iis.net/configreference/system.webserver/fastcgi) `Activity Timeout`, `Idle Timeout` and `Request Timeout` need to be increased to a large enough value (e.g. `600`) because these are controlled from PHP. You can do this from the IIS Manager UI by following [these steps](http://stackoverflow.com/a/35756128/1104534).
 
 The `maxUrl` and `maxQueryString` request limits need to be increased to a larger value. This can be done from Powershell (run as administrator) with the following two commands:
 
