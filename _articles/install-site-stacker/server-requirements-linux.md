@@ -1,7 +1,7 @@
 ---
 title:  Server Requirements - Linux
 category: Install Site Stacker
-date: 2019-05-31 00:00:00
+date: 2019-10-09 00:00:00
 ---
 
 ## 1. Recommended Server Hardware
@@ -85,8 +85,9 @@ Java 8 update 45 or later. Only Oracle’s Java and the OpenJDK are supported. T
 Elasticsearch 1.7.x (Elasticsearch 1.7.6 at the time of this writing, but latest 1.7.x is recommended).
 
 1. Installation: check out the official guide at <https://www.elastic.co/guide/en/elasticsearch/reference/1.7/_installation.html>.
-2. Run as a Service: check out <https://www.elastic.co/guide/en/elasticsearch/reference/1.7/setup-service.html>.
-3. Index data: Once Elasticsearch is running, you can index the data from the cli (recommended) by running `App/Console/cake Search.Elastic indexAll -v`. Alternatively, you can index the data in Site Planner by right clicking a site in Content Explorer (left side).
+2. Configure scripting by adding this setting to the `config/elasticsearch.yml` file in all nodes in the cluster: `script.engine.groovy.inline.search: true`.
+3. Run as a Service: check out <https://www.elastic.co/guide/en/elasticsearch/reference/1.7/setup-service.html>.
+4. Index data: Once Elasticsearch is running, you can index the data from the cli (recommended) by running `App/Console/cake Search.Elastic indexAll -v`. Alternatively, you can index the data in Site Planner by right clicking a site in Content Explorer (left side).
 
 > Note: Is it very important to configure Run as a Service so ElasticSearch will restart automatically after a server restart.
 
