@@ -1,7 +1,7 @@
 ---
 title:  Server Requirements - Linux
 category: Install Site Stacker
-date: 2019-10-09 00:00:00
+date: 2020-04-20 00:00:00
 ---
 
 ## 1. Recommended Server Hardware
@@ -16,7 +16,7 @@ date: 2019-10-09 00:00:00
 
 ## 2. Operating System
 
-We recommend the latest Ubuntu LTS (e.g. Ubuntu 16.04 at the time of this writing), but other distributions like CentOS, Redhat, Debian, Fedora will also work, just make sure you're using the latest version.
+We recommend the latest Ubuntu LTS (e.g. Ubuntu 20.04 at the time of this writing), but other distributions like CentOS, Redhat, Debian, Fedora will also work, just make sure you're using the latest version.
 
 Whichever Linux distribution you choose, **make sure the Linux kernel is at least 3.10 or later**. You can check the kernel version by running:
 
@@ -60,7 +60,6 @@ MariaDB 10.3.x or higher. InnoDB engine is required.
    * intl
    * mbstring (needed by CakePdf)
    * openssl (with TLS v1.2)
-   * pdo_sqlsrv
    * soap
    * sockets
    * mcrypt (required if using the Payeezy payment processor)
@@ -74,6 +73,11 @@ MariaDB 10.3.x or higher. InnoDB engine is required.
    * memory_limit=512M
    * DOMDocument (don’t use `--disable-dom` when compiling PHP)
        * if missing can be resolved by installing `php-xml` extension
+
+PHP 7 is not supported for production environments at this time, but if you are using it for other environments you need to do one of the following:
+
+- set `Configure::write('Security.useOpenSsl', true);` in Config/core.php and create a utility to decrypt all the Mcrypt Rijndael encrypted strings and re-encrypt with OpenSSL AES-256 (**recommended**)
+- install `mcrypt` via PECL (**not recommended** - see https://github.com/cakephp/cakephp/issues/12044)
 
 ## 7. Java
 
