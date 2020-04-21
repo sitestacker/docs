@@ -44,12 +44,12 @@ In the `sasl_passwd` file is where the domain-credentials binding is done. Consi
 
 ```apacheconf
 # Per-sender authentication
-@mydomain.com              my_sendgrid_user:my_sendgrid_password
-@anotherdomain.com         another_sendgrid_user:another_sendgrid_password
+@mydomain.com              apikey:SG.[ApiID]-[ApiSecret]
+@anotherdomain.com         apikey:SG.[ApiID]-[ApiSecret]
 # ...add as many domains as you need...
 
 # Login information for the default relayhost
-[smtp.sendgrid.net]:587    default_sendgrid_user:default_sendgrid_password
+[smtp.sendgrid.net]:587         apikey:SG.[ApiID]-[ApiSecret]
 ```
 
 In the above example if the sender address ends in `@mydomain.com` it will use the `my_sendgrid_user` account, if it ends in `@anotherdomain.com` will use the `another_sendgrid_user` account.

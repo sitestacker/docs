@@ -83,6 +83,8 @@ PHP 7 is not supported for production environments at this time, but if you are 
 
 Java 8 update 45 or later. Only Oracle’s Java and the OpenJDK are supported. The same JVM version should be used on all Elasticsearch nodes and clients.
 
+**Note:** JDK 8 or 9 are supported, but 10 or later are not.
+
 
 ## 8. ElasticSearch
 
