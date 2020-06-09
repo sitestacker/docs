@@ -1,7 +1,7 @@
 ---
 title:  Server Requirements - Linux
 category: Install Site Stacker
-date: 2020-04-20 00:00:00
+date: 2020-06-09 00:00:00
 ---
 
 ## 1. Recommended Server Hardware
@@ -106,7 +106,21 @@ Elasticsearch 1.7.x (Elasticsearch 1.7.6 at the time of this writing, but latest
 
 [https://wkhtmltopdf.org/](https://wkhtmltopdf.org/)
 
-## 11. Backup
+## 11. QPDF
+
+[https://github.com/qpdf/qpdf](https://github.com/qpdf/qpdf)
+
+*This is required for the Print Templates component (e.g. exporting a report as PDF) and the Letters component.*
+
+Usually there is no need to add anything in `bootstrap.user.php`. However, if it's not working add:
+
+```php
+Configure::write('Qpdf',[
+    'path' => '/usr/bin/qpdf',
+]);
+```
+
+## 12. Backup
 
 * It is very important to make sure daily backup is in place.  Because much of the project is labor and setup, it is critical this be in place and working.
 * We recommend that a backup audit be done a couple times to insure all is well.
